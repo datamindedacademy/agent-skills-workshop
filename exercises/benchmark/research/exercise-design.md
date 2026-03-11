@@ -19,7 +19,6 @@ Participants prove that a well-designed skill reduces token usage for a coding t
 - Start a fresh Claude Code session
 - Paste the task as a raw prompt (no skill, no CLAUDE.md guidance)
 - Let Claude complete the task
-- Note the session: `/cost`
 - Exit Claude Code
 
 ### 3. Run B — With skill
@@ -27,7 +26,6 @@ Participants prove that a well-designed skill reduces token usage for a coding t
 - Start a fresh Claude Code session
 - Invoke the skill: `/refactor tasks/task-1/`
 - Let Claude complete the task
-- Note the session: `/cost`
 - Exit Claude Code
 
 ### 4. Measure
@@ -69,7 +67,7 @@ Markdown template for participants to fill in their findings.
 ## Key learning outcomes
 
 1. Skills reduce token usage by giving Claude focused context instead of letting it explore broadly
-2. `/cost` and `/context` are built-in ways to see what's happening
+2. `/context` shows what's eating your context window in real time
 3. ccusage gives post-hoc session-level data for comparison
 4. The trade-off: a skill adds upfront tokens (the skill itself) but saves downstream tokens (fewer tool calls, less exploration)
 

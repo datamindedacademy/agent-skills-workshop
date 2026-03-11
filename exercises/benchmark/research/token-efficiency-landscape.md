@@ -96,7 +96,6 @@ Uses a small model (GPT-2-small or LLaMA-7B) to identify and remove non-essentia
 ## Claude-Native Capabilities
 
 ### Built-in commands
-- `/cost` — session cost, duration, code changes count
 - `/context` — token breakdown by category (system prompt, MCP servers, conversation history)
 - Status line can show real-time context window usage %
 
@@ -270,7 +269,6 @@ Exports: token usage (input/output/cache), cost USD, tool calls with duration, s
 |---|---|---|
 | ccusage | `npx ccusage@latest` | Multi-report types, JSON export, flexible filtering |
 | toktrack | `npx toktrack` | Rust-based, ~1000x faster, persistent cache, TUI dashboard |
-| `/cost` | Built-in | Current session only, no export, no comparison |
 | `/context` | Built-in | Context window fill snapshot, not cost/tokens |
 
 ### Limitations
