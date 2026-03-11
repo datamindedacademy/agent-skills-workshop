@@ -2,16 +2,12 @@
 
 ## Why these choices
 
-**`allowed-tools: Bash, Read, Write`** — Bash is needed to call the Gemini API (via curl or python). Read for loading images and the style guide. Write for saving the output. No need for Edit, Glob, or anything else.
+**Script wraps the API call** — Claude never sees or handles `GEMINI_API_KEY`. The `jonify.py` script reads it from the environment internally. This is a security boundary: even if Claude tries to grep for it, it won't find it in any file.
 
-**Style samples instead of text description** — Showing the model actual examples of the style works way better than describing it in words. "Draw it like these" beats "draw it with wobbly lines and primary colors" every time.
+**`allowed-tools: Bash, Read`** — Bash to run the script, Read to view the output image. No Write needed since the script handles file output. No need for Edit or Glob.
 
-**`$ARGUMENTS` for input path** — Hardcoding paths defeats the purpose. The user should be able to `/jonify` any image.
+**Style samples as images, not text** — "Draw it like these" works better than "draw it with wobbly lines." The model sees the actual style instead of interpreting a description.
 
-**`${CLAUDE_SKILL_DIR}` for supporting files** — The skill needs to find its reference files regardless of where the user's working directory is. Relative paths break; this doesn't.
+**`$ARGUMENTS` for input path** — The user should be able to `/jonify` any image, not just hardcoded paths.
 
-**Separate API guide** — The Gemini API details are reference material, not core instructions. Keeping them in a supporting file keeps the SKILL.md focused on the workflow.
-
-## Note on API key
-
-The `GEMINI_API_KEY` stays in the environment — never hardcode it in the skill.
+**`${CLAUDE_SKILL_DIR}` for supporting files** — The skill finds its script and samples regardless of the user's working directory.

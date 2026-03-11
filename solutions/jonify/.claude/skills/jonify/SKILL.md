@@ -1,7 +1,7 @@
 ---
 name: jonify
 description: "Transforms a drawing or image into Jonny's cartoon style using Google Gemini image generation."
-allowed-tools: Bash, Read, Write
+allowed-tools: Bash, Read
 ---
 
 # Jonify — Style Transfer
@@ -10,31 +10,20 @@ Transform the input image at `$ARGUMENTS` into Jonny's distinctive drawing style
 
 ## Style Reference
 
-The reference drawings showing Jonny's style are in:
-`${CLAUDE_SKILL_DIR}/reference/style-samples/`
-
-Read the style guide for usage instructions:
-`${CLAUDE_SKILL_DIR}/reference/style-guide.md`
+Style sample images are in: `${CLAUDE_SKILL_DIR}/reference/style-samples/`
 
 ## Process
 
-1. Read the input image at the path provided in `$ARGUMENTS`
-2. Collect all images from `${CLAUDE_SKILL_DIR}/reference/style-samples/`
-3. Call the Gemini API to generate a styled version:
-   - Use model `gemini-2.5-flash-image`
-   - Base64-encode all style sample images and the input image
-   - Send style samples as `inlineData` parts first, then the input image last
-   - Use a prompt like: "Here are examples of a specific drawing style. Redraw the last image in this exact same style, keeping the subject but matching the aesthetic of the example drawings."
-   - Set `responseModalities: ["TEXT", "IMAGE"]`
-4. Extract the generated image from the response (look for `inlineData` in response parts)
-5. Decode the base64 data and save as `jonified-output.png` in the current working directory
+Run the jonify script — it handles the API call and key internally:
 
-Use the API key from the `GEMINI_API_KEY` environment variable.
+```
+python3 ${CLAUDE_SKILL_DIR}/reference/jonify.py "$ARGUMENTS" "${CLAUDE_SKILL_DIR}/reference/style-samples/" jonified-output.png
+```
 
-See `${CLAUDE_SKILL_DIR}/reference/gemini-api-guide.md` for curl and Python examples.
+Do NOT construct API calls yourself or read/use the API key. The script handles all of that.
 
 ## Output
 
-After saving the image, tell the user:
+Tell the user:
 - Where the output file was saved
-- Briefly describe what the generated image looks like
+- Briefly describe what the generated image looks like (read the output file)

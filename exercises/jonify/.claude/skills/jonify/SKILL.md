@@ -1,6 +1,6 @@
 ---
 name: jonify
-# TODO 5: Set the allowed tools. The skill needs to run shell commands and read/write files.
+# TODO 4: Set the allowed tools. The skill needs to run a script and read files.
 # TODO 1: Write a description for when this skill should trigger.
 description: ""
 ---
@@ -12,17 +12,16 @@ description: ""
 
 ## Style Reference
 
-<!-- TODO 2: Load the style sample images so Claude can use them as visual reference. -->
-<!-- Hint: The sample drawings are in ${CLAUDE_SKILL_DIR}/reference/style-samples/ -->
-<!-- Read the style-guide.md for instructions on how to use them. -->
+<!-- TODO 2: Point to the style sample images directory. -->
+<!-- Hint: They're in ${CLAUDE_SKILL_DIR}/reference/style-samples/ -->
 
 ## Process
 
-<!-- TODO 3: Write instructions for calling the Gemini image generation API. -->
-<!-- Send the style sample images + the input image together to the API. -->
-<!-- The gemini-api-guide.md in reference/ has the API details and examples. -->
-<!-- The prompt should tell the model to redraw the input in the style of the samples. -->
+<!-- TODO 3: Tell Claude to run the jonify.py script with the right arguments. -->
+<!-- The script is at ${CLAUDE_SKILL_DIR}/reference/jonify.py -->
+<!-- It takes: <input_image> <style_samples_dir> [output_path] -->
+<!-- The script handles the API key and API call — Claude doesn't need to touch either. -->
 
 ## Output
 
-<!-- TODO 4: Tell Claude where to save the output and what to report to the user. -->
+<!-- TODO 4: Tell Claude what to report to the user after the script runs. -->

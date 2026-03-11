@@ -19,8 +19,10 @@ check "GEMINI_API_KEY is set" '[ -n "${GEMINI_API_KEY:-}" ]'
 check "SKILL.md exists" '[ -f exercises/jonify/.claude/skills/jonify/SKILL.md ]'
 check "Description is not empty" 'grep -q "^description: \".\+" exercises/jonify/.claude/skills/jonify/SKILL.md'
 check "Uses \$ARGUMENTS" 'grep -q "\$ARGUMENTS\|\$0\|\$1" exercises/jonify/.claude/skills/jonify/SKILL.md'
-check "References style-guide.md" 'grep -q "style-guide" exercises/jonify/.claude/skills/jonify/SKILL.md'
+check "References jonify.py script" 'grep -q "jonify.py" exercises/jonify/.claude/skills/jonify/SKILL.md'
 check "Has allowed-tools" 'grep -q "allowed-tools:" exercises/jonify/.claude/skills/jonify/SKILL.md'
+check "jonify.py exists" '[ -f exercises/jonify/reference/jonify.py ]'
+check "Style samples dir exists" '[ -d exercises/jonify/reference/style-samples ]'
 
 echo ""
 echo "Results: $PASS passed, $FAIL failed"
