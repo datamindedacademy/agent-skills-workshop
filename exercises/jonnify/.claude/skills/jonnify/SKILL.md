@@ -1,12 +1,12 @@
 ---
-name: jonify
+name: jonnify
 # TODO 1: Write a description. Third person. Include what it does AND when to trigger it.
 # Hint: "Use when the user wants to..."
 description: ""
 # TODO 5: Set allowed-tools. Claude needs to run python and read files.
 ---
 
-# Jonify
+# Jonnify
 
 <!-- TODO 2: Accept the input image path from $ARGUMENTS and point to the style samples dir. -->
 <!-- Style samples are in ${CLAUDE_SKILL_DIR}/reference/style-samples/ -->

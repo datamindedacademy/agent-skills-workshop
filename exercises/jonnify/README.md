@@ -1,4 +1,4 @@
-# Exercise: Jonify
+# Exercise: Jonnify
 
 Build a skill that stylizes images into Jonny's drawing style using the Gemini API. The model sees actual sample drawings as reference — no text description of the style.
 
@@ -8,12 +8,12 @@ The API call lives as an inline Python script in the SKILL.md. Claude runs it wi
 
 - `GEMINI_API_KEY` set in your environment (shell profile or devcontainer config — NOT a .env file)
 - `python3` available
-- Drop some of Jonny's drawings into `.claude/skills/jonify/reference/style-samples/`
+- Drop some of Jonny's drawings into `.claude/skills/jonnify/reference/style-samples/`
 
 ## Directory layout
 
 ```
-.claude/skills/jonify/
+.claude/skills/jonnify/
 ├── SKILL.md                     # The skill (your exercise)
 └── reference/
     ├── style-guide.md           # How to use the style samples
@@ -27,9 +27,9 @@ The API call lives as an inline Python script in the SKILL.md. Claude runs it wi
 
 ### 1. Read the reference material
 
-- `.claude/skills/jonify/SKILL.md` — the skeleton
-- `.claude/skills/jonify/reference/gemini-api-guide.md` — API format
-- `.claude/skills/jonify/reference/style-guide.md` — how style samples work
+- `.claude/skills/jonnify/SKILL.md` — the skeleton
+- `.claude/skills/jonnify/reference/gemini-api-guide.md` — API format
+- `.claude/skills/jonnify/reference/style-guide.md` — how style samples work
 
 ### 2. TODO 1 — Write the description
 
@@ -55,9 +55,9 @@ Tell Claude what to report. Set `allowed-tools` in frontmatter. Add a guardrail:
 ### 6. Test it
 
 ```bash
-/jonify sample-input.png
+/jonnify sample-input.png
 ```
 
 ## When you're done
 
-Compare with `solutions/jonify/`.
+Compare with `solutions/jonnify/`.
