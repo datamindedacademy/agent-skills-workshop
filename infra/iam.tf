@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "hackathon_trust" {
       test     = "StringLike"
       variable = "${replace(data.aws_eks_cluster.this.identity[0].oidc[0]["issuer"], "https://", "")}:sub"
       values = [
-        "system:serviceaccount:${conveyor_environment.hackandbeers.name}:hackandbeers.${local.project_name}-????????-????-????-????-????????????"
+        "system:serviceaccount:${conveyor_environment.hackandbeers.name}:${local.project_name}-????????-????-????-????-????????????"
       ]
     }
 
@@ -36,9 +36,9 @@ data "aws_iam_policy_document" "bedrock" {
     ]
     resources = concat(local.foundation_model_arns, local.inference_profile_arns)
     condition {
-      test     = "StringEquals"
+      test     = "StringLike"
       variable = "aws:RequestedRegion"
-      values   = ["eu-west-1"]
+      values   = ["eu-*"]
     }
   }
 
