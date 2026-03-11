@@ -1,0 +1,7 @@
+# TODO: Create a YAML template for model documentation and tests
+# Look at _marts_schema.yml for the pattern used in this project
+#
+# Hints:
+# - What tests are applied to primary keys?
+# - What column-level tests are common?
+# - How are descriptions structured?
