@@ -203,3 +203,83 @@ Key principles:
 - https://langfuse.com/docs/prompt-management/features/a-b-testing
 - https://dev.to/kuldeep_paul/ab-testing-prompts-a-complete-guide-to-optimizing-llm-performance-1442
 - https://arxiv.org/html/2601.22025
+
+---
+
+## Observability Platforms — Evaluated & Rejected
+
+We evaluated full observability platforms for the workshop but rejected them because exercises run inside a devcontainer. Docker-in-Docker adds friction that distracts from the learning objective.
+
+### Arize Phoenix
+- Lightest option: `pip install arize-phoenix` or single Docker container
+- Native OTLP ingestion (gRPC 4317, HTTP 4318)
+- Claude Code integration via Dev-Agent-Lens or native OTLP export
+- **No pre-built Claude Code dashboard** — you build your own
+- https://arize.com/docs/phoenix/integrations/developer-tools/coding-agents
+
+### SigNoz
+- Best Claude Code support: dedicated dashboard template out of the box
+- 4 containers (OTel Collector, ClickHouse, ZooKeeper, Query Service), 4GB RAM min
+- Native OTLP on gRPC 4317 and HTTP 4318
+- Fully free self-hosted, 22.8k GitHub stars
+- https://signoz.io/docs/claude-code-monitoring/
+- https://signoz.io/docs/dashboards/dashboard-templates/claude-code-dashboard/
+
+### Langfuse
+- Docker Compose with 5 containers (app, worker, Postgres, Redis, MinIO)
+- OTLP ingestion over HTTP only (no gRPC), endpoint: `/api/public/otel`
+- Built-in prompt A/B testing with visual comparison
+- Official Claude Code hooks integration
+- https://langfuse.com/integrations/other/claude-code
+
+### Helicone
+- Proxy-based (not OTLP) — uses `ANTHROPIC_BASE_URL` rewrite
+- Single Docker all-in-one container available
+- Integration marked "maintained but no longer actively developed"
+- Bedrock requires intermediate gateway
+- https://docs.helicone.ai/integrations/anthropic/claude-code
+
+### Claude Code Native OTLP
+All platforms above can receive data from Claude Code's built-in OpenTelemetry:
+```bash
+CLAUDE_CODE_ENABLE_TELEMETRY=1
+OTEL_METRICS_EXPORTER=otlp
+OTEL_LOGS_EXPORTER=otlp
+OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
+```
+Exports: token usage (input/output/cache), cost USD, tool calls with duration, sessions, commits, PRs, lines of code. Correlated by `prompt.id`.
+
+- https://code.claude.com/docs/en/monitoring-usage
+
+---
+
+## Decision: ccusage
+
+**Why:** The exercise goal is "show that skills save tokens", not "learn observability infrastructure." ccusage is zero-infra, parses local session logs, and gives exactly the data we need.
+
+### What ccusage provides
+- Token breakdown per session: input, output, cache_creation, cache_read
+- Cost in USD per session
+- JSON export: `npx ccusage session --json`
+- Date/project filtering: `--since`, `--until`, `--project`
+- No Docker, no server, no config — just `npx ccusage@latest`
+
+### Alternatives considered
+| Tool | Install | Differentiator |
+|---|---|---|
+| ccusage | `npx ccusage@latest` | Multi-report types, JSON export, flexible filtering |
+| toktrack | `npx toktrack` | Rust-based, ~1000x faster, persistent cache, TUI dashboard |
+| `/cost` | Built-in | Current session only, no export, no comparison |
+| `/context` | Built-in | Context window fill snapshot, not cost/tokens |
+
+### Limitations
+- Output tokens sometimes undercounted (JSONL files miss final streaming totals)
+- No native side-by-side comparison — export JSON and diff manually
+- Costs are estimates based on public pricing
+
+### Links
+- https://github.com/ryoppippi/ccusage
+- https://ccusage.com/
+- https://ccusage.com/guide/session-reports
+- https://ccusage.com/guide/json-output
