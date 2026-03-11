@@ -1,0 +1,12 @@
+[project]
+name = "benchmark-dbt-project"
+version = "0.1.0"
+description = "dbt project for the benchmark skill exercise"
+requires-python = ">=3.10"
+dependencies = [
+    "dbt-core>=1.8,<2",
+    "dbt-duckdb>=1.8,<2",
+]
+
+[tool.uv]
+dev-dependencies = []

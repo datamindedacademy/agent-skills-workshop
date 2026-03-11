@@ -1,0 +1,31 @@
+address_id,customer_id,street,city,state,zip_code,is_primary
+1,1,123 Oak Street,Portland,OR,97201,true
+2,2,456 Maple Ave,Seattle,WA,98101,true
+3,3,789 Pine Road,San Francisco,CA,94102,true
+4,3,321 Cedar Lane,San Francisco,CA,94103,false
+5,4,654 Elm Drive,Denver,CO,80201,true
+6,5,987 Birch Way,Austin,TX,73301,true
+7,6,147 Willow Court,Chicago,IL,60601,true
+8,7,258 Spruce Blvd,Boston,MA,02101,true
+9,7,369 Ash Street,Cambridge,MA,02139,false
+10,8,741 Cherry Lane,Nashville,TN,37201,true
+11,9,852 Walnut Ave,Atlanta,GA,30301,true
+12,10,963 Hickory Drive,Miami,FL,33101,true
+13,10,174 Palm Road,Miami,FL,33102,false
+14,11,285 Redwood Way,Phoenix,AZ,85001,true
+15,12,396 Cypress Blvd,Minneapolis,MN,55401,true
+16,13,417 Dogwood Lane,Philadelphia,PA,19101,true
+17,14,528 Magnolia Court,Dallas,TX,75201,true
+18,15,639 Sycamore Drive,Charlotte,NC,28201,true
+19,16,741 Juniper Way,Detroit,MI,48201,true
+20,17,852 Hemlock Ave,San Diego,CA,92101,true
+21,18,963 Poplar Road,Portland,ME,04101,true
+22,18,174 Fir Lane,Portland,ME,04102,false
+23,19,285 Sequoia Blvd,Salt Lake City,UT,84101,true
+24,20,396 Linden Court,Raleigh,NC,27601,true
+25,21,417 Beech Drive,Columbus,OH,43201,true
+26,22,528 Aspen Way,Indianapolis,IN,46201,true
+27,23,639 Cottonwood Ave,Milwaukee,WI,53201,true
+28,24,741 Alder Road,Kansas City,MO,64101,true
+29,25,852 Chestnut Lane,Richmond,VA,23219,true
+30,25,963 Hazel Blvd,Richmond,VA,23220,false

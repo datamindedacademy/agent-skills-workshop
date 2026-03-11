@@ -1,0 +1,20 @@
+name: 'benchmark_shop'
+version: '1.0.0'
+
+profile: 'benchmark_shop'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+clean-targets: ["target", "dbt_packages"]
+
+seeds:
+  benchmark_shop:
+    +schema: raw
+
+models:
+  benchmark_shop:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table
