@@ -14,16 +14,19 @@ check() {
     fi
 }
 
+SKILL="exercises/jonify/.claude/skills/jonify/SKILL.md"
+SAMPLES="exercises/jonify/.claude/skills/jonify/reference/style-samples"
+
 echo "Jonify skill checks:"
 check "GEMINI_API_KEY is set" '[ -n "${GEMINI_API_KEY:-}" ]'
-check "SKILL.md exists" '[ -f exercises/jonify/.claude/skills/jonify/SKILL.md ]'
-check "Description is not empty" 'grep -q "^description: \".\+" exercises/jonify/.claude/skills/jonify/SKILL.md'
-check "Description includes trigger" 'grep -qi "use when" exercises/jonify/.claude/skills/jonify/SKILL.md'
-check "Uses \$ARGUMENTS" 'grep -q "\$ARGUMENTS\|\$0\|\$1" exercises/jonify/.claude/skills/jonify/SKILL.md'
-check "Has inline python script" 'grep -q "python3 -c\|import.*base64\|urllib" exercises/jonify/.claude/skills/jonify/SKILL.md'
-check "Has allowed-tools" 'grep -q "allowed-tools:" exercises/jonify/.claude/skills/jonify/SKILL.md'
-check "Style samples dir exists" '[ -d exercises/jonify/reference/style-samples ]'
-check "Style samples not empty" '[ "$(ls exercises/jonify/reference/style-samples/*.png exercises/jonify/reference/style-samples/*.jpg 2>/dev/null | wc -l)" -gt 0 ]'
+check "SKILL.md exists" "[ -f $SKILL ]"
+check "Description is not empty" "grep -q '^description: \".\+' $SKILL"
+check "Description includes trigger" "grep -qi 'use when' $SKILL"
+check "Uses \$ARGUMENTS" "grep -q '\$ARGUMENTS' $SKILL"
+check "Has inline python script" "grep -q 'python3 -c' $SKILL"
+check "Has allowed-tools" "grep -q 'allowed-tools:' $SKILL"
+check "Style samples dir exists" "[ -d $SAMPLES ]"
+check "Has style samples" '[ "$(find '"$SAMPLES"' -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.webp" 2>/dev/null | wc -l)" -gt 0 ]'
 
 echo ""
 echo "Results: $PASS passed, $FAIL failed"

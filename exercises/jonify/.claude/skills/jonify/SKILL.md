@@ -21,3 +21,5 @@ description: ""
 <!-- Use LOW freedom here — the API call is fragile, give Claude the exact script. -->
 
 <!-- TODO 4: Tell Claude what to report after the script runs. -->
+<!-- Also: if the script fails because GEMINI_API_KEY isn't set, tell the user to set it. -->
+<!-- Do NOT search for .env files or try to source the key yourself. -->

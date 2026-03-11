@@ -52,6 +52,8 @@ Pass the arguments:
 python3 -c '<script above>' "$ARGUMENTS" "${CLAUDE_SKILL_DIR}/reference/style-samples/" jonified-output.png
 ```
 
-Do NOT read, echo, or log the GEMINI_API_KEY value.
+Do NOT read, echo, log, or search for the GEMINI_API_KEY value. Do NOT look for .env files.
 
-After the script runs, tell the user where the output was saved.
+If the script fails with `KeyError: 'GEMINI_API_KEY'`, tell the user to set the environment variable and stop. Do not attempt to find or source the key yourself.
+
+After the script succeeds, tell the user where the output was saved.

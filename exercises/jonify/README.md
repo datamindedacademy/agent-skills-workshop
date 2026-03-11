@@ -6,25 +6,38 @@ The API call lives as an inline Python script in the SKILL.md. Claude runs it wi
 
 ## Prerequisites
 
-- `GEMINI_API_KEY` env var set
+- `GEMINI_API_KEY` set in your environment (shell profile or devcontainer config — NOT a .env file)
 - `python3` available
-- Drop some of Jonny's drawings into `reference/style-samples/`
+- Drop some of Jonny's drawings into `.claude/skills/jonify/reference/style-samples/`
+
+## Directory layout
+
+```
+.claude/skills/jonify/
+├── SKILL.md                     # The skill (your exercise)
+└── reference/
+    ├── style-guide.md           # How to use the style samples
+    ├── gemini-api-guide.md      # API format reference
+    └── style-samples/           # Put Jonny's drawings here
+        ├── drawing1.png
+        └── drawing2.png
+```
 
 ## Steps
 
 ### 1. Read the reference material
 
 - `.claude/skills/jonify/SKILL.md` — the skeleton
-- `reference/gemini-api-guide.md` — API format and examples
-- `reference/style-guide.md` — how to use the style samples
+- `.claude/skills/jonify/reference/gemini-api-guide.md` — API format
+- `.claude/skills/jonify/reference/style-guide.md` — how style samples work
 
 ### 2. TODO 1 — Write the description
 
-Third person. Say what the skill does AND when to use it. Example: "Does X. Use when the user wants to Y."
+Third person. Say what the skill does AND when to use it. "Use when the user wants to..."
 
 ### 3. TODO 2 — Wire up the inputs
 
-Accept the image path from `$ARGUMENTS`. Point to style samples via `${CLAUDE_SKILL_DIR}`.
+Accept the image path from `$ARGUMENTS`. Point to style samples via `${CLAUDE_SKILL_DIR}/reference/style-samples/`.
 
 ### 4. TODO 3 — Write the API script
 
@@ -33,16 +46,16 @@ Embed a Python script that Claude runs with `python3 -c`. It should:
 - Base64-encode style samples + input image
 - Call Gemini API, extract output, save to file
 
-This is a **low freedom** section — the API call is fragile. Give Claude the exact script, don't let it improvise.
+This is **low freedom** — the API call is fragile. Give Claude the exact script.
 
 ### 5. TODO 4 & 5 — Output and allowed-tools
 
-Tell Claude what to report. Set `allowed-tools` in frontmatter.
+Tell Claude what to report. Set `allowed-tools` in frontmatter. Add a guardrail: if the key isn't set, tell the user — don't go looking for it.
 
 ### 6. Test it
 
 ```bash
-/jonify reference/sample-input.png
+/jonify sample-input.png
 ```
 
 ## When you're done
