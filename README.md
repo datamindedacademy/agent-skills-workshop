@@ -4,7 +4,8 @@ A hands-on workshop where you build Claude Code skills. You'll leave with at lea
 
 ## Prerequisites
 
-- Devcontainer running, Claude Code working via Bedrock
+- Log in to [app.conveyordata.com](https://app.conveyordata.com) with your Dataminded account
+- Create a **Conveyor IDE** for the `hackathon` project — it comes with Claude Code pre-installed and configured with Bedrock
 - Basic git and terminal knowledge
 - Skim `cheatsheet.md` before you start
 
