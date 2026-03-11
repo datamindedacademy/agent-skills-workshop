@@ -1,27 +1,23 @@
 ---
 name: jonify
-# TODO 4: Set the allowed tools. The skill needs to run a script and read files.
-# TODO 1: Write a description for when this skill should trigger.
+# TODO 1: Write a description. Third person. Include what it does AND when to trigger it.
+# Hint: "Use when the user wants to..."
 description: ""
+# TODO 5: Set allowed-tools. Claude needs to run python and read files.
 ---
 
-# Jonify — Style Transfer
+# Jonify
 
-<!-- TODO 1: Accept the input image path from the user. -->
-<!-- Hint: The user will invoke `/jonify path/to/image.png` — use $ARGUMENTS -->
+<!-- TODO 2: Accept the input image path from $ARGUMENTS and point to the style samples dir. -->
+<!-- Style samples are in ${CLAUDE_SKILL_DIR}/reference/style-samples/ -->
 
-## Style Reference
+<!-- TODO 3: Write a Python script inline that Claude runs with `python3 -c`. -->
+<!-- The script should: -->
+<!--   - Take input image, style samples dir, and output path from sys.argv -->
+<!--   - Read the API key from os.environ["GEMINI_API_KEY"] (never log it) -->
+<!--   - Base64-encode style samples + input image -->
+<!--   - Send them to the Gemini API (see reference/gemini-api-guide.md for format) -->
+<!--   - Extract and save the generated image from the response -->
+<!-- Use LOW freedom here — the API call is fragile, give Claude the exact script. -->
 
-<!-- TODO 2: Point to the style sample images directory. -->
-<!-- Hint: They're in ${CLAUDE_SKILL_DIR}/reference/style-samples/ -->
-
-## Process
-
-<!-- TODO 3: Tell Claude to run the jonify.py script with the right arguments. -->
-<!-- The script is at ${CLAUDE_SKILL_DIR}/reference/jonify.py -->
-<!-- It takes: <input_image> <style_samples_dir> [output_path] -->
-<!-- The script handles the API key and API call — Claude doesn't need to touch either. -->
-
-## Output
-
-<!-- TODO 4: Tell Claude what to report to the user after the script runs. -->
+<!-- TODO 4: Tell Claude what to report after the script runs. -->

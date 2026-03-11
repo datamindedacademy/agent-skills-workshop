@@ -1,47 +1,49 @@
 # Exercise: Jonify
 
-Build a skill that takes a drawing and transforms it into Jonny's style using the Gemini image generation API. You feed the model actual sample drawings as style reference, not a text description.
+Build a skill that stylizes images into Jonny's drawing style using the Gemini API. The model sees actual sample drawings as reference — no text description of the style.
 
-The API call itself is wrapped in a script (`jonify.py`) — Claude never sees the API key.
+The API call lives as an inline Python script in the SKILL.md. Claude runs it with `python3 -c`, never touching the API key directly.
 
 ## Prerequisites
 
-- `GEMINI_API_KEY` env var set with a valid GCP API key
+- `GEMINI_API_KEY` env var set
 - `python3` available
-- Drop a few of Jonny's drawings into `reference/style-samples/`
+- Drop some of Jonny's drawings into `reference/style-samples/`
 
 ## Steps
 
 ### 1. Read the reference material
 
 - `.claude/skills/jonify/SKILL.md` — the skeleton
-- `reference/jonify.py` — the script that handles the API call
-- `reference/style-guide.md` — how the style samples work
-- `reference/gemini-api-guide.md` — API details (for your understanding, not Claude's)
+- `reference/gemini-api-guide.md` — API format and examples
+- `reference/style-guide.md` — how to use the style samples
 
-### 2. TODO 1 — Accept the input image
+### 2. TODO 1 — Write the description
 
-The user invokes `/jonify path/to/drawing.png`. Use `$ARGUMENTS` to capture the path.
+Third person. Say what the skill does AND when to use it. Example: "Does X. Use when the user wants to Y."
 
-### 3. TODO 2 — Point to the style samples
+### 3. TODO 2 — Wire up the inputs
 
-Tell Claude where the style sample images live. Use `${CLAUDE_SKILL_DIR}` for the path.
+Accept the image path from `$ARGUMENTS`. Point to style samples via `${CLAUDE_SKILL_DIR}`.
 
-### 4. TODO 3 — Run the script
+### 4. TODO 3 — Write the API script
 
-Tell Claude to run `jonify.py` with the right arguments. The script takes `<input_image> <style_samples_dir> [output_path]`. Claude should NOT construct API calls or touch the API key directly.
+Embed a Python script that Claude runs with `python3 -c`. It should:
+- Read the API key from `os.environ` (never log it)
+- Base64-encode style samples + input image
+- Call Gemini API, extract output, save to file
 
-### 5. TODO 4 — Set allowed tools and output
+This is a **low freedom** section — the API call is fragile. Give Claude the exact script, don't let it improvise.
 
-Set `allowed-tools` (Bash to run the script, Read to view the result). Tell Claude what to report to the user.
+### 5. TODO 4 & 5 — Output and allowed-tools
+
+Tell Claude what to report. Set `allowed-tools` in frontmatter.
 
 ### 6. Test it
 
 ```bash
 /jonify reference/sample-input.png
 ```
-
-Check that `jonified-output.png` was created.
 
 ## When you're done
 

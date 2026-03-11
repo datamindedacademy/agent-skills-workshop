@@ -1,13 +1,15 @@
 # Solution: Jonify
 
-## Why these choices
+## Design choices
 
-**Script wraps the API call** — Claude never sees or handles `GEMINI_API_KEY`. The `jonify.py` script reads it from the environment internally. This is a security boundary: even if Claude tries to grep for it, it won't find it in any file.
+**Description with trigger** — "Transforms an image... Use when the user wants to stylize, jonify, or redraw..." Third person, says what AND when. Claude picks from potentially 100+ skills based on this field alone.
 
-**`allowed-tools: Bash, Read`** — Bash to run the script, Read to view the output image. No Write needed since the script handles file output. No need for Edit or Glob.
+**Inline script with low freedom** — The Gemini API call is fragile. One wrong field and it fails. So we give Claude the exact script — no improvisation. This follows the "narrow bridge" principle from the best practices.
 
-**Style samples as images, not text** — "Draw it like these" works better than "draw it with wobbly lines." The model sees the actual style instead of interpreting a description.
+**`python3 -c` instead of temp file** — Claude can run Python directly. No file management overhead.
 
-**`$ARGUMENTS` for input path** — The user should be able to `/jonify` any image, not just hardcoded paths.
+**API key stays in `os.environ`** — Claude sees `os.environ["GEMINI_API_KEY"]` in the code but never the actual value. The instruction "Do NOT read, echo, or log the GEMINI_API_KEY" adds a guardrail.
 
-**`${CLAUDE_SKILL_DIR}` for supporting files** — The skill finds its script and samples regardless of the user's working directory.
+**Style samples as images** — Showing beats telling. Sending actual drawings as reference works better than describing "wobbly lines and primary colors."
+
+**`allowed-tools: Bash, Read`** — Bash runs the script. Read lets Claude view the output image. Nothing else needed.
