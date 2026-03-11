@@ -1,2 +1,6 @@
 /.claude/
 .env
+logs/
+*.duckdb
+*.duckdb.wal
+exercises/benchmark/results/
