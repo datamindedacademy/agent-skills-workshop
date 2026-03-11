@@ -13,7 +13,7 @@ A hands-on workshop where you build Claude Code skills. You'll leave with at lea
 | Branch | Skill | Difficulty | You'll learn |
 |---|---|---|---|
 | `skill/pr-review` | PR Review | Warm-up | `!command` injection, structured output |
-| `skill/jonify` | Jonify | Medium | API integration, supporting files, `$ARGUMENTS` |
+| `skill/jonnify` | Jonnify | Medium | API integration, supporting files, `$ARGUMENTS` |
 | `skill/benchmark` | Benchmark | Medium | Measuring skill value with token counts |
 | `skill/terraform-viz` | Terraform Viz | Medium | Supporting files, `allowed-tools`, multi-phase workflows |
 | `skill/swill` | Anti-Skill | Medium | Skill design by breaking things |
@@ -29,7 +29,20 @@ A hands-on workshop where you build Claude Code skills. You'll leave with at lea
    ```bash
    git checkout skill/<track-name>
    ```
-3. Each branch has `exercises/` (skeleton + TODOs) and `solutions/` (don't peek).
+3. Each branch has `exercises/<skill-name>/` with a skeleton and TODOs.
+4. Solutions live on `solution/<skill-name>` branches. Don't peek until you've tried.
+
+## Testing your skill locally
+
+Skills are picked up from the `.claude/` directory relative to where you run Claude. To test an exercise skill:
+
+```bash
+cd exercises/<skill-name>
+claude
+# then invoke: /skill-name <args>
+```
+
+Claude will find the `.claude/skills/` directory inside that folder.
 
 ## Reference
 
