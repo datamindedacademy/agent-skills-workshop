@@ -1,0 +1,15 @@
+docker:
+    path: "."
+name: hackathon
+id: 6d3c0ac5-ffd7-4ef9-afed-38b812dc9be2
+ide:
+    filename: ide.yaml
+resources:
+    path: resources
+streaming:
+    filename: streaming.yaml
+template: ""
+version: "0.3"
+workflows:
+    path: dags
+    version: 2

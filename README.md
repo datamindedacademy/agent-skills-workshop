@@ -18,7 +18,7 @@ A hands-on workshop where you build Claude Code skills. You'll leave with at lea
 | `skill/benchmark` | Benchmark | Medium | Measuring skill value with token counts |
 | `skill/terraform-viz` | Terraform Viz | Medium | Supporting files, `allowed-tools`, multi-phase workflows |
 | `skill/swill` | Anti-Skill | Medium | Skill design by breaking things |
-| `skill/checkup` | Data Quality | TBD | CLI wrapping, iterative loops (awaiting docs) |
+| `skill/sandi` | Sandi | Medium | CLI wrapping, supporting files, `allowed-tools` |
 
 ## How to start
 
