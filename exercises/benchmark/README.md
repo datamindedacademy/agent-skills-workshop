@@ -6,7 +6,7 @@ Prove that a well-designed Claude Code skill reduces token usage for a real codi
 
 ## Prerequisites
 
-- Devcontainer running (or local environment with `dbt-core`, `dbt-duckdb`, and `uv` installed)
+- Conveyor IDE running (or local environment with `dbt-core`, `dbt-duckdb`, and `uv` installed)
 - Claude Code CLI available (`claude --version`)
 - dbt project seeded and building cleanly
 
@@ -50,7 +50,7 @@ Run the task **without any skill** to establish a baseline:
 claude -p "$(cat exercises/benchmark/TASK.md)" --dangerously-skip-permissions --output-format json > exercises/benchmark/results/baseline_1.json
 ```
 
-> **WARNING:** `--dangerously-skip-permissions` is ONLY safe in isolated devcontainers. NEVER use this flag against real infrastructure.
+> **WARNING:** `--dangerously-skip-permissions` is ONLY safe in isolated Conveyor IDE containers. NEVER use this flag against real infrastructure.
 
 After the run, check if the model was created correctly:
 

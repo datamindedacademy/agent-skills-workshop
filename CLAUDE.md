@@ -8,7 +8,7 @@ use context7 for searching relevant documentation of the frameworks you are usin
 - `cheatsheet.md` — Quick reference
 
 ## Environment
-- Claude Code via AWS Bedrock in a devcontainer
+- Claude Code via AWS Bedrock in Conveyor IDE
 - Skills go in `.claude/skills/<skill-name>/SKILL.md`
 - `context7` MCP server for library docs
 

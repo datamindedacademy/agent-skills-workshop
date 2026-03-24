@@ -6,7 +6,7 @@ The API call lives as an inline Python script in the SKILL.md. Claude runs it wi
 
 ## Prerequisites
 
-- `GEMINI_API_KEY` set in your environment (shell profile or devcontainer config — NOT a .env file)
+- `GEMINI_API_KEY` set in your environment (shell profile or Conveyor IDE config — NOT a .env file)
 - `python3` available
 - Drop some of Jonny's drawings into `.claude/skills/jonnify/reference/style-samples/`
 
