@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# WARNING: --dangerously-skip-permissions is ONLY safe in isolated devcontainers.
+# WARNING: --dangerously-skip-permissions is ONLY safe in isolated Conveyor IDE containers.
 # NEVER use this flag against real infrastructure or production systems.
 
 RUNS="${1:-3}"

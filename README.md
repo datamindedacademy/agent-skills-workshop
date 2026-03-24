@@ -9,29 +9,38 @@ A hands-on workshop where you build Claude Code skills. You'll leave with at lea
 - Basic git and terminal knowledge
 - Skim `cheatsheet.md` before you start
 
-## Exercises
+## Exercise
 
-| Branch | Skill | Difficulty | You'll learn |
-|---|---|---|---|
-| `skill/pr-review` | PR Review | Warm-up | `!command` injection, structured output |
-| `skill/jonnify` | Jonnify | Medium | API integration, supporting files, `$ARGUMENTS` |
-| `skill/benchmark` | Benchmark | Medium | Measuring skill value with token counts |
-| `skill/terraform-viz` | Terraform Viz | Medium | Supporting files, `allowed-tools`, multi-phase workflows |
-| `skill/swill` | Anti-Skill | Medium | Skill design by breaking things |
-| `skill/sandi` | Sandi | Medium | CLI wrapping, supporting files, `allowed-tools` |
+Everyone starts here:
+
+| Skill | Difficulty | You'll learn |
+|---|---|---|
+| PR Review | Warm-up | `!command` injection, structured output |
+
+## Ideas
+
+Pick one or more after completing the exercise:
+
+| Skill | Difficulty | You'll learn |
+|---|---|---|
+| Jonnify | Medium | API integration, supporting files, `$ARGUMENTS` |
+| Benchmark | Medium | Measuring skill value with token counts |
+| Sandi | Medium | CLI wrapping, supporting files, `allowed-tools` |
+| Anti-Skill (Swill) | Medium | Skill design by breaking things |
 
 ## How to start
 
-1. Everyone does the warm-up first:
+1. Do the warm-up first:
    ```bash
-   git checkout skill/pr-review
+   cd exercises/pr-review
    ```
-2. Pick a deep track:
+2. Pick an idea:
    ```bash
-   git checkout skill/<track-name>
+   cd exercises/<idea-name>
    ```
-3. Each branch has `exercises/<skill-name>/` with a skeleton and TODOs.
-4. Solutions live on `solution/<skill-name>` branches. Don't peek until you've tried.
+3. Each exercise dir has a skeleton and TODOs — follow them one at a time.
+
+Solutions live in the `solutions/` directory. Don't peek until you've tried.
 
 ## Testing your skill locally
 
@@ -48,5 +57,4 @@ Claude will find the `.claude/skills/` directory inside that folder.
 ## Reference
 
 - `cheatsheet.md` — skill syntax quick reference
-- `proposal.md` — workshop proposal
 - `CLAUDE.md` — project context (itself a context engineering example)
