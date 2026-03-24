@@ -57,5 +57,4 @@ Claude will find the `.claude/skills/` directory inside that folder.
 ## Reference
 
 - `cheatsheet.md` — skill syntax quick reference
-- `proposal.md` — workshop proposal
 - `CLAUDE.md` — project context (itself a context engineering example)
