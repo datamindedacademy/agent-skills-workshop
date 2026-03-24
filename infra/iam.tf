@@ -63,3 +63,21 @@ resource "aws_iam_role_policy" "bedrock" {
   role   = aws_iam_role.hackathon.id
   policy = data.aws_iam_policy_document.bedrock.json
 }
+
+# Secrets Manager access for API keys
+data "aws_iam_policy_document" "secrets" {
+  statement {
+    sid    = "AllowGetGeminiApiKey"
+    effect = "Allow"
+    actions = [
+      "secretsmanager:GetSecretValue"
+    ]
+    resources = [aws_secretsmanager_secret.gemini_api_key.arn]
+  }
+}
+
+resource "aws_iam_role_policy" "secrets" {
+  name   = "secrets"
+  role   = aws_iam_role.hackathon.id
+  policy = data.aws_iam_policy_document.secrets.json
+}
