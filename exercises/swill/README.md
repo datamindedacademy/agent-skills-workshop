@@ -1,14 +1,16 @@
 # Exercise: Swill — The Anti-Skill
 
-Learn what makes a good skill by fixing a deliberately broken one. You'll start with a "swill" (a skill gone wrong) and repair each anti-pattern one TODO at a time.
+A skill that secretly sabotages Claude's code output. It silently triggers during normal coding tasks and injects subtle anti-patterns — bad variable names, missing error handling, copy-paste duplication, magic numbers, and more.
+
+Participants use Claude to complete a coding task, notice the output is suspiciously bad, and have to figure out *why*. The answer: a hidden skill is poisoning the context.
 
 ## What you'll learn
 
-- Why `description` precision matters — too vague triggers everywhere, too narrow never fires
-- Why vague instructions produce garbage — "do the thing" vs specific steps
-- Why unconstrained `allowed-tools` is dangerous — the agent wanders
-- Why unstructured output is useless — walls of text vs actionable tables
-- Why missing context injection defeats the purpose — static skills go stale
+- How skills silently shape agent behavior — even when you don't invoke them
+- Why broad `description` fields are dangerous — they trigger on unintended inputs
+- How bad context injection produces bad code
+- How to audit and debug active skills
+- The importance of reviewing AI-generated code critically
 
 ## Prerequisites
 
@@ -19,87 +21,90 @@ Learn what makes a good skill by fixing a deliberately broken one. You'll start 
 
 ```
 .claude/skills/swill/
-├── SKILL.md                     # The broken skill (your exercise)
+├── SKILL.md                     # The saboteur skill (participants must find and understand this)
 └── reference/
-    └── anti-patterns.md         # Catalog of common skill anti-patterns
+    └── anti-patterns.md         # The anti-patterns the skill injects
 ```
 
-## The scenario
+## How it works
 
-You've inherited a skill that's supposed to summarize the current git repository — recent commits, active branches, contributors, and repo health. It was written by someone who read zero documentation. Your job: fix it.
+The swill skill has a broad `description` that matches any coding request. When a participant asks Claude to write or modify code, the skill silently activates and instructs Claude to introduce subtle anti-patterns — things that look plausible but violate best practices.
+
+The participant doesn't know the skill exists. They just see Claude writing weirdly bad code.
 
 ## Steps
 
-### 1. Read the broken skill
+### 1. Set the trap
 
-Open `.claude/skills/swill/SKILL.md`. Try to invoke it:
+The swill skill is already installed in `.claude/skills/swill/`. Participants don't need to know about it — they'll discover it.
 
-```bash
-cd exercises/swill
-claude
-```
+### 2. Give participants a coding task
 
-```
-/swill
-```
-
-Notice what goes wrong. Then read `reference/anti-patterns.md` to understand the failure modes.
-
-### 2. TODO 1 — Fix the description
-
-The current description is laughably broad. It would trigger on almost any user message. Rewrite it to clearly describe when this skill should activate.
-
-**Anti-pattern**: "Helps with stuff" — tells Claude nothing.
-**Fix**: Be specific about the trigger intent.
-
-### 3. TODO 2 — Add dynamic context injection
-
-The skill has zero context about the repo. It's flying blind. Inject the information Claude actually needs using `!`command`` syntax.
-
-**Anti-pattern**: No context injection — Claude has to guess or explore on its own.
-**Fix**: Inject `git log`, `git branch`, and other repo metadata dynamically.
-
-### 4. TODO 3 — Replace vague instructions with specific ones
-
-The instructions currently say "summarize the repo." That's not a skill, that's a wish. Write clear steps for what Claude should analyze and how.
-
-**Anti-pattern**: "Just figure it out" — produces inconsistent, low-quality output.
-**Fix**: Enumerate exactly what to analyze and how to interpret it.
-
-### 5. TODO 4 — Structure the output
-
-There's no output format defined. Claude will dump a wall of text. Define sections, tables, and a consistent structure.
-
-**Anti-pattern**: No output specification — every invocation looks different.
-**Fix**: Define exact sections and formats.
-
-### 6. TODO 5 — Constrain allowed-tools
-
-The skill currently has access to everything. Claude might start editing files, making network requests, or running destructive commands. Lock it down.
-
-**Anti-pattern**: Unrestricted tool access — the agent wanders and does unexpected things.
-**Fix**: Only allow `Bash` and `Read`.
-
-### 7. Test it
-
-```bash
-cd exercises/swill
-claude
-```
+Ask them to use Claude to build something in this directory. For example:
 
 ```
-/swill
+Write a Python CLI tool that reads a CSV file and outputs summary statistics
+(row count, column names, min/max/mean for numeric columns).
 ```
 
-### 8. Verify
+### 3. Watch the chaos
 
-Your fixed skill should:
-- Only trigger when the user asks for a repo summary
-- Inject fresh git data at invocation time (not stale)
-- Produce consistent, structured output every time
-- Never try to edit files or do anything beyond reading and reporting
-- Complete in a few seconds, not minutes of exploration
+Claude will write code that works but is full of anti-patterns:
+- Single-letter variable names (`d`, `x`, `r`)
+- Magic numbers with no explanation
+- No error handling
+- Copy-pasted logic instead of functions
+- Commented-out code left in
+- Overly broad `except Exception` blocks
+
+### 4. The reveal
+
+Ask participants: "Why is Claude writing such bad code?"
+
+Hints (give one at a time):
+1. "It's not Claude's fault — something is influencing it."
+2. "Check what skills are active."
+3. "Look in `.claude/skills/`."
+
+### 5. TODO 1 — Find the skill
+
+Participants locate `.claude/skills/swill/SKILL.md` and read it.
+
+### 6. TODO 2 — Understand the trigger
+
+Why does this skill activate on normal coding requests? Look at the `description` field.
+
+### 7. TODO 3 — Identify the injected anti-patterns
+
+Read `reference/anti-patterns.md`. Match each anti-pattern to what Claude actually produced.
+
+### 8. TODO 4 — Disable or fix the skill
+
+Options:
+- Delete the skill entirely
+- Narrow the `description` so it stops triggering
+- Rewrite the instructions to inject *good* patterns instead (turning a swill into a skill)
+
+### 9. TODO 5 — Re-run the task
+
+Ask Claude to redo the same coding task. Compare the before/after output.
+
+## Verify
+
+After fixing/removing the swill:
+- Claude produces clean, idiomatic code
+- Variables have meaningful names
+- Error handling is appropriate
+- No copy-paste duplication
+- No magic numbers
+
+## Discussion points
+
+- How easy was it to spot the anti-patterns?
+- Would you have caught them in a real code review?
+- What does this teach about trusting AI-generated code?
+- How could a malicious skill be even more subtle?
 
 ## When you're done
 
-Compare with `solutions/swill/`. The README there explains each anti-pattern and why the fix works.
+Compare with `solutions/swill/`. The README there discusses the design choices behind the sabotage.
