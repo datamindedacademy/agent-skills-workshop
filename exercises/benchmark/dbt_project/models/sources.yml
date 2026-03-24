@@ -1,0 +1,89 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: customers
+        description: Raw customer data
+        columns:
+          - name: customer_id
+            description: Unique customer identifier
+          - name: first_name
+            description: Customer first name
+          - name: last_name
+            description: Customer last name
+          - name: email
+            description: Customer email address
+          - name: created_at
+            description: Date the customer account was created
+
+      - name: orders
+        description: Raw order data
+        columns:
+          - name: order_id
+            description: Unique order identifier
+          - name: customer_id
+            description: Foreign key to customers
+          - name: order_date
+            description: Date the order was placed
+          - name: status
+            description: "Order status: completed, shipped, or returned"
+
+      - name: products
+        description: Raw product catalog
+        columns:
+          - name: product_id
+            description: Unique product identifier
+          - name: product_name
+            description: Product display name
+          - name: category
+            description: Product category
+          - name: price_cents
+            description: Product price in cents
+
+      - name: order_items
+        description: Line items for each order
+        columns:
+          - name: order_item_id
+            description: Unique order item identifier
+          - name: order_id
+            description: Foreign key to orders
+          - name: product_id
+            description: Foreign key to products
+          - name: quantity
+            description: Number of units ordered
+          - name: unit_price_cents
+            description: Price per unit in cents at time of order
+
+      - name: payments
+        description: Payment records for orders
+        columns:
+          - name: payment_id
+            description: Unique payment identifier
+          - name: order_id
+            description: Foreign key to orders
+          - name: payment_method
+            description: Payment method used
+          - name: amount_cents
+            description: Payment amount in cents
+          - name: created_at
+            description: Date the payment was processed
+
+      - name: customer_addresses
+        description: Customer shipping and billing addresses
+        columns:
+          - name: address_id
+            description: Unique address identifier
+          - name: customer_id
+            description: Foreign key to customers
+          - name: street
+            description: Street address
+          - name: city
+            description: City name
+          - name: state
+            description: State abbreviation
+          - name: zip_code
+            description: ZIP code
+          - name: is_primary
+            description: Whether this is the primary address

@@ -1,0 +1,145 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: Staged customer data from raw source
+    columns:
+      - name: customer_id
+        description: Unique customer identifier
+        tests:
+          - not_null
+          - unique
+      - name: first_name
+        description: Customer first name
+        tests:
+          - not_null
+      - name: last_name
+        description: Customer last name
+        tests:
+          - not_null
+      - name: email
+        description: Customer email address
+        tests:
+          - not_null
+          - unique
+      - name: created_at
+        description: Date the customer account was created
+
+  - name: stg_orders
+    description: Staged order data from raw source
+    columns:
+      - name: order_id
+        description: Unique order identifier
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: Foreign key to customers
+        tests:
+          - not_null
+      - name: order_date
+        description: Date the order was placed
+        tests:
+          - not_null
+      - name: status
+        description: "Order status: completed, shipped, or returned"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['completed', 'shipped', 'returned']
+
+  - name: stg_products
+    description: Staged product catalog from raw source
+    columns:
+      - name: product_id
+        description: Unique product identifier
+        tests:
+          - not_null
+          - unique
+      - name: product_name
+        description: Product display name
+        tests:
+          - not_null
+      - name: category
+        description: Product category
+        tests:
+          - not_null
+      - name: price_cents
+        description: Product price in cents
+        tests:
+          - not_null
+
+  - name: stg_order_items
+    description: Staged order line items from raw source
+    columns:
+      - name: order_item_id
+        description: Unique order item identifier
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        description: Foreign key to orders
+        tests:
+          - not_null
+      - name: product_id
+        description: Foreign key to products
+        tests:
+          - not_null
+      - name: quantity
+        description: Number of units ordered
+        tests:
+          - not_null
+      - name: unit_price_cents
+        description: Price per unit in cents at time of order
+        tests:
+          - not_null
+
+  - name: stg_payments
+    description: Staged payment records from raw source
+    columns:
+      - name: payment_id
+        description: Unique payment identifier
+        tests:
+          - not_null
+          - unique
+      - name: order_id
+        description: Foreign key to orders
+        tests:
+          - not_null
+      - name: payment_method
+        description: Payment method used
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['credit_card', 'debit_card', 'bank_transfer', 'paypal']
+      - name: amount_cents
+        description: Payment amount in cents
+        tests:
+          - not_null
+      - name: created_at
+        description: Date the payment was processed
+
+  - name: stg_customer_addresses
+    description: Staged customer addresses from raw source
+    columns:
+      - name: address_id
+        description: Unique address identifier
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: Foreign key to customers
+        tests:
+          - not_null
+      - name: street
+        description: Street address
+      - name: city
+        description: City name
+      - name: state
+        description: State abbreviation
+      - name: zip_code
+        description: ZIP code
+      - name: is_primary
+        description: Whether this is the primary address

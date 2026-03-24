@@ -1,0 +1,7 @@
+benchmark_shop:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: 'benchmark_shop.duckdb'
+      threads: 1

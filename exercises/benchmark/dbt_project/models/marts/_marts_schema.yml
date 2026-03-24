@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: mart_product_sales
+    description: Product-level sales summary excluding returned orders
+    columns:
+      - name: product_id
+        description: Unique product identifier
+        tests:
+          - not_null
+          - unique
+      - name: product_name
+        description: Product display name
+        tests:
+          - not_null
+      - name: category
+        description: Product category
+        tests:
+          - not_null
+      - name: total_orders
+        description: Total number of distinct orders containing this product
+        tests:
+          - not_null
+      - name: total_units_sold
+        description: Total quantity of units sold
+        tests:
+          - not_null
+      - name: total_revenue
+        description: Total revenue in dollars from this product
+        tests:
+          - not_null
+
+  - name: mart_daily_revenue
+    description: Daily revenue summary excluding returned orders
+    columns:
+      - name: order_date
+        description: Date of the orders
+        tests:
+          - not_null
+          - unique
+      - name: total_orders
+        description: Number of distinct orders on this date
+        tests:
+          - not_null
+      - name: total_items
+        description: Total items sold on this date
+        tests:
+          - not_null
+      - name: total_revenue
+        description: Total revenue in dollars for this date
+        tests:
+          - not_null

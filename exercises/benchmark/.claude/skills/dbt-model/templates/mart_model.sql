@@ -1,0 +1,9 @@
+-- TODO: Create a SQL template for mart models
+-- Look at the existing mart models (mart_product_sales, mart_daily_revenue)
+-- and identify the common pattern, then create a template here.
+--
+-- Hints:
+-- - What CTEs are always present?
+-- - How are source models referenced?
+-- - What does the final SELECT look like?
+-- - How are monetary values handled?
