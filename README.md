@@ -4,7 +4,8 @@ A hands-on workshop where you build Claude Code skills. You'll leave with at lea
 
 ## Prerequisites
 
-- Devcontainer running, Claude Code working via Bedrock
+- Log in to [app.conveyordata.com](https://app.conveyordata.com) with your Dataminded account
+- Create a **Conveyor IDE** for the `hackathon` project — it comes with Claude Code pre-installed and configured with Bedrock
 - Basic git and terminal knowledge
 - Skim `cheatsheet.md` before you start
 
@@ -17,7 +18,7 @@ A hands-on workshop where you build Claude Code skills. You'll leave with at lea
 | `skill/benchmark` | Benchmark | Medium | Measuring skill value with token counts |
 | `skill/terraform-viz` | Terraform Viz | Medium | Supporting files, `allowed-tools`, multi-phase workflows |
 | `skill/swill` | Anti-Skill | Medium | Skill design by breaking things |
-| `skill/checkup` | Data Quality | TBD | CLI wrapping, iterative loops (awaiting docs) |
+| `skill/sandi` | Sandi | Medium | CLI wrapping, supporting files, `allowed-tools` |
 
 ## How to start
 

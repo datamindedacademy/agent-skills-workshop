@@ -4,3 +4,7 @@ logs/
 *.duckdb
 *.duckdb.wal
 exercises/benchmark/results/
+
+
+terraform.tfvars
+.terraform
