@@ -75,27 +75,24 @@ resource "conveyor_project" "hackathon" {
       cmd  = <<-EOT
         curl -fsSL https://claude.ai/install.sh | bash
 
-        cat >> ~/.bashrc << 'BASHRC_EOF'
-        export CLAUDE_CODE_USE_BEDROCK=1
-        export ANTHROPIC_MODEL='eu.anthropic.claude-opus-4-6-v1'
-        export ANTHROPIC_SMALL_FAST_MODEL='eu.anthropic.claude-haiku-4-5-20251001-v1:0'
-        export CLAUDE_CODE_MAX_OUTPUT_TOKENS=4096
-        export MAX_THINKING_TOKENS=1024
-        BASHRC_EOF
+        {
+          echo 'export CLAUDE_CODE_USE_BEDROCK=1'
+          echo "export ANTHROPIC_MODEL='eu.anthropic.claude-opus-4-6-v1'"
+          echo "export ANTHROPIC_SMALL_FAST_MODEL='eu.anthropic.claude-haiku-4-5-20251001-v1:0'"
+          echo 'export CLAUDE_CODE_MAX_OUTPUT_TOKENS=4096'
+          echo 'export MAX_THINKING_TOKENS=1024'
+        } >> ~/.bashrc
       EOT
     }
 
     build_steps {
       name = "Inject Gemini API key"
       cmd  = <<-EOT
-        cat >> ~/.bashrc << 'BASHRC_EOF'
-        if [ -z "$GEMINI_API_KEY" ]; then
-          export GEMINI_API_KEY=\$(aws secretsmanager get-secret-value \
-            --secret-id ${aws_secretsmanager_secret.gemini_api_key.name} \
-            --query SecretString --output text \
-            --region ${var.aws_region})
-        fi
-        BASHRC_EOF
+        {
+          echo 'if [ -z "$GEMINI_API_KEY" ]; then'
+          echo '  export GEMINI_API_KEY=$(aws secretsmanager get-secret-value --secret-id ${aws_secretsmanager_secret.gemini_api_key.name} --query SecretString --output text --region ${var.aws_region} 2>/dev/null || true)'
+          echo 'fi'
+        } >> ~/.bashrc
       EOT
     }
 
