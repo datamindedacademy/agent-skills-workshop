@@ -1,0 +1,20 @@
+name: 'data_warehouse'
+version: '1.0.0'
+
+profile: 'data_warehouse'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+clean-targets: ["target", "dbt_packages", "logs"]
+
+models:
+  data_warehouse:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table
+
+# Keep the deliberately-dirty data flowing: tests surface issues as warnings
+# instead of failing the build, so `dbt build` still produces the warehouse.
+data_tests:
+  +severity: warn

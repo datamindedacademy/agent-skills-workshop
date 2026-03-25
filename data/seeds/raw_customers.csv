@@ -1,0 +1,25 @@
+customer_id,first_name,last_name,email,country,signup_date
+1,John,Smith,john.smith@example.com,USA,2023-01-15
+2,emma,JOHNSON,emma.j@example.com,US,2023-02-20
+3,Liam, Brown ,liam.brown@example.com,United States,2023-02-28
+4,Olivia,Davis,,Belgium,2023-03-10
+5,Noah,Wilson,noah@example.com,BE,2023-03-15
+6,Ava,Miller,N/A,Belgium,2023-04-01
+7,William,Moore,will.moore@example.com,Netherlands,2023-04-12
+8,Sophia,Taylor,sophia.t@example.com,NL,2023-05-05
+9,James,Anderson,james.a@example.com,France,2023-05-19
+10,Isabella,Thomas,isabella@example.com,FR,2023-06-02
+11,Oliver,Jackson,oliver.j@example.com,Germany,2023-06-15
+12,Mia,White,mia.white@example.com,DE,2023-07-01
+13,Elijah,Harris,elijah@example.com,USA,2023-07-20
+14,Charlotte,Martin,charlotte.m@example.com,United States,2023-08-11
+15,Lucas,Thompson,lucas.t@example.com,us,2023-08-29
+16,Amelia,Garcia,amelia@example.com,Spain,2023-09-14
+17,Mason,Martinez,mason.m@example.com,ES,2023-09-30
+18,Harper,Robinson,harper@example.com,Belgium,2023-10-10
+19,Ethan,Clark,ethan.c@example.com,Belgium,2099-12-31
+20,Evelyn,Rodriguez,evelyn@example.com,,2023-11-05
+21,Logan,Lewis,logan.l@example.com,Netherlands,2023-11-22
+22,Abigail,Lee,abigail@example.com,France,2023-12-01
+23,Jacob,Walker,jacob.w@example.com,Germany,2023-12-18
+3,Liam,Brown,liam.brown@example.com,United States,2023-02-28

@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: >
+      Customer dimension data product. One row per customer.
+      Owner: Customer Data team. Refresh: daily.
+    columns:
+      - name: customer_id
+        description: Unique customer identifier (primary key).
+        data_tests:
+          - unique
+          - not_null
+      - name: email
+        description: Customer email address.
+        data_tests:
+          - not_null
+      - name: country
+        description: "Customer country (NOTE: encodings are not yet standardized)."
+
+  - name: fct_orders
+    description: >
+      Order fact data product, enriched with customer attributes.
+      Grain: one row per order. Owner: Commerce team. Refresh: hourly.
+      Source table for the workshop warm-up (exported to sample.csv).
+    columns:
+      - name: order_id
+        description: Order identifier.
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: Foreign key to dim_customers.
+        data_tests:
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+      - name: amount
+        description: Order amount in EUR.
+        data_tests:
+          - not_null
+      - name: status
+        description: "Order status (NOTE: casing is inconsistent)."
+
+  - name: customer_order_summary
+    description: >
+      Per-customer order summary data product. Grain: one row per customer.
+      Owner: Analytics team. Refresh: daily.
+    columns:
+      - name: customer_id
+        description: Customer identifier.
+        data_tests:
+          - unique

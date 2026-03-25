@@ -1,0 +1,22 @@
+tags:
+  product: workshop-warehouse
+  team: data-platform
+
+providers:
+  - name: dbt
+    # checkup parses this dbt project to get the manifest (no prebuilt manifest needed)
+    dbt_project_dir: ../../data
+    profiles_dir: ../../data
+
+metrics:
+  # TODO: add the governance metrics you want to score. To see every option:
+  #   uv run --with checkup --with checkup-dbt checkup schema
+  # Start with total models, then add coverage/documentation metrics.
+  - type: dbt_models
+  # - type: dbt_models_without_description
+  # - type: dbt_columns_without_description
+  # - type: dbt_column_test_coverage
+  # - type: dbt_data_tests
+
+materializer:
+  type: console

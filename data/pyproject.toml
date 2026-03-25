@@ -1,0 +1,13 @@
+[project]
+name = "workshop-warehouse"
+version = "0.1.0"
+description = "Dummy dbt + DuckDB project that builds the shared workshop warehouse and exports sample.csv"
+requires-python = ">=3.10"
+dependencies = [
+    "dbt-core>=1.8,<2",
+    "dbt-duckdb>=1.8,<2",
+    "duckdb>=0.10",
+]
+
+[tool.uv]
+dev-dependencies = []
