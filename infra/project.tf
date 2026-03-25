@@ -88,11 +88,14 @@ resource "conveyor_project" "hackathon" {
     build_steps {
       name = "Inject Gemini API key"
       cmd  = <<-EOT
-        GEMINI_API_KEY=$(aws secretsmanager get-secret-value \
-          --secret-id ${aws_secretsmanager_secret.gemini_api_key.name} \
-          --query SecretString --output text \
-          --region ${var.aws_region})
-        echo "export GEMINI_API_KEY='$GEMINI_API_KEY'" >> ~/.bashrc
+        cat >> ~/.bashrc << 'BASHRC_EOF'
+        if [ -z "$GEMINI_API_KEY" ]; then
+          export GEMINI_API_KEY=\$(aws secretsmanager get-secret-value \
+            --secret-id ${aws_secretsmanager_secret.gemini_api_key.name} \
+            --query SecretString --output text \
+            --region ${var.aws_region})
+        fi
+        BASHRC_EOF
       EOT
     }
 
