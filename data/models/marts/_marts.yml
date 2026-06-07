@@ -1,5 +1,9 @@
 version: 2
 
+# Governance is deliberately incomplete here: several columns have no
+# description and key columns are missing tests. Stage 1 (data-product-checkup)
+# measures the gaps; Stage 2 (remediate-products) fills them in.
+# Do not "fix" this file by hand: it's the starting point for the exercise.
 models:
   - name: dim_customers
     description: >
@@ -12,11 +16,7 @@ models:
           - unique
           - not_null
       - name: email
-        description: Customer email address.
-        data_tests:
-          - not_null
       - name: country
-        description: "Customer country (NOTE: encodings are not yet standardized)."
 
   - name: fct_orders
     description: >
@@ -44,11 +44,7 @@ models:
               config:
                 severity: "{{ 'error' if target.name == 'prod' else 'warn' }}"
       - name: amount
-        description: Order amount in EUR.
-        data_tests:
-          - not_null
       - name: status
-        description: "Order status (NOTE: casing is inconsistent)."
 
   - name: customer_order_summary
     description: >
@@ -56,6 +52,9 @@ models:
       Owner: Analytics team. Refresh: daily.
     columns:
       - name: customer_id
-        description: Customer identifier.
         data_tests:
           - unique
+      - name: country
+      - name: order_count
+      - name: total_amount
+      - name: last_order_date

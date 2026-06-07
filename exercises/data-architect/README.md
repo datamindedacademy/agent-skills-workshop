@@ -58,23 +58,24 @@ best" but **what's the smallest model your skill still works on**: that's the
 one it should declare. (There's also an `effort:` field to dial reasoning up
 or down on a given model.)
 
-## Stage 2: Add subagents (2:00–3:00): `portfolio-health`
+## Stage 2: Add subagents (2:00–3:00): `remediate-products`
 
-A real warehouse has *many* data products. Scoring each one is independent,
-parallel work: exactly when subagents earn their keep.
+Stage 1 told you what's undocumented and untested. Now fix it. Each data product
+is its own small job, so hand each one to a subagent that drafts the missing
+descriptions and tests, and assemble the results into a single diff you review.
 
-1. Open `.claude/skills/portfolio-health/SKILL.md`.
-2. Work through the TODOs: list the products, **dispatch one subagent per
-   product in parallel**, then synthesize a portfolio scorecard ranked by risk.
+1. Open `.claude/skills/remediate-products/SKILL.md`.
+2. Work through the TODOs: dispatch one subagent per product to draft its fixes,
+   then merge them into `_marts.yml` and re-run checkup to confirm the numbers
+   moved.
 3. Test it:
    ```bash
-   # then: /portfolio-health
+   # then: /remediate-products
    ```
 
-> **The lesson: *when* to fan out.** One product = one quick pass (use Stage 1
-> inline, no subagents). Many independent products = fan out, then synthesize.
-> Subagents cost latency, tokens, and coordination: use them when the work is
-> genuinely parallel.
+There's a nice wrinkle: the marts share one schema file, so the subagents draft
+in parallel but *don't* write. You make the single, careful edit at the end.
+Fan out the thinking, centralize the change.
 
 ## Stuck?
 

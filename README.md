@@ -86,11 +86,11 @@ The finale, for everyone regardless of track: a skill that **fans out work acros
 |---|---|---|
 | ⚙️ **Data Engineer** | **Airflow Ops**: schedule the dbt → DuckDB build on Conveyor Airflow (`ConveyorDbtTaskFactory`) and operate the pipeline via the [Astronomer Airflow skill](https://github.com/astronomer/agents/blob/main/astro-airflow-mcp/README.md#airflow-cli-tool) | **Failure triage**: a subagent per failed DAG diagnoses root cause in parallel → one incident summary |
 | 📊 **Analyst / BI Developer** | **Talk to your data**: ask in plain language, it fires SQL at the shared DuckDB and explains the result | **Multi-panel report**: a subagent per section queries independently → one assembled report |
-| 🏗️ **Data Architect** | **Data Product Checkup**: wrap [`checkup`](https://pypi.org/project/checkup/) to score one data product on DuckDB | **Portfolio health**: fan out `checkup` across *all* data products → one governance scorecard |
+| 🏗️ **Data Architect** | **Data Product Checkup**: wrap [`checkup`](https://pypi.org/project/checkup/) to score a data product's governance on DuckDB | **Remediate the portfolio**: a subagent per product drafts the missing docs and tests → one reviewable diff |
 
-> **The subagent lesson: *when*, not just *how*.** The intro profiled **one** CSV single-pass: no subagents needed. Each finale hits **many** independent units (failed DAGs / report sections / data products), so it fans out and synthesizes. Heuristic: *independent + parallelizable + context-heavy → subagents; quick single-pass → don't* (they cost latency, tokens, and coordination).
+When to fan out: *independent + parallelizable + context-heavy → subagents; quick single-pass → don't* (subagents cost latency, tokens, and coordination). The intro profiled one CSV in a single pass; each finale hits many independent units, so it fans out and synthesizes.
 
-> **One dataset, all day (the narrative spine).** A pre-built `data/warehouse.duckdb` and its `data/sample.csv` export ship in the repo: that committed file is the real source of truth every track uses. You profile it in the intro, the **analyst** queries it, the **architect** scores its products' health. The **engineer** track shows how that same dbt build is *scheduled in production* on Conveyor Airflow (`ConveyorDbtTaskFactory`): a demonstration, since the DuckDB file itself is local. Same data, four lenses.
+One dataset throughout: `data/warehouse.duckdb` and its `data/sample.csv` export ship in the repo. You profile it in the intro, the analyst queries it, the architect scores its products, and the engineer track runs its dbt build on a schedule in Conveyor Airflow. Same data, different lenses.
 
 ## How to start
 

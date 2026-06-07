@@ -83,10 +83,9 @@ their keep.
    # then: /multi-panel-report
    ```
 
-> **The lesson: *when* to fan out.** One question = one quick pass (use Stage
-> 1 inline, no subagents). A report of independent panels = fan out, then
-> synthesize. Subagents cost latency, tokens, and coordination: use them when
-> the work is genuinely parallel.
+One question: answer it inline (Stage 1). A report of independent panels: fan
+out, then synthesize. Subagents cost latency, tokens, and coordination, so use
+them only when the work is genuinely parallel.
 
 ## Stuck?
 

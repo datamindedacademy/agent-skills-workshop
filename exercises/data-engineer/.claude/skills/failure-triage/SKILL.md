@@ -13,14 +13,16 @@ allowed-tools: TODO
 
 Diagnose **every failing DAG in parallel** and synthesize one incident summary.
 
-## When to fan out: read this first
+## When to fan out
 
-- **One** failed run is a single quick pass → just diagnose it with `/airflow-ops`.
-- **Several** DAGs failing is independent, log-heavy work: full task logs would
-  flood a single context window: exactly when subagents pay off.
+If a single run failed, just diagnose it inline with `/airflow-ops`. Reaching
+for subagents there only buys you latency and coordination overhead.
 
-If only one DAG failed, you would **not** use subagents: the overhead (latency,
-tokens, coordination) isn't worth it. *That* is the judgment this skill teaches.
+The picture changes once several DAGs fail at once. Each one is its own
+investigation, and reading a task's logs is heavy: pull all of them into one
+conversation and you drown. So give each failure its own subagent. It reads its
+own logs, works out what happened, and hands back a short verdict. You spend
+your context on the summary, not the noise.
 
 ## Steps
 

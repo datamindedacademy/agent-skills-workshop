@@ -14,15 +14,15 @@ allowed-tools: TODO
 Produce a **business report with independent panels**, each researched by its
 own subagent in parallel, then assembled into one document.
 
-## When to fan out: read this first
+## When to fan out
 
-- **One** question is a single quick pass → just use `/talk-to-your-data`.
-- A **report of independent sections**: each panel needs its own queries and
-  reasoning, none depends on another: is exactly when subagents pay off.
+A single question doesn't need any of this: just use `/talk-to-your-data` and
+answer it. Subagents would only add latency and coordination for no gain.
 
-If the user asks one question, you would **not** use subagents: the overhead
-(latency, tokens, coordination) isn't worth it. *That* is the judgment this
-skill teaches.
+A full report is different. Revenue, customers, order health: each panel has its
+own queries and its own reasoning, and none of them depends on the others.
+That's the moment fanning out pays off: give every panel its own subagent, let
+them work at the same time, and stitch the results together at the end.
 
 ## The panels
 

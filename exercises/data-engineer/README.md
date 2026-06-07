@@ -14,14 +14,14 @@ out **subagents** to triage failures in parallel.
    ```bash
    conveyor auth login
    ```
-2. Start `claude`. Meet **bang commands**: text after `!` in the prompt runs as
-   a shell command and its output enters the conversation. Fetch the Airflow
-   token the `af` CLI needs:
+2. Start `claude`. Text after `!` in the prompt runs as a shell command and its
+   output enters the conversation (a "bang command"). Fetch the Airflow token
+   the `af` CLI needs:
    ```
    ! conveyor auth get --quiet | jq -r '.access_token'
    ```
-   You just handed the agent live context with no copy-paste. A skill does the
-   same automatically with the `` !`command` `` syntax in `SKILL.md`.
+   A skill does the same automatically with the `` !`command` `` syntax in
+   `SKILL.md`.
 3. Smoke-test the connection (the recipe your skill will encode):
    ```
    ! AIRFLOW_API_URL="https://app.conveyordata.com/environments/workshop/airflow" AIRFLOW_AUTH_TOKEN="$(conveyor auth get --quiet | jq -r '.access_token')" af health
@@ -70,9 +70,9 @@ keep.
    incident summary ranked by severity.
 3. Run `/failure-triage` (or ask "what's broken?").
 
-> **The lesson: *when* to fan out.** One failure = one quick pass (Stage 1,
-> inline). Many = fan out, then synthesize. Each subagent absorbs its own log
-> noise and returns only a verdict.
+One failure: diagnose it inline (Stage 1). Many: fan out, then synthesize. The
+win is context: each subagent absorbs its own log noise and returns a verdict,
+instead of every log flooding one window.
 
 ## The production demo: `demo/`
 
