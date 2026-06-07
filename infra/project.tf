@@ -56,6 +56,14 @@ resource "conveyor_project" "workshop" {
     }
 
     build_steps {
+      name = "Install Node.js (for npx skills)"
+      cmd  = <<-EOT
+        curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+      EOT
+    }
+
+    build_steps {
       name = "Install Google Cloud CLI"
       cmd  = <<-EOT
         curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
