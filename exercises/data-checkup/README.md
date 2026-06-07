@@ -41,7 +41,7 @@ your session model comes back on the next prompt.
 ---
 name: data-product-checkup
 description: …
-model: eu.anthropic.claude-haiku-4-5   # ← try the small model
+model: eu.anthropic.claude-haiku-4-5-20251001-v1:0   # ← try the small model
 ---
 ```
 
@@ -51,7 +51,7 @@ Run `/data-product-checkup` with each and compare:
 |---|---|
 | *(no field)* | Inherits the session model — Opus 4.8 here |
 | `eu.anthropic.claude-sonnet-4-6` | Usually identical scorecard, noticeably faster |
-| `eu.anthropic.claude-haiku-4-5` | Fastest — is the grading and gap-ranking still sound? |
+| `eu.anthropic.claude-haiku-4-5-20251001-v1:0` | Fastest — is the grading and gap-ranking still sound? |
 
 Run `/model` to see what's active. The interesting question isn't "which is
 best" but **what's the smallest model your skill still works on** — that's the

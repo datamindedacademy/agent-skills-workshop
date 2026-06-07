@@ -51,7 +51,7 @@ model comes back on the next prompt.
 ---
 name: talk-to-your-data
 description: …
-model: eu.anthropic.claude-haiku-4-5   # ← try the small model
+model: eu.anthropic.claude-haiku-4-5-20251001-v1:0   # ← try the small model
 ---
 ```
 
@@ -61,7 +61,7 @@ Try the same question (e.g. *"average order value per country"*) with:
 |---|---|
 | *(no field)* | Inherits the session model — Opus 4.8 here |
 | `eu.anthropic.claude-sonnet-4-6` | Usually as correct, noticeably faster |
-| `eu.anthropic.claude-haiku-4-5` | Fastest — does it still catch the status-casing trap? |
+| `eu.anthropic.claude-haiku-4-5-20251001-v1:0` | Fastest — does it still catch the status-casing trap? |
 
 Run `/model` to see what's active. The interesting question isn't "which is
 best" but **what's the smallest model your skill still works on** — that's the
