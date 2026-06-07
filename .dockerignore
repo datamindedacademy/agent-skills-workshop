@@ -1,0 +1,20 @@
+# Only data/ (the dbt project) goes into the image.
+.git
+.conveyor
+.claude
+context/
+dags/
+exercises/
+solutions/
+infra/
+*.md
+*.duckdb
+*.duckdb.wal
+
+# dbt artifacts
+data/target/
+data/logs/
+data/dbt_packages/
+data/warehouse.duckdb
+data/sample.csv
+data/.venv/

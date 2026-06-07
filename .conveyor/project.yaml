@@ -1,7 +1,7 @@
 docker:
     path: "."
-name: hackathon
-id: 6d3c0ac5-ffd7-4ef9-afed-38b812dc9be2
+name: agent-skills-workshop
+id: bd05a656-6645-4468-bdd0-53a67731bd57
 ide:
     filename: ide.yaml
 resources:

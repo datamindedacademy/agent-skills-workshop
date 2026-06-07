@@ -1,11 +1,11 @@
-# Workshop: Applied Context Engineering — Building Agent Skills
+# Workshop: Applied Context Engineering: Building Agent Skills
 
 use context7 for searching relevant documentation of the frameworks you are using
 
 ## Project structure
-- `exercises/<skill-name>/` — Skeletons with TODOs
-- `solutions/<skill-name>/` — Working solutions
-- `cheatsheet.md` — Quick reference
+- `exercises/<skill-name>/`: Skeletons with TODOs
+- `solutions/<skill-name>/`: Working solutions
+- `cheatsheet.md`: Quick reference
 
 ## Environment
 - Claude Code via AWS Bedrock in Conveyor IDE

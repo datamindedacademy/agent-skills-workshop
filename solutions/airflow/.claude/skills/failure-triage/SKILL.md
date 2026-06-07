@@ -3,7 +3,7 @@ name: failure-triage
 description: >
   Triage all failing pipelines in the Conveyor Airflow environment at once and
   produce a single incident summary. Use when asked "what's broken", "triage
-  the failures", or for an incident overview across DAGs — fans out one
+  the failures", or for an incident overview across DAGs: fans out one
   subagent per failed DAG to diagnose root causes in parallel, then synthesizes.
 allowed-tools: Bash, Task
 ---
@@ -19,7 +19,7 @@ Diagnose **every failing DAG in parallel** and synthesize one incident summary.
   (logs would flood one context) → fan out, then synthesize.
 
 Subagents cost latency, tokens, and coordination. Use them only when the work
-is genuinely parallel — which diagnosing N independent failures is.
+is genuinely parallel: which diagnosing N independent failures is.
 
 ## Steps
 
@@ -31,9 +31,9 @@ is genuinely parallel — which diagnosing N independent failures is.
    ```
    Then for each active DAG check its latest runs
    (`af runs list --dag-id <dag_id>`) and keep the DAGs whose **latest run
-   failed**. If nothing failed, report all-green and stop — do not fan out.
+   failed**. If nothing failed, report all-green and stop: do not fan out.
 
-2. Dispatch **one subagent per failed DAG, in parallel** — a single message
+2. Dispatch **one subagent per failed DAG, in parallel**: a single message
    with one `Task` call per DAG (not sequential). Use this prompt template:
 
    > Diagnose the failed Airflow DAG **`<DAG_ID>`** (latest failed run:
@@ -48,19 +48,19 @@ is genuinely parallel — which diagnosing N independent failures is.
 
 3. Collect the verdicts and synthesize the incident summary, ranked by
    severity. Group failures that share a root cause (e.g. one upstream outage
-   breaking three DAGs) — that cross-DAG link is the thing no single subagent
+   breaking three DAGs): that cross-DAG link is the thing no single subagent
    can see.
 
 ## Output format
 
 ```
-## 🚨 Incident Summary — <N> failing DAG(s)
+## 🚨 Incident Summary: <N> failing DAG(s)
 
 | DAG | Failed task | Root cause | Severity | Suggested fix |
 |---|---|---|---|---|
 | … | … | … | 🔴/🟠/🟡 | … |
 
-**Common cause:** <shared root cause across DAGs, or "none — independent failures">
+**Common cause:** <shared root cause across DAGs, or "none: independent failures">
 **Start here:** <the single fix that unblocks the most>
 ```
 

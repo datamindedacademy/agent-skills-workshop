@@ -27,14 +27,22 @@ models:
       - name: order_id
         description: Order identifier.
         data_tests:
-          - unique
+          # Strict in production: the deliberate duplicate order_id fails the
+          # scheduled Airflow run (debugging exercise); local builds only warn.
+          - unique:
+              config:
+                severity: "{{ 'error' if target.name == 'prod' else 'warn' }}"
           - not_null
       - name: customer_id
         description: Foreign key to dim_customers.
         data_tests:
+          # Strict in production: the orphan customer_id (999) fails the
+          # scheduled Airflow run (debugging exercise); local builds only warn.
           - relationships:
               to: ref('dim_customers')
               field: customer_id
+              config:
+                severity: "{{ 'error' if target.name == 'prod' else 'warn' }}"
       - name: amount
         description: Order amount in EUR.
         data_tests:

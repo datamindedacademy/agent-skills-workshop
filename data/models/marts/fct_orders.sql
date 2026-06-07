@@ -3,7 +3,7 @@
 -- Known issues (deliberate): null / negative / 999999 amounts, mixed-case
 -- status, a future order_date, an orphan customer_id (999 -> null country),
 -- and row fan-out for customer 3 (duplicate dimension key) plus a duplicate
--- order_id (50) — realistic landmines for explore-data to flag.
+-- order_id (50): realistic landmines for explore-data to flag.
 select
     o.order_id,
     o.customer_id,
@@ -13,5 +13,8 @@ select
     c.country     as customer_country,
     c.signup_date as customer_signup_date
 from {{ ref('stg_orders') }} o
-left join {{ ref('stg_customers') }} c
+-- join the dimension (not staging) so the FK relationships test's target is
+-- always in this model's lineage: each Airflow task builds `+fct_orders` in
+-- an ephemeral DuckDB, so out-of-lineage refs would not exist there
+left join {{ ref('dim_customers') }} c
     on o.customer_id = c.customer_id

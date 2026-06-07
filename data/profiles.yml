@@ -5,3 +5,10 @@ data_warehouse:
       type: duckdb
       path: 'warehouse.duckdb'
       threads: 1
+    # Used by the scheduled Airflow tasks on Conveyor. Each task runs in its
+    # own container, so the DuckDB file is ephemeral: every task rebuilds its
+    # lineage from the seeds (dbt build --select +model).
+    prod:
+      type: duckdb
+      path: '/tmp/warehouse.duckdb'
+      threads: 1
