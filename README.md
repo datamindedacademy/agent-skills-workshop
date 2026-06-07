@@ -40,23 +40,39 @@ One arc: **use → inspect → build → fan out.**
 
 ### Use a skill, then look inside it (0:00–0:30, everyone)
 
-First, **install a skill yourself**. A skill is just a folder under `.claude/skills/` with a `SKILL.md` inside. Install Anthropic's official [`explore-data`](https://github.com/anthropics/knowledge-work-plugins/blob/main/data/skills/explore-data/SKILL.md) by creating that folder and downloading the file (run from the repo root):
+First, **install a skill yourself**. We'll use Anthropic's official [`explore-data`](https://github.com/anthropics/knowledge-work-plugins/tree/main/data/skills/explore-data). Pick **one** of these two ways:
+
+**Option A: the `skills` CLI** (one command, no Claude needed):
 
 ```bash
-mkdir -p .claude/skills/explore-data
-curl -fsSL https://raw.githubusercontent.com/anthropics/knowledge-work-plugins/main/data/skills/explore-data/SKILL.md \
-  -o .claude/skills/explore-data/SKILL.md
+npx skills add anthropics/knowledge-work-plugins --skill explore-data
 ```
 
-That's the whole install: one file in the right place. Start `claude` and run it on the sample dataset:
+This drops the skill into `.claude/skills/explore-data/`. Start `claude` and invoke it with `/explore-data`.
+
+**Option B: Claude Code's built-in plugin marketplace.** Start `claude`, then:
+
+```
+/plugin marketplace add anthropics/knowledge-work-plugins
+/plugin install data@knowledge-work-plugins
+```
+
+The skill arrives inside the `data` plugin, invoked as `/data:explore-data` (plugin skills are namespaced).
+
+### Run it
+
+Point it at the sample dataset and ask, in plain language, *"What's in this data, and what's wrong with it?"*
 
 ```bash
-/explore-data data/sample.csv
+/explore-data data/sample.csv          # Option A
+/data:explore-data data/sample.csv     # Option B
 ```
 
-Ask, in plain language, *"What's in this data, and what's wrong with it?"* One shot returns a column profile, a data dictionary, and flagged quality issues.
+One shot returns a column profile, a data dictionary, and flagged quality issues.
 
-Then **open the file you just downloaded** (`.claude/skills/explore-data/SKILL.md`) and read its frontmatter and instructions. Notice the `description`: it is how the agent decides when to trigger the skill. Profiling an unfamiliar dataset is something an engineer, analyst, *and* architect all do, so everyone starts here.
+### Look inside it
+
+Open the skill's `SKILL.md` (Option A: `.claude/skills/explore-data/SKILL.md`) and read its frontmatter. The `description` is how the agent decides when to trigger the skill. Profiling an unfamiliar dataset is something an engineer, analyst, *and* architect all do, so everyone starts here.
 
 ### Build your skill (0:30–1:30, by track)
 
