@@ -2,9 +2,9 @@
 name: multi-panel-report
 description: >
   Build a multi-section business report on the workshop warehouse. Use when
-  asked for a full report, dashboard summary, or business overview of the data
- : fans out one subagent per report panel in parallel (revenue, customers,
-  order status & data quality), then assembles one report.
+  asked for a full report, dashboard summary, or business overview of the data.
+  Fans out one subagent per report section in parallel (revenue, customers,
+  order health), then assembles one report.
 allowed-tools: Bash, Task
 ---
 
