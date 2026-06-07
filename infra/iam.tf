@@ -1,10 +1,10 @@
-# IAM role for the hackathon project (assumed by Conveyor workloads at runtime)
-resource "aws_iam_role" "hackathon" {
-  name               = "product-hackandbeers-hackathon-prd"
-  assume_role_policy = data.aws_iam_policy_document.hackathon_trust.json
+# IAM role for the workshop project (assumed by Conveyor workloads at runtime)
+resource "aws_iam_role" "workshop" {
+  name               = "product-${local.project_name}"
+  assume_role_policy = data.aws_iam_policy_document.workshop_trust.json
 }
 
-data "aws_iam_policy_document" "hackathon_trust" {
+data "aws_iam_policy_document" "workshop_trust" {
   statement {
     sid     = "ConveyorWorkerAssumeRoleWebIdentity"
     effect  = "Allow"
@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "hackathon_trust" {
       test     = "StringLike"
       variable = "${replace(data.aws_eks_cluster.this.identity[0].oidc[0]["issuer"], "https://", "")}:sub"
       values = [
-        "system:serviceaccount:${conveyor_environment.hackandbeers.name}:${local.project_name}-????????-????-????-????-????????????"
+        "system:serviceaccount:${conveyor_environment.workshop.name}:${local.project_name}-????????-????-????-????-????????????"
       ]
     }
 
@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "hackathon_trust" {
   }
 }
 
-# Bedrock access policy for the hackathon role
+# Bedrock access policy for the workshop role
 data "aws_iam_policy_document" "bedrock" {
   statement {
     sid    = "AllowModelAndInferenceProfileAccess"
@@ -60,24 +60,6 @@ data "aws_iam_policy_document" "bedrock" {
 
 resource "aws_iam_role_policy" "bedrock" {
   name   = "bedrock"
-  role   = aws_iam_role.hackathon.id
+  role   = aws_iam_role.workshop.id
   policy = data.aws_iam_policy_document.bedrock.json
-}
-
-# Secrets Manager access for API keys
-data "aws_iam_policy_document" "secrets" {
-  statement {
-    sid    = "AllowGetGeminiApiKey"
-    effect = "Allow"
-    actions = [
-      "secretsmanager:GetSecretValue"
-    ]
-    resources = [aws_secretsmanager_secret.gemini_api_key.arn]
-  }
-}
-
-resource "aws_iam_role_policy" "secrets" {
-  name   = "secrets"
-  role   = aws_iam_role.hackathon.id
-  policy = data.aws_iam_policy_document.secrets.json
 }

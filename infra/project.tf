@@ -1,25 +1,9 @@
-data "conveyor_team" "all_dataminded" {
-  name = "all-dataminded"
-}
-
-resource "conveyor_project_team" "all_dataminded" {
-  project_id = conveyor_project.hackathon.id
-  team_id    = data.conveyor_team.all_dataminded.id
-  role       = "contributor"
-}
-
-resource "conveyor_environment_team" "all_dataminded" {
-  environment_id = conveyor_environment.hackandbeers.id
-  team_id        = data.conveyor_team.all_dataminded.id
-  role           = "contributor"
-}
-
-resource "conveyor_project" "hackathon" {
+resource "conveyor_project" "workshop" {
   name                       = local.project_name
-  default_iam_identity       = aws_iam_role.hackathon.name
-  description                = "Hack and Beers: Applied Context Engineering — Building Agent Skills"
+  default_iam_identity       = aws_iam_role.workshop.name
+  description                = "AI Agent Skills for Data Practitioners — hands-on workshop"
   git_repo                   = "https://github.com/datamindedbe/playground-agent-skills-workshop"
-  default_ide_environment_id = conveyor_environment.hackandbeers.id
+  default_ide_environment_id = conveyor_environment.workshop.id
 
   default_ide_config {
     vscode_config {
@@ -62,6 +46,16 @@ resource "conveyor_project" "hackathon" {
     }
 
     build_steps {
+      name = "Install workshop CLIs (af, checkup, duckdb)"
+      cmd  = <<-EOT
+        uv tool install astro-airflow-mcp
+        uv tool install checkup --with checkup-dbt --with dbt-duckdb
+        curl https://install.duckdb.org | sh
+        echo 'export PATH="$HOME/.duckdb/cli/latest:$PATH"' >> ~/.bashrc
+      EOT
+    }
+
+    build_steps {
       name = "Install Google Cloud CLI"
       cmd  = <<-EOT
         curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
@@ -77,21 +71,10 @@ resource "conveyor_project" "hackathon" {
 
         {
           echo 'export CLAUDE_CODE_USE_BEDROCK=1'
-          echo "export ANTHROPIC_MODEL='eu.anthropic.claude-opus-4-6-v1'"
-          echo "export ANTHROPIC_SMALL_FAST_MODEL='eu.anthropic.claude-haiku-4-5-20251001-v1:0'"
+          echo "export ANTHROPIC_MODEL='eu.anthropic.claude-opus-4-8'"
+          echo "export ANTHROPIC_SMALL_FAST_MODEL='eu.anthropic.claude-sonnet-4-6'"
           echo 'export CLAUDE_CODE_MAX_OUTPUT_TOKENS=4096'
           echo 'export MAX_THINKING_TOKENS=1024'
-        } >> ~/.bashrc
-      EOT
-    }
-
-    build_steps {
-      name = "Inject Gemini API key"
-      cmd  = <<-EOT
-        {
-          echo 'if [ -z "$GEMINI_API_KEY" ]; then'
-          echo '  export GEMINI_API_KEY=$(aws secretsmanager get-secret-value --secret-id ${aws_secretsmanager_secret.gemini_api_key.name} --query SecretString --output text --region ${var.aws_region} 2>/dev/null || true)'
-          echo 'fi'
         } >> ~/.bashrc
       EOT
     }

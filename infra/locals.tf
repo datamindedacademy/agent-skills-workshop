@@ -1,9 +1,9 @@
 locals {
-  project_name = "hackathon"
+  project_name = "agent-skills-workshop"
 
   # Bedrock inference profiles to allow
   inference_profile_names = [
-    "EU Anthropic Claude Opus 4.6",
+    "EU Anthropic Claude Opus 4.8",
     "EU Anthropic Claude Sonnet 4.6",
     "EU Anthropic Claude Haiku 4.5",
   ]

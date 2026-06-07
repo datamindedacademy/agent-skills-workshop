@@ -2,10 +2,10 @@ terraform {
   required_version = "~> 1.11"
 
   backend "s3" {
-    bucket  = "rainman-terraform-state-snjgwg"
-    key     = "hackathon.tfstate"
+    bucket  = "datafy-terraform-state-training"
+    key     = "agent-skills-workshop.tfstate"
     region  = "eu-west-1"
-    profile = "rainman"
+    profile = "demo"
   }
 
   required_providers {
@@ -24,5 +24,5 @@ terraform {
 provider "aws" {
   region              = var.aws_region
   allowed_account_ids = [var.aws_account_id]
-  profile             = "rainman"
+  profile             = "demo"
 }

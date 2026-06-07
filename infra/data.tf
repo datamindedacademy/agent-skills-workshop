@@ -1,5 +1,5 @@
 data "aws_eks_cluster" "this" {
-  name = "datafy-dp-eks-rm-prd"
+  name = "datafy-dp-eks-dm-tra"
 }
 
 data "aws_iam_openid_connect_provider" "cluster" {
