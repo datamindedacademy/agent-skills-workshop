@@ -47,9 +47,10 @@ Only `description` is really needed. Full reference:
 ## Bang commands (in the prompt, not in SKILL.md)
 
 Type `! <command>` in the Claude Code prompt to run a shell command inside the
-conversation: its output lands in Claude's context. It's the manual version
-of the `` !`command` `` skill syntax: `!` is you injecting live context once;
-the SKILL.md form does it automatically on every invocation.
+conversation. Its output lands in Claude's context. Think of it as the manual
+version of the `` !`command` `` skill syntax. With `!` you inject live context
+once, by hand; in a `SKILL.md` the same line runs automatically every time the
+skill is invoked.
 
 ## Where skills live
 

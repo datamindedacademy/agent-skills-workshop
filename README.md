@@ -1,65 +1,76 @@
 # AI Agent Skills for Data Practitioners
 
-A hands-on workshop where you **use** an agent skill against a real data stack, then **build** your own. You'll leave with at least one working skill and a clear mental model for when to reach for a skill vs MCP vs RAG vs plain prompting.
+A hands-on workshop where you **use** an agent skill against a real data stack, then **build** your own. You'll walk out with at least one working skill and a feel for when a skill is the right tool.
 
-No deep coding required. After a shared intro, you **choose your own adventure** based on your role.
+No deep coding required. After a shared intro you **choose your own adventure** by role: engineer, analyst, or architect.
 
 ## A skill in one sentence
 
-A skill is a `SKILL.md` file: a name, a description that tells the agent *when* to use it, and a set of instructions (optionally with commands, scripts, and supporting files). The agent loads it on demand and follows it.
+A skill is a `SKILL.md` file. It has a name, a description that tells the agent *when* to use it, and a set of instructions, optionally with commands, scripts, and supporting files. The agent loads it on demand and follows it.
+
+## When is a skill the right tool?
+
+Four ways to give an agent what it needs, from lightest to heaviest:
+
+- **Plain prompting** when the knowledge fits in one message and you won't repeat it.
+- **A skill** when you keep pasting the same procedure, and you want it to trigger automatically. That's this workshop.
+- **An MCP server** when the agent needs a *live connection* to an external system (a database, an API) rather than instructions.
+- **RAG** when the knowledge is too big to fit in context and you need to retrieve the relevant slice each time.
+
+A skill is the sweet spot for "I know how to do this, let me teach the agent once."
 
 ## Pick your surface
 
-Same Claude Code, same skills, same `SKILL.md`: choose whichever interface you prefer:
+Same Claude Code, same skills, same `SKILL.md`. Use whichever interface you like.
 
 | Surface | Best for |
 |---|---|
-| **VSCode: Claude Code extension** | Anyone who'd rather chat in an editor panel than a terminal |
+| **Claude Code in VSCode** | Anyone who'd rather chat in an editor panel than a terminal |
 | **Claude Code CLI** | Anyone comfortable on the command line |
 
-Both run the *whole* skill identically (instructions **and** automation: `!`commands, scripts, `allowed-tools`). The interface is just a surface; the skill is the same.
+Both run the whole skill identically, instructions and automation alike (`` !`commands` ``, scripts, `allowed-tools`). The interface is just a surface.
 
 ## Prerequisites
 
-- Access to the workshop **Conveyor** environment (managed Airflow): [app.conveyordata.com](https://app.conveyordata.com)
-- A **Conveyor IDE**: Claude Code comes pre-installed and configured
-- The `conveyor` CLI authenticated: `conveyor auth login`
-- Prefer not to use a terminal? Use the **Claude Code VSCode extension** instead: same skills, friendlier surface.
-- Skim `cheatsheet.md` before you start
+- A **Conveyor IDE** with Claude Code pre-installed and configured.
+- The `conveyor` CLI authenticated: run `conveyor auth login` once in the IDE terminal.
+- Skim `cheatsheet.md` before you start.
 
 ## The shape of the workshop (3 hours)
 
 | Time | Block | Who |
 |---|---|---|
-| 0:00–0:30 | **Use a skill, then look inside it** | everyone |
-| 0:30–1:30 | **Build your skill** | by track |
+| 0:00–0:30 | Use a skill, then look inside it | everyone |
+| 0:30–1:30 | Build your skill | by track |
 | 1:30–2:00 | 🍽️ Food | |
-| 2:00–3:00 | **Add subagents** | by track |
+| 2:00–3:00 | Add subagents | by track |
 
 One arc: **use → inspect → build → fan out.**
 
 ### Use a skill, then look inside it (0:00–0:30, everyone)
 
-First, **install a skill yourself**. We'll use Anthropic's official [`explore-data`](https://github.com/anthropics/knowledge-work-plugins/tree/main/data/skills/explore-data). Pick **one** of these two ways:
+A skill is just a folder you drop into `.claude/skills/`. That's the whole trick, so let's prove it by installing one. We'll use Anthropic's official [`explore-data`](https://github.com/anthropics/knowledge-work-plugins/tree/main/data/skills/explore-data). Pick **one** of these two ways.
 
-**Option A: the `skills` CLI** (one command, no Claude needed):
+#### Install it
+
+**Option A, the `skills` CLI** (one command, no Claude needed):
 
 ```bash
 npx skills add anthropics/knowledge-work-plugins --skill explore-data
 ```
 
-This drops the skill into `.claude/skills/explore-data/`. Start `claude` and invoke it with `/explore-data`.
+This drops the skill into `.claude/skills/explore-data/`. You invoke it as `/explore-data`.
 
-**Option B: Claude Code's built-in plugin marketplace.** Start `claude`, then:
+**Option B, Claude Code's built-in plugin marketplace.** Start `claude`, then:
 
 ```
 /plugin marketplace add anthropics/knowledge-work-plugins
 /plugin install data@knowledge-work-plugins
 ```
 
-The skill arrives inside the `data` plugin, invoked as `/data:explore-data` (plugin skills are namespaced).
+The skill arrives inside the `data` plugin, so it's invoked as `/data:explore-data` (plugin skills are namespaced to avoid collisions).
 
-### Run it
+#### Run it
 
 Point it at the sample dataset and ask, in plain language, *"What's in this data, and what's wrong with it?"*
 
@@ -68,56 +79,44 @@ Point it at the sample dataset and ask, in plain language, *"What's in this data
 /data:explore-data data/sample.csv     # Option B
 ```
 
-One shot returns a column profile, a data dictionary, and flagged quality issues.
+One shot gives you a column profile, a data dictionary, and a list of quality problems.
 
-### Look inside it
+#### Look inside it
 
-Open the skill's `SKILL.md` (Option A: `.claude/skills/explore-data/SKILL.md`) and read its frontmatter. The `description` is how the agent decides when to trigger the skill. Profiling an unfamiliar dataset is something an engineer, analyst, *and* architect all do, so everyone starts here.
+Now open the file you just installed (`.claude/skills/explore-data/SKILL.md`) and read it. Notice the `description` line. That, and nothing else, is how the agent decided to run this skill when you asked your question. Everyone, whatever your track, profiles unfamiliar data, so this is where we all start.
 
 ### Build your skill (0:30–1:30, by track)
 
-Pick the track that fits your role and build a working skill: structured output, plus a bit of power (`allowed-tools`, dynamic `` !`command` `` context, CLI wrapping). You start from a **scaffolded skeleton with TODOs**, not a blank page. Each track ends with a stretch step: **swap the `model:` in the frontmatter** (Opus → Sonnet → Haiku) and find the smallest model your skill still works on.
+Pick the track that fits your role and build a working skill: structured output, plus a little power (`allowed-tools`, dynamic `` !`command` `` context, wrapping a CLI). You start from a scaffolded skeleton with TODOs, not a blank page. Each track ends with a stretch step: swap the `model:` in the frontmatter (Opus → Sonnet → Haiku) and find the smallest model your skill still works on.
 
 ### Add subagents (2:00–3:00, by track)
 
-The finale, for everyone regardless of track: a skill that **fans out work across many independent units in parallel, then synthesizes**: often *calling* the skill you built before the break. You also learn *when not to*.
+A subagent is a fresh Claude with its own context window. You hand it one job, it works in isolation, and it hands back an answer. The finale of every track spins up several at once to do independent work in parallel, then stitches the results together, often *calling* the skill you built before the break.
 
 | Track | Build (0:30–1:30) | Add subagents (2:00–3:00) |
 |---|---|---|
-| ⚙️ **Data Engineer** | **Airflow Ops**: schedule the dbt → DuckDB build on Conveyor Airflow (`ConveyorDbtTaskFactory`) and operate the pipeline via the [Astronomer Airflow skill](https://github.com/astronomer/agents/blob/main/astro-airflow-mcp/README.md#airflow-cli-tool) | **Failure triage**: a subagent per failed DAG diagnoses root cause in parallel → one incident summary |
-| 📊 **Analyst / BI Developer** | **Talk to your data**: ask in plain language, it fires SQL at the shared DuckDB and explains the result | **Multi-panel report**: a subagent per section queries independently → one assembled report |
-| 🏗️ **Data Architect** | **Data Product Checkup**: wrap [`checkup`](https://pypi.org/project/checkup/) to score a data product's governance on DuckDB | **Remediate the portfolio**: a subagent per product drafts the missing docs and tests → one reviewable diff |
+| ⚙️ **Data Engineer** | **Airflow Ops**: operate the scheduled dbt pipeline on Conveyor Airflow via the [Astronomer Airflow CLI](https://github.com/astronomer/agents/blob/main/astro-airflow-mcp/README.md#airflow-cli-tool) | **Failure triage**: a subagent per failed DAG diagnoses the root cause in parallel, then one incident summary |
+| 📊 **Data Analyst** | **Talk to your data**: ask in plain language, it fires SQL at the shared DuckDB and explains the result | **Multi-panel report**: a subagent per section queries independently, then one assembled report |
+| 🏗️ **Data Architect** | **Data Product Checkup**: wrap [`checkup`](https://pypi.org/project/checkup/) to score a data product's governance | **Remediate the portfolio**: a subagent per product drafts the missing docs and tests, then one reviewable diff |
 
-When to fan out: *independent + parallelizable + context-heavy → subagents; quick single-pass → don't* (subagents cost latency, tokens, and coordination). The intro profiled one CSV in a single pass; each finale hits many independent units, so it fans out and synthesizes.
+The judgment to take home: fan out when the work is independent, parallelizable, and context-heavy. Don't bother when a single quick pass will do, because subagents cost latency, tokens, and coordination. The intro profiled one CSV in a single pass; each finale hits many independent units, so it pays to spread them out.
 
-One dataset throughout: `data/warehouse.duckdb` and its `data/sample.csv` export ship in the repo. You profile it in the intro, the analyst queries it, the architect scores its products, and the engineer track runs its dbt build on a schedule in Conveyor Airflow. Same data, different lenses.
+One dataset runs through all of it. `data/warehouse.duckdb` and its `data/sample.csv` export ship in the repo. You profile it in the intro, the analyst queries it, the architect scores its products, and the engineer track runs its dbt build on a schedule in Conveyor Airflow. Same data, different lenses.
 
 ## How to start
 
-The intro skill (`explore-data`) is shared: install it once at the repo root (commands above) and run `/explore-data data/sample.csv`. Then pick your track:
+Install `explore-data` (above), run it on `data/sample.csv`, then pick your track:
 
 ```bash
 cd exercises/<track>   # data-engineer | data-analyst | data-architect
 claude
-# follow the TODOs: build your skill first, then add subagents after the break
+# work the TODOs: build your skill first, then add subagents after the break
 ```
 
-Each track dir has a scaffolded skeleton and TODOs: follow them one at a time. Solutions live in `solutions/`. Don't peek until you've tried.
-
-## Testing your skill locally
-
-Skills are picked up from the `.claude/` directory relative to where you run Claude:
-
-```bash
-cd exercises/<exercise-name>
-claude
-# then invoke: /skill-name <args>
-```
-
-Claude finds the `.claude/skills/` directory inside that folder.
+Each track folder has its skeleton and TODOs. Work them one at a time. Solutions live in `solutions/`, but try the TODOs before you peek.
 
 ## Reference
 
-- `cheatsheet.md`: skill syntax quick reference
-- `CLAUDE.md`: project context (itself a context-engineering example)
-- [Claude Code skills docs](https://code.claude.com/docs/en/skills)
+- `cheatsheet.md`: skill syntax quick reference.
+- `CLAUDE.md`: project context, itself a small context-engineering example.
+- [Claude Code skills docs](https://code.claude.com/docs/en/skills).

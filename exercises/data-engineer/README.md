@@ -40,8 +40,14 @@ via `af` (list, inspect, trigger, diagnose).
    command map, and a guardrail for state-changing commands.
 2. Use it to answer: **is the pipeline healthy? what was the last run?** Let the
    skill tell you, don't assume.
-3. **Diagnose, then fix.** If something's off, use the skill to find the root
-   cause, fix it in the dbt project (`../../data`), and re-run until green.
+3. **Diagnose, then fix.** If a run failed, have the skill pull the logs and work
+   out the real cause, not just the symptom. Then fix it at the source in the dbt
+   project (`../../data`) and prove it the way Airflow does, locally:
+   ```bash
+   cd ../../data && uv run dbt build --target prod
+   ```
+   When that's green, the scheduled run would be too. (No need to redeploy to the
+   shared environment during the workshop.)
 
 ### Stretch
 
