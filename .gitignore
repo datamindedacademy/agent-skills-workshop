@@ -11,3 +11,6 @@ terraform.tfvars
 
 # terraform plan artifacts
 tfplan
+
+# local planning/export scratch, not for the repo
+context/

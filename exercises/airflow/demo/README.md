@@ -1,45 +1,54 @@
-# Production demo: facilitator notes
+# The production demo: `workshop-dbt-build`
 
-The DAG participants operate (`workshop-dbt-build` in the `workshop` Airflow
-environment) is deployed from the **repo root**, which is itself a Conveyor
-project:
+This folder holds the real DAG you operate in the engineer track. It is the
+workshop warehouse's dbt build, scheduled in production on Conveyor Airflow.
+Read it here, or just point your agent at this folder: *"read
+`exercises/airflow/demo/` and tell me what this pipeline does and why it
+fails."*
+
+## What it is
 
 | Piece | Where |
 |---|---|
-| Conveyor project config | `.conveyor/project.yaml` (project `agent-skills-workshop`) |
-| DAG | `dags/workshop_dbt.py`: `ConveyorDbtTaskFactory`, one task per dbt model |
-| dbt manifest the factory reads | `dags/manifest.json`: regenerate with `make manifest` |
-| Container | `Dockerfile`: the `data/` dbt project on the dataminded dbt image |
+| DAG | `dags/workshop_dbt.py` (this folder): `ConveyorDbtTaskFactory`, one Airflow task per dbt model |
+| dbt manifest the factory reads | `dags/manifest.json` (this folder): regenerate with `make manifest` at the repo root |
+| Conveyor project config | `.conveyor/project.yaml` at the repo root (project `agent-skills-workshop`; its workflows path points here) |
+| Container | `Dockerfile` at the repo root: the `data/` dbt project on the dataminded dbt image |
 
-## Deploying / updating
+`ConveyorDbtTaskFactory` turns the dbt graph into Airflow tasks: `start` →
+one task per model (`stg_customers`, `stg_orders`, `dim_customers`,
+`fct_orders`, `customer_order_summary`) → `end`. Each task runs
+`dbt build --target prod --select +<model>` in its own ephemeral container, so
+it rebuilds its whole lineage from the seeds (the DuckDB file does not persist
+between tasks).
 
-```bash
-make manifest   # after any dbt model change
-conveyor build && conveyor deploy --env workshop
-```
+## What is wrong with it (the thing you debug)
 
-## How the failure is staged
+The run is **red on `model.data_warehouse.fct_orders`**; everything upstream is
+green. On the `prod` target two tests on `fct_orders` are strict
+(`severity: error`, set with jinja in `data/models/marts/_marts.yml`) and the
+deliberately dirty seed data fails them:
 
-Each task runs `dbt build --target prod --select +<model>` in an ephemeral
-container (DuckDB is rebuilt from seeds every task). On the `prod` target two
-tests on `fct_orders` are strict (`severity: error`, see
-`data/models/marts/_marts.yml`) and fail on the deliberately dirty seeds:
+| Test | Result | Root cause in the seed data |
+|---|---|---|
+| `unique_fct_orders_order_id` | FAIL 3 | `order_id = 50` is duplicated |
+| `relationships_fct_orders_customer_id__…` | FAIL 1 | `order_id = 44` points at `customer_id = 999`, which has no row in `dim_customers` (orphan FK) |
 
-- `unique_fct_orders_order_id` → FAIL 3 (duplicate order_id 50)
-- `relationships_…_customer_id` → FAIL 1 (orphan customer_id 999)
+`fct_orders` failing leaves `customer_order_summary`/`end` as
+`upstream_failed`. The failure is by design: it is what your `/airflow-ops` and
+`/failure-triage` skills are meant to surface from the task logs. Everywhere
+else (local `data/build.sh`, the analyst and architect tracks) these same
+issues are only `severity: warn`, so they do not block anything.
 
-So every run goes: staging + dims green, **`model.data_warehouse.fct_orders`
-red**: with the test failures sitting in that task's logs for participants'
-`/airflow-ops` and `/failure-triage` skills to find. Local builds
-(`data/build.sh`, dev target) only warn, so the other tracks are unaffected.
+## Facilitator notes
 
-## Before the workshop
-
-- The DAG is `@hourly`, so there's always a recent failed run to triage.
-- For a richer `/failure-triage` (it fans out per failing DAG), deploy 1–2
-  extra broken DAGs: e.g. copy the DAG with a `--select` of a model you've
-  pointed at a missing seed, or add a task with a bad `--target`.
-- Verified 2026-06-07: `af health`/`dags list`/`runs trigger` work against
-  `https://app.conveyordata.com/environments/workshop/airflow` with
-  `conveyor auth get` tokens (Airflow 3.1.8). Note: it's `af runs trigger`,
-  not `af dags trigger`.
+- Deploy/update: `make manifest` (after any dbt change), then
+  `conveyor build && conveyor deploy --env workshop`.
+- The DAG is `@hourly`, so there is always a recent failed run to triage.
+- For a richer `/failure-triage` (it fans out one subagent per failing DAG),
+  deploy 1-2 extra broken DAGs: e.g. copy the DAG selecting a model pointed at
+  a missing seed, or add a task with a bad `--target`.
+- Verified 2026-06-07 against
+  `https://app.conveyordata.com/environments/workshop/airflow` (Airflow 3.1.8):
+  `af health` / `af dags list` / `af runs trigger` work with `conveyor auth get`
+  tokens. Note the verb is `af runs trigger`, not `af dags trigger`.

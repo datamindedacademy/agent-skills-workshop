@@ -110,7 +110,7 @@ for you. You're welcome.)
 ## The production demo: `demo/`
 
 How does the dbt build actually get scheduled? The repo root is itself a
-Conveyor project: `dags/workshop_dbt.py` shows the Conveyor idiom -
+Conveyor project: `demo/dags/workshop_dbt.py` shows the Conveyor idiom -
 `ConveyorDbtTaskFactory` reads the dbt manifest and generates **one Airflow
 task per dbt model**. The facilitator deployed it with `conveyor build &&
 conveyor deploy --env workshop`: same dbt project as `../../data`, now with a

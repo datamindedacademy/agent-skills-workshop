@@ -11,5 +11,5 @@ streaming:
 template: ""
 version: "0.3"
 workflows:
-    path: dags
+    path: exercises/airflow/demo/dags
     version: 2

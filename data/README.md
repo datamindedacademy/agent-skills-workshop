@@ -47,7 +47,7 @@ dbt tests are set to `severity: warn` (see `dbt_project.yml`) so `dbt build`
 still completes; run `uv run dbt test` to see the issues reported.
 
 **Exception:** on the `prod` target (the scheduled Airflow run on Conveyor,
-see `dags/workshop_dbt.py` at the repo root), two tests on `fct_orders` are
+see `exercises/airflow/demo/dags/workshop_dbt.py`), two tests on `fct_orders` are
 strict (`severity: error` via jinja in `models/marts/_marts.yml`). The dirty
 data deliberately fails the production pipeline; that failure is the engineer
 track's debugging exercise. Local dev builds are unaffected.
