@@ -1,33 +1,34 @@
-# Track: Analyst / BI: Talk to your data
+# Track: Data Analyst
 
 You'll build a skill that answers **plain-language questions** about the shared
-warehouse with SQL, then: after the break: a second skill that fans out
+warehouse with SQL, then, after the break, a second skill that fans out
 **subagents** to write a multi-panel business report in parallel.
 
 > **Dataset:** the shared warehouse `../../data/warehouse.duckdb` (built by the
-> engineer's dbt project). You query it with the `duckdb` CLI: pre-installed
-> in the workshop IDE.
+> engineer's dbt project). You query it with the `duckdb` CLI, pre-installed in
+> the workshop IDE.
 
-## Before you start: install a skill yourself
+## Before you start
 
-The intro skill was pre-installed for you. Now do it by hand once, so you know
-how: a skill is just a folder under `.claude/skills/`. This track ships two
-skeletons there already: open `.claude/skills/talk-to-your-data/SKILL.md`.
+You installed the intro skill yourself (`explore-data`). The skills for this
+track are skeletons already under `.claude/skills/`: open
+`.claude/skills/talk-to-your-data/SKILL.md`.
 
 ## Stage 1: Build (0:30–1:30): `talk-to-your-data`
 
 Ask the warehouse questions in plain language; the skill writes the SQL, runs
 it read-only, and explains the result.
 
-1. Get to know the data first: poke at it directly:
+1. Get to know the data first. Explore it directly and form your own opinion of
+   what's trustworthy and what isn't:
    ```bash
    duckdb -readonly ../../data/warehouse.duckdb -c "SHOW ALL TABLES;"
-   duckdb -readonly ../../data/warehouse.duckdb -c "SELECT status, count(*) FROM fct_orders GROUP BY 1;"
+   duckdb -readonly ../../data/warehouse.duckdb -c "SELECT * FROM fct_orders LIMIT 20;"
    ```
-   Notice anything odd? (Look at status casing, country values, max amount,
-   max order date.) Those quirks are *the point*: your skill will encode them.
-2. Open `.claude/skills/talk-to-your-data/SKILL.md` and work through the TODOs
-  : write the `description`, set `allowed-tools`, inject the schema as
+   Whatever quirks you find are *the point*: your skill will encode what you
+   learn so the agent stops tripping over them.
+2. Open `.claude/skills/talk-to-your-data/SKILL.md` and work through the TODOs:
+   write the `description`, set `allowed-tools`, inject the schema as
    **dynamic context** (`` !`command` ``), write the query rules, and define
    the output format.
 3. Test it:
@@ -38,7 +39,7 @@ it read-only, and explains the result.
    ```
 
 You'll know it works when the answer comes back with the SQL it ran, a result
-table, **and a caveat about the data quirks** (e.g. the 999999 outlier).
+table, **and a caveat whenever a data quirk affects the number**.
 
 ### Stretch: play with the model
 
@@ -61,7 +62,7 @@ Try the same question (e.g. *"average order value per country"*) with:
 |---|---|
 | *(no field)* | Inherits the session model: Opus 4.8 here |
 | `eu.anthropic.claude-sonnet-4-6` | Usually as correct, noticeably faster |
-| `eu.anthropic.claude-haiku-4-5-20251001-v1:0` | Fastest: does it still catch the status-casing trap? |
+| `eu.anthropic.claude-haiku-4-5-20251001-v1:0` | Fastest: does it still catch the data quirks? |
 
 Run `/model` to see what's active. The interesting question isn't "which is
 best" but **what's the smallest model your skill still works on**: that's the

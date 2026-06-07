@@ -1,18 +1,18 @@
-# Track: Data Architect: Data Product Checkup
+# Track: Data Architect
 
 You'll build a skill that measures the **health of a data product** using the
-[`checkup`](https://pypi.org/project/checkup/) governance framework, then: after
-the break: a second skill that fans out **subagents** to score *every* data
+[`checkup`](https://pypi.org/project/checkup/) governance framework, then, after
+the break, a second skill that fans out **subagents** to score *every* data
 product in parallel.
 
 > **Dataset:** the shared warehouse in `../../data` (built by the engineer's dbt
-> project). `checkup` reads its dbt project directly: no manifest needed.
+> project). `checkup` reads its dbt project directly, no manifest needed.
 
-## Before you start: install a skill yourself
+## Before you start
 
-The intro skill was pre-installed for you. Now do it by hand once, so you know how:
-a skill is just a folder under `.claude/skills/`. This track ships two skeletons
-there already: open `.claude/skills/data-product-checkup/SKILL.md`.
+You installed the intro skill yourself (`explore-data`). The skills for this
+track are skeletons already under `.claude/skills/`: open
+`.claude/skills/data-product-checkup/SKILL.md`.
 
 ## Stage 1: Build (0:30–1:30): `data-product-checkup`
 
@@ -27,8 +27,8 @@ Run `checkup` on the warehouse and report a clear health scorecard.
    # then: /data-product-checkup
    ```
 
-You'll know it works when the skill runs checkup and hands you a graded scorecard
-(documented models, column test coverage, gaps to fix).
+You'll know it works when the skill runs checkup and hands you a graded
+scorecard you can act on, with the biggest gaps called out first.
 
 ### Stretch: play with the model
 
