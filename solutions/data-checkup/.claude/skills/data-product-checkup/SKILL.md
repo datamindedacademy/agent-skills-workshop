@@ -24,10 +24,11 @@ configured in `checkup.yaml` (in the exercise directory).
 
 1. From the exercise directory, run checkup:
    ```bash
-   uv run --with checkup --with checkup-dbt --with dbt-duckdb \
-     checkup run -c checkup.yaml
+   checkup run -c checkup.yaml
    ```
    It parses the dbt project in `../../data` — no manifest required.
+   (If `checkup` is not on PATH — e.g. outside the workshop IDE — use
+   `uv run --with checkup --with checkup-dbt --with dbt-duckdb checkup run -c checkup.yaml`.)
 
 2. Read the metric values from checkup's table output (Name → Value).
 

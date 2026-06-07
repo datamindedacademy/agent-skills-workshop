@@ -53,7 +53,7 @@ Then we **open the skill we just ran** — frontmatter, instructions, dynamic co
 
 ### Build your skill (0:30–1:30, by track)
 
-Pick the track that fits your role and build a working skill — structured output, plus a bit of power (`allowed-tools`, dynamic `` !`command` `` context, CLI wrapping). You start from a **scaffolded skeleton with TODOs**, not a blank page.
+Pick the track that fits your role and build a working skill — structured output, plus a bit of power (`allowed-tools`, dynamic `` !`command` `` context, CLI wrapping). You start from a **scaffolded skeleton with TODOs**, not a blank page. Each track ends with a stretch step: **swap the `model:` in the frontmatter** (Opus → Sonnet → Haiku) and find the smallest model your skill still works on.
 
 ### Add subagents (2:00–3:00, by track)
 
@@ -68,8 +68,6 @@ The finale, for everyone regardless of track: a skill that **fans out work acros
 > **The subagent lesson — *when*, not just *how*.** The intro profiled **one** CSV single-pass — no subagents needed. Each finale hits **many** independent units (failed DAGs / report sections / data products), so it fans out and synthesizes. Heuristic: *independent + parallelizable + context-heavy → subagents; quick single-pass → don't* (they cost latency, tokens, and coordination).
 
 > **One dataset, all day (the narrative spine).** A pre-built `data/warehouse.duckdb` and its `data/sample.csv` export ship in the repo — that committed file is the real source of truth every track uses. You profile it in the intro, the **analyst** queries it, the **architect** scores its products' health. The **engineer** track shows how that same dbt build is *scheduled in production* on Conveyor Airflow (`ConveyorDbtTaskFactory`) — a demonstration, since the DuckDB file itself is local. Same data, four lenses.
-
-**Take-home extras** (not covered in the room): **PR Review**, **Benchmark** (measure a skill's token value), **Anti-Skill (Swill)** (learn skill design by breaking it).
 
 ## How to start
 

@@ -8,3 +8,6 @@ exercises/benchmark/results/
 
 terraform.tfvars
 .terraform
+
+# terraform plan artifacts
+tfplan

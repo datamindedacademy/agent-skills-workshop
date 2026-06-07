@@ -30,6 +30,34 @@ Run `checkup` on the warehouse and report a clear health scorecard.
 You'll know it works when the skill runs checkup and hands you a graded scorecard
 (documented models, column test coverage, gaps to fix).
 
+### Stretch — play with the model
+
+A skill can pick its **own model** in the frontmatter — handy when a skill
+doesn't need the big model (mechanical CLI wrapping, like this one) or needs
+the biggest one (deep analysis). The override lasts while the skill is active;
+your session model comes back on the next prompt.
+
+```yaml
+---
+name: data-product-checkup
+description: …
+model: eu.anthropic.claude-haiku-4-5   # ← try the small model
+---
+```
+
+Run `/data-product-checkup` with each and compare:
+
+| `model:` | What to watch |
+|---|---|
+| *(no field)* | Inherits the session model — Opus 4.8 here |
+| `eu.anthropic.claude-sonnet-4-6` | Usually identical scorecard, noticeably faster |
+| `eu.anthropic.claude-haiku-4-5` | Fastest — is the grading and gap-ranking still sound? |
+
+Run `/model` to see what's active. The interesting question isn't "which is
+best" but **what's the smallest model your skill still works on** — that's the
+one it should declare. (There's also an `effort:` field to dial reasoning up
+or down on a given model.)
+
 ## Stage 2 — Add subagents (2:00–3:00): `portfolio-health`
 
 A real warehouse has *many* data products. Scoring each one is independent,
@@ -54,7 +82,12 @@ Peek at `solutions/data-checkup/` — but try the TODOs first.
 
 ## Requirements
 
-`uv` (pinned tooling, no global installs). The skills invoke:
+The workshop IDE pre-installs the `checkup` CLI (with dbt support), so the skills
+just invoke:
+```bash
+checkup run -c checkup.yaml
+```
+Running locally instead? Use `uv`:
 ```bash
 uv run --with checkup --with checkup-dbt --with dbt-duckdb checkup run -c checkup.yaml
 ```

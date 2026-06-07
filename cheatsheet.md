@@ -20,7 +20,11 @@ Instructions go here.
 |---|---|---|
 | `name` | Yes | `/name` to invoke |
 | `description` | Yes | Claude reads this to decide when to trigger — get it right |
-| `allowed-tools` | No | Restrict available tools |
+| `allowed-tools` | No | Tools the skill may use without asking permission |
+| `model` | No | Model override while the skill is active (e.g. `eu.anthropic.claude-haiku-4-5`); session model resumes on your next prompt |
+| `effort` | No | Reasoning effort while active: `low` / `medium` / `high` |
+| `disable-model-invocation` | No | `true` = only you can trigger it (`/name`), Claude never auto-runs it |
+| `context` | No | `fork` = run the skill in its own subagent context |
 
 ## Syntax
 
