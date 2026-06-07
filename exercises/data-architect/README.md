@@ -78,7 +78,7 @@ parallel work: exactly when subagents earn their keep.
 
 ## Stuck?
 
-Peek at `solutions/data-checkup/`, but try the TODOs first.
+Peek at `solutions/data-architect/`, but try the TODOs first.
 
 ## Requirements
 

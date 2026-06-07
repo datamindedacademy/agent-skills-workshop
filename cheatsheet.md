@@ -14,17 +14,26 @@ allowed-tools: Read, Edit, Bash, Write
 Instructions go here.
 ```
 
-## Frontmatter
+## Frontmatter reference
 
-| Field | Required | What it does |
-|---|---|---|
-| `name` | Yes | `/name` to invoke |
-| `description` | Yes | Claude reads this to decide when to trigger: get it right |
-| `allowed-tools` | No | Tools the skill may use without asking permission |
-| `model` | No | Model override while the skill is active (e.g. `eu.anthropic.claude-haiku-4-5-20251001-v1:0`); session model resumes on your next prompt |
-| `effort` | No | Reasoning effort while active: `low` / `medium` / `high` |
-| `disable-model-invocation` | No | `true` = only you can trigger it (`/name`), Claude never auto-runs it |
-| `context` | No | `fork` = run the skill in its own subagent context |
+Only `description` is really needed. Full reference:
+[code.claude.com/docs/en/skills#frontmatter-reference](https://code.claude.com/docs/en/skills#frontmatter-reference)
+
+| Field | What it does |
+|---|---|
+| `name` | `/name` to invoke (defaults to the folder name) |
+| `description` | When Claude should trigger the skill: the most important line |
+| `allowed-tools` | Tools the skill may use without asking permission |
+| `disallowed-tools` | Tools removed from the pool while the skill is active |
+| `model` | Model override while active (e.g. `eu.anthropic.claude-haiku-4-5-20251001-v1:0`); session model resumes next prompt. Or `inherit` |
+| `effort` | Reasoning effort while active: `low` / `medium` / `high` / `xhigh` / `max` |
+| `disable-model-invocation` | `true` = only you trigger it (`/name`); Claude never auto-runs it |
+| `user-invocable` | `false` = hide from the `/` menu (background knowledge only) |
+| `context` | `fork` = run in a forked subagent context |
+| `agent` | Which subagent type to use when `context: fork` |
+| `paths` | Glob(s); auto-load the skill only when working on matching files |
+| `hooks` | Hooks scoped to this skill's lifecycle |
+| `shell` | `bash` (default) or `powershell` for `` !`command` `` blocks |
 
 ## Syntax
 

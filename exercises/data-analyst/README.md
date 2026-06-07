@@ -89,7 +89,7 @@ their keep.
 
 ## Stuck?
 
-Peek at `solutions/talk-to-your-data/`, but try the TODOs first.
+Peek at `solutions/data-analyst/`, but try the TODOs first.
 
 ## Requirements
 

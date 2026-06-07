@@ -40,16 +40,23 @@ One arc: **use → inspect → build → fan out.**
 
 ### Use a skill, then look inside it (0:00–0:30, everyone)
 
-Feel what a skill does: on data, with zero setup. Anthropic's official **[`explore-data`](https://github.com/anthropics/knowledge-work-plugins/blob/main/data/skills/explore-data/SKILL.md)** skill is **pre-installed in your Conveyor IDE**, so you just run it on the sample dataset and ask, in plain language: *"What's in this data, and what's wrong with it?"* One shot returns a column profile, a data dictionary, and flagged quality issues.
+First, **install a skill yourself**. A skill is just a folder under `.claude/skills/` with a `SKILL.md` inside. Install Anthropic's official [`explore-data`](https://github.com/anthropics/knowledge-work-plugins/blob/main/data/skills/explore-data/SKILL.md) by creating that folder and downloading the file (run from the repo root):
 
 ```bash
-# Already installed in your image: just run it:
+mkdir -p .claude/skills/explore-data
+curl -fsSL https://raw.githubusercontent.com/anthropics/knowledge-work-plugins/main/data/skills/explore-data/SKILL.md \
+  -o .claude/skills/explore-data/SKILL.md
+```
+
+That's the whole install: one file in the right place. Start `claude` and run it on the sample dataset:
+
+```bash
 /explore-data data/sample.csv
 ```
 
-Then we **open the skill we just ran** (frontmatter, instructions, dynamic context) and see why the `description` is the single most important line: it is how the agent decides to trigger. Profiling an unfamiliar dataset is the one thing an engineer, analyst, *and* architect all do, so everyone starts on equal footing.
+Ask, in plain language, *"What's in this data, and what's wrong with it?"* One shot returns a column profile, a data dictionary, and flagged quality issues.
 
-> *How did it get there?* You'll **install a skill yourself** at the start of your track: it's a single file dropped into `.claude/skills/` (for `explore-data` that was just a `curl` of its `SKILL.md`). We pre-bake it here only so the intro starts instantly.
+Then **open the file you just downloaded** (`.claude/skills/explore-data/SKILL.md`) and read its frontmatter and instructions. Notice the `description`: it is how the agent decides when to trigger the skill. Profiling an unfamiliar dataset is something an engineer, analyst, *and* architect all do, so everyone starts here.
 
 ### Build your skill (0:30–1:30, by track)
 
@@ -74,7 +81,7 @@ The finale, for everyone regardless of track: a skill that **fans out work acros
 The intro skill (`explore-data`) is shared: install it once at the repo root (commands above) and run `/explore-data data/sample.csv`. Then pick your track:
 
 ```bash
-cd exercises/<track>   # airflow | talk-to-your-data | data-checkup
+cd exercises/<track>   # data-engineer | data-analyst | data-architect
 claude
 # follow the TODOs: build your skill first, then add subagents after the break
 ```

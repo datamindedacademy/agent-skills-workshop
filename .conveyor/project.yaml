@@ -11,5 +11,5 @@ streaming:
 template: ""
 version: "0.3"
 workflows:
-    path: exercises/airflow/demo/dags
+    path: exercises/data-engineer/demo/dags
     version: 2
