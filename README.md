@@ -96,7 +96,7 @@ A subagent is a fresh Claude with its own context window. You hand it one job, i
 | Track | Build (0:30–1:30) | Add subagents (2:00–3:00) |
 |---|---|---|
 | ⚙️ **Data Engineer** | **Airflow Ops**: operate the scheduled dbt pipeline on Conveyor Airflow via the [Astronomer Airflow CLI](https://github.com/astronomer/agents/blob/main/astro-airflow-mcp/README.md#airflow-cli-tool) | **Failure triage**: a subagent per failed DAG diagnoses the root cause in parallel, then one incident summary |
-| 📊 **Data Analyst** | **Talk to your data**: ask in plain language, it fires SQL at the shared DuckDB and explains the result | **Multi-panel report**: a subagent per section queries independently, then one assembled report |
+| 📊 **Data Analyst** | **Talk to your data**: ask in plain language, it fires SQL at the shared DuckDB and explains the result | **Multi-panel report**: a subagent investigates each section, then one assembled report |
 | 🏗️ **Data Architect** | **Data Product Checkup**: wrap [`checkup`](https://pypi.org/project/checkup/) to score a data product's governance | **Remediate the portfolio**: a subagent per product drafts the missing docs and tests, then one reviewable diff |
 
 The judgment to take home: fan out when the work is independent, parallelizable, and context-heavy. Don't bother when a single quick pass will do, because subagents cost latency, tokens, and coordination. The intro profiled one CSV in a single pass; each finale hits many independent units, so it pays to spread them out.

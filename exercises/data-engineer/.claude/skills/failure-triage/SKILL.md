@@ -30,8 +30,9 @@ fills up with verdicts while the raw logs stay where they belong.
    keep those whose latest run failed (reuse the connection recipe from
    `/airflow-ops`). What should happen if NOTHING is failing?
 
-2. TODO 4: Dispatch **one subagent per failed DAG, in parallel** (a single
-   message with multiple Task calls: not one after another).
+2. TODO 4: Dispatch **one subagent per failed DAG, in parallel**. The `Task`
+   tool is what spawns a subagent; putting several `Task` calls in a single
+   message runs them at the same time (rather than one after another).
    <!--
    Write the subagent prompt as a template with the DAG id and run id filled in.
    Each subagent should:

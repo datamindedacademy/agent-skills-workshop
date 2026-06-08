@@ -1,0 +1,13 @@
+version: 2
+
+# Staging models are documented at the model level so the governance gaps the
+# architect track works on live entirely in the marts (the data products).
+models:
+  - name: stg_customers
+    description: >
+      Staging model for customers: light typing and renaming over the raw
+      customer seed. One row per source customer record.
+  - name: stg_orders
+    description: >
+      Staging model for orders: light typing and renaming over the raw order
+      seed. One row per source order record.

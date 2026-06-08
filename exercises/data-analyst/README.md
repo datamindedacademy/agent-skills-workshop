@@ -14,6 +14,14 @@ You installed the intro skill yourself (`explore-data`). The skills for this
 track are skeletons already under `.claude/skills/`: open
 `.claude/skills/talk-to-your-data/SKILL.md`.
 
+The warehouse you'll query, `../../data/warehouse.duckdb`, builds automatically
+when the IDE opens. If a query below says the file is missing (for example in a
+plain terminal where that startup task didn't run), build it once:
+
+```bash
+bash ../../data/build.sh
+```
+
 ## Stage 1: Build (0:30–1:30): `talk-to-your-data`
 
 Ask the warehouse questions in plain language; the skill writes the SQL, runs

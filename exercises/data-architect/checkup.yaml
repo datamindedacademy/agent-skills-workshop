@@ -10,7 +10,7 @@ providers:
 
 metrics:
   # TODO: add the governance metrics you want to score. To see every option:
-  #   uv run --with checkup --with checkup-dbt checkup schema
+  #   checkup schema
   # Start with total models, then add coverage/documentation metrics.
   - type: dbt_models
   # - type: dbt_models_without_description

@@ -37,8 +37,9 @@ health (are orders clean, what makes the numbers lie?).
 
 ## Steps
 
-1. TODO 4: Fan out one subagent per section, in parallel (a single message with
-   multiple Task calls, not one after another).
+1. TODO 4: Fan out one subagent per section, in parallel. The `Task` tool is
+   what spawns a subagent; putting several `Task` calls in a single message runs
+   them at the same time (rather than one after another).
    <!--
    Write the subagent prompt as a template with the section name and question
    filled in. Each subagent should:

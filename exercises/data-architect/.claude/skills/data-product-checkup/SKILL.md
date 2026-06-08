@@ -12,7 +12,7 @@ allowed-tools: TODO
 
 # Data Product Checkup
 
-Score the **health of a data product**: our dbt warehouse: with the
+Score the **health of a data product** (our dbt warehouse) with the
 [`checkup`](https://pypi.org/project/checkup/) governance framework, and report
 a clear scorecard.
 
