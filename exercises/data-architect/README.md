@@ -2,8 +2,8 @@
 
 You'll build a skill that measures the **health of a data product** using the
 [`checkup`](https://pypi.org/project/checkup/) governance framework, then, after
-the break, a second skill that fans out **subagents** to score *every* data
-product in parallel.
+the break, a second skill that fans out **subagents** to fix the gaps across
+*every* data product in parallel.
 
 > **Dataset:** the shared warehouse in `../../data` (built by the engineer's dbt
 > project). `checkup` reads its dbt project directly, no manifest needed.
@@ -18,10 +18,10 @@ track are skeletons already under `.claude/skills/`: open
 
 Run `checkup` on the warehouse and report a clear health scorecard.
 
-1. Open `.claude/skills/data-product-checkup/SKILL.md` and `checkup.yaml`.
-2. Work through the TODOs: write the `description`, set `allowed-tools`, choose
-   the governance metrics, and define the scorecard output.
-3. Test it:
+1. Open `.claude/skills/data-product-checkup/SKILL.md` and `checkup.yaml`, and
+   work the TODOs in order (the metrics live in `checkup.yaml`, the rest in the
+   SKILL).
+2. Test it:
    ```bash
    claude
    # then: /data-product-checkup
@@ -64,11 +64,8 @@ Stage 1 told you what's undocumented and untested. Now fix it. Each data product
 is its own small job, so hand each one to a subagent that drafts the missing
 descriptions and tests, and assemble the results into a single diff you review.
 
-1. Open `.claude/skills/remediate-products/SKILL.md`.
-2. Work through the TODOs: dispatch one subagent per product to draft its fixes,
-   then merge them into `_marts.yml` and re-run checkup to confirm the numbers
-   moved.
-3. Test it:
+1. Open `.claude/skills/remediate-products/SKILL.md` and work the TODOs in order.
+2. Test it:
    ```bash
    # then: /remediate-products
    ```

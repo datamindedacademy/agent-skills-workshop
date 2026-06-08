@@ -1,8 +1,8 @@
 ---
 name: failure-triage
-# TODO 1: Write the description. It should trigger when someone asks "what's
-# broken", "triage the failures", or wants an incident overview ACROSS DAGs
-# (not a single run: that's what airflow-ops is for).
+# TODO 1: Write the description (you did this in Stage 1, keep it quick). It
+# should trigger when someone asks "what's broken", "triage the failures", or
+# wants an incident overview ACROSS DAGs (a single run is airflow-ops's job).
 description: TODO
 # TODO 2: This skill runs a CLI AND dispatches subagents. Which tools does it
 # need? (hint: one of them lets you launch subagents.)

@@ -35,10 +35,7 @@ it read-only, and explains the result.
    ```
    Whatever quirks you find are *the point*: your skill will encode what you
    learn so the agent stops tripping over them.
-2. Open `.claude/skills/talk-to-your-data/SKILL.md` and work through the TODOs:
-   write the `description`, set `allowed-tools`, inject the schema as
-   **dynamic context** (`` !`command` ``), write the query rules, and define
-   the output format.
+2. Open `.claude/skills/talk-to-your-data/SKILL.md` and work the TODOs in order.
 3. Test it:
    ```bash
    claude
@@ -83,11 +80,8 @@ Each report section is a small investigation: you poke, notice something, chase
 it, then write the paragraph. Give each section its own subagent to do that
 digging, in parallel, and assemble their findings.
 
-1. Open `.claude/skills/multi-panel-report/SKILL.md`.
-2. Work through the TODOs: frame each section as a question, **dispatch one
-   subagent per section in parallel** to investigate it, then assemble the
-   report with an executive summary across them.
-3. Test it:
+1. Open `.claude/skills/multi-panel-report/SKILL.md` and work the TODOs in order.
+2. Test it:
    ```bash
    # then: /multi-panel-report
    ```

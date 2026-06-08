@@ -1,8 +1,8 @@
 ---
 name: remediate-products
-# TODO 1: Write the description. It should trigger when someone asks to fix /
-# remediate / document / add tests to the data products, or to make the
-# warehouse pass its checkup. (Stage 1 measured the gaps; this skill closes them.)
+# TODO 1: Write the description (you did this in Stage 1, keep it quick). It
+# should trigger when someone asks to fix / remediate / document / add tests to
+# the data products, or to make the warehouse pass its checkup.
 description: TODO
 # TODO 2: This skill reads files, dispatches subagents, and edits a file. Which
 # tools does it need? (one of them launches subagents.)

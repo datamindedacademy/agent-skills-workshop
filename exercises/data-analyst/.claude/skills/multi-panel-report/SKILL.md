@@ -1,8 +1,8 @@
 ---
 name: multi-panel-report
-# TODO 1: Write the description. It should trigger when someone asks for a
-# FULL report / dashboard summary / business overview of the data (not a single
-# question: that's what talk-to-your-data is for).
+# TODO 1: Write the description (you did this in Stage 1, keep it quick). It
+# should trigger when someone asks for a FULL report / dashboard summary /
+# business overview of the data (a single question is talk-to-your-data's job).
 description: TODO
 # TODO 2: This skill runs a CLI AND dispatches subagents. Which tools does it
 # need? (hint: one of them lets you launch subagents.)

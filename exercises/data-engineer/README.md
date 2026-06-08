@@ -34,10 +34,7 @@ out **subagents** to triage failures in parallel.
 Ask about your pipelines in plain language; the skill drives the Airflow API
 via `af` (list, inspect, trigger, diagnose).
 
-1. Open `.claude/skills/airflow-ops/SKILL.md` and work through the TODOs: the
-   `description`, `allowed-tools`, the live DAG list as **dynamic context**
-   (`` !`command` ``), the auth recipe (tokens are short-lived), an intent→`af`
-   command map, and a guardrail for state-changing commands.
+1. Open `.claude/skills/airflow-ops/SKILL.md` and work the TODOs in order.
 2. Use it to answer: **is the pipeline healthy? what was the last run?** Let the
    skill tell you, don't assume.
 3. **Diagnose, then fix.** If a run failed, have the skill pull the logs and work
