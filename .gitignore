@@ -4,6 +4,7 @@ logs/
 *.duckdb
 *.duckdb.wal
 exercises/benchmark/results/
+skills-lock.json
 
 
 terraform.tfvars

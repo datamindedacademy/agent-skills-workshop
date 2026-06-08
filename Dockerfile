@@ -1,6 +1,6 @@
 # Container for the scheduled dbt build (Conveyor Airflow tasks).
-# Each ConveyorDbtTaskFactory task runs `dbt build --select +<model>` in here —
-# the DuckDB file is ephemeral per task, so every task rebuilds its lineage.
+# Each ConveyorDbtTaskFactory task runs `dbt build --select +<model>` in here.
+# The DuckDB file is ephemeral per task, so every task rebuilds its lineage.
 FROM public.ecr.aws/dataminded/dbt:v1.11.2
 
 WORKDIR /app

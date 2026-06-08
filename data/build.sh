@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Build the shared workshop warehouse and export the warm-up CSV.
-#   data/warehouse.duckdb  — the source-of-truth warehouse (committed)
-#   data/sample.csv        — fct_orders export the warm-up profiles (committed)
+#   data/warehouse.duckdb  the source-of-truth warehouse (committed)
+#   data/sample.csv        fct_orders export the warm-up profiles (committed)
 set -euo pipefail
 cd "$(dirname "$0")"
 

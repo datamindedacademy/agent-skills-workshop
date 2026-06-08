@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      // Runs after Conveyor clones the repo and opens the folder.
+      // Builds data/warehouse.duckdb (gitignored, so absent on a fresh clone)
+      // and re-exports data/sample.csv. Needed by the analyst and architect tracks.
+      "label": "Build workshop warehouse",
+      "type": "shell",
+      "command": "bash data/build.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

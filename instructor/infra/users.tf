@@ -1,5 +1,5 @@
 # Workshop participants: invited as Conveyor users, grouped in one team,
-# and given contributor access to the project and environment via that team —
+# and given contributor access to the project and environment via that team,
 # enough to create IDEs for the project in the environment.
 
 resource "conveyor_user" "participant" {

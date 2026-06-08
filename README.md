@@ -1,8 +1,8 @@
-# AI Agent Skills for Data Practitioners
+# Agent Skills for Data Practitioners
 
 A hands-on workshop where you **use** an agent skill against a real data stack, then **build** your own. You'll walk out with at least one working skill and a feel for when a skill is the right tool.
 
-No deep coding required. After a shared intro you **choose your own adventure** by role: engineer, analyst, or architect.
+The workshop meets you wherever you work, from people at home in a terminal to analysts who live in a SQL editor. After a shared intro you **choose your own adventure** by role: engineer, analyst, or architect.
 
 ## A skill in one sentence
 
@@ -10,14 +10,14 @@ A skill is a `SKILL.md` file. It has a name, a description that tells the agent 
 
 ## When is a skill the right tool?
 
-Four ways to give an agent what it needs, from lightest to heaviest:
+The context window is the agent's working memory, and it's finite. **Context engineering is the craft of getting the right information into that window at the right time**, and keeping everything else out. These four techniques are different answers to one question: *what occupies the context, and when?*
 
-- **Plain prompting** when the knowledge fits in one message and you won't repeat it.
-- **A skill** when you keep pasting the same procedure, and you want it to trigger automatically. That's this workshop.
-- **An MCP server** when the agent needs a *live connection* to an external system (a database, an API) rather than instructions.
-- **RAG** when the knowledge is too big to fit in context and you need to retrieve the relevant slice each time.
+- **Plain prompting**: you put the knowledge in context yourself, in the message, every time. Simplest, but it's spent the moment the conversation moves on.
+- **A skill**: the instructions live in a file and load *on demand*, only when the description matches the task. The context stays lean until the skill is needed, then the procedure appears just in time. That's this workshop.
+- **An MCP server**: instead of loading knowledge, you give the agent *tools*. A live connection to an external system (a database, an API), or a common set of capabilities shared across a team and reusable from any agent. Results enter the context only when a tool is actually called, so a huge system stays addressable without sitting in the window. A skill teaches a *procedure*; an MCP server hands over *capabilities*.
+- **RAG**: when the source of truth is a large body of existing knowledge (docs, tickets, a wiki), you retrieve just the relevant, citable slice at query time and inject it. This keeps the agent *grounded* in verifiable sources instead of its own memory, while only the slice that matters ever touches the context.
 
-A skill is the sweet spot for "I know how to do this, let me teach the agent once."
+They compose rather than compete. A skill can call an MCP server, and RAG retrieval can sit behind a skill, because each is just a different valve on the same context window. A skill is the sweet spot for "I know how to do this, let me teach the agent once," and learning to wield it is learning context engineering in miniature.
 
 ## Pick your surface
 
