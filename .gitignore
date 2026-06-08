@@ -1,4 +1,9 @@
-/.claude/
+# Root .claude/ is local scratch (e.g. participant-installed skills), except the
+# sorting-hat helper which ships with the workshop.
+/.claude/*
+!/.claude/skills/
+/.claude/skills/*
+!/.claude/skills/sorting-hat/
 .env
 logs/
 *.duckdb
