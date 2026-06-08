@@ -71,21 +71,23 @@ or down on a given model.)
 
 ## Stage 2: Add subagents (2:00–3:00): `multi-panel-report`
 
-A business report has *independent* sections: revenue, customers, order
-health. Each needs its own queries and reasoning: exactly when subagents earn
-their keep.
+A report section isn't one query, it's a small investigation: you poke, notice
+something, chase it, then write the paragraph. Give each section its own subagent
+to do that digging, in parallel, and assemble their findings.
 
 1. Open `.claude/skills/multi-panel-report/SKILL.md`.
-2. Work through the TODOs: define the panels, **dispatch one subagent per
-   panel in parallel**, then assemble the report with an executive summary.
+2. Work through the TODOs: frame each section as a question, **dispatch one
+   subagent per section in parallel** to investigate it, then assemble the
+   report with an executive summary across them.
 3. Test it:
    ```bash
    # then: /multi-panel-report
    ```
 
-One question: answer it inline (Stage 1). A report of independent panels: fan
-out, then synthesize. Subagents cost latency, tokens, and coordination, so use
-them only when the work is genuinely parallel.
+The reason to fan out isn't speed, it's focus. A real investigation throws off a
+lot of dead-end queries; run three of them in one window and the threads tangle.
+Each subagent keeps its own mess to itself and hands back a clean paragraph. A
+single question doesn't need any of that, so answer it inline with Stage 1.
 
 ## Stuck?
 
