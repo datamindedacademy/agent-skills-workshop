@@ -11,15 +11,15 @@ allowed-tools: TODO
 
 # Multi-panel report (subagents)
 
-A real report isn't three canned queries. Each section is its own small
-investigation: you poke at the numbers, notice something, chase it down, and
-only then write the paragraph. This skill gives each section its own subagent to
-do exactly that, in parallel, and assembles their findings into one report.
+Each section of a real report is its own small investigation: you poke at the
+numbers, notice something, chase it down, and only then write the paragraph.
+This skill gives each section its own subagent to do that digging in parallel,
+then assembles their findings into one report.
 
 ## Why fan out here
 
-The point isn't speed. Three sections on this little warehouse run fast either
-way. The point is **focus**.
+Fanning out here buys you **focus**. Three sections on this little warehouse run
+fast either way, so the speed barely matters.
 
 A real investigation is messy: you run a query, it raises a question, you run
 three more, most of them dead ends. Do all three sections in one conversation
@@ -30,8 +30,8 @@ question (just use `/talk-to-your-data`) shouldn't fan out at all.
 
 ## The sections
 
-TODO 3: Define three sections, each as a *question to answer*, not a query to
-run. A good split for this warehouse: revenue (is it healthy, does a few
+TODO 3: Define three sections, each framed as a *question to answer*. A good
+split for this warehouse: revenue (is it healthy, does a few
 customers/orders dominate?), customers (who are they, who matters most?), order
 health (are orders clean, what makes the numbers lie?).
 

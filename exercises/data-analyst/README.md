@@ -71,9 +71,9 @@ or down on a given model.)
 
 ## Stage 2: Add subagents (2:00–3:00): `multi-panel-report`
 
-A report section isn't one query, it's a small investigation: you poke, notice
-something, chase it, then write the paragraph. Give each section its own subagent
-to do that digging, in parallel, and assemble their findings.
+Each report section is a small investigation: you poke, notice something, chase
+it, then write the paragraph. Give each section its own subagent to do that
+digging, in parallel, and assemble their findings.
 
 1. Open `.claude/skills/multi-panel-report/SKILL.md`.
 2. Work through the TODOs: frame each section as a question, **dispatch one
@@ -84,8 +84,8 @@ to do that digging, in parallel, and assemble their findings.
    # then: /multi-panel-report
    ```
 
-The reason to fan out isn't speed, it's focus. A real investigation throws off a
-lot of dead-end queries; run three of them in one window and the threads tangle.
+Fanning out here buys focus. A real investigation throws off a lot of dead-end
+queries; run three of them in one window and the threads tangle.
 Each subagent keeps its own mess to itself and hands back a clean paragraph. A
 single question doesn't need any of that, so answer it inline with Stage 1.
 

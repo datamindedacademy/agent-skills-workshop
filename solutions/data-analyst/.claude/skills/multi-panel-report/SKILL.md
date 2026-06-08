@@ -10,15 +10,15 @@ allowed-tools: Bash, Task
 
 # Multi-panel report (subagents)
 
-A real report isn't three canned queries. Each section is its own small
-investigation: you poke at the numbers, notice something, chase it down, and
-only then write the paragraph. This skill gives each section its own subagent to
-do exactly that, in parallel, and assembles their findings into one report.
+Each section of a real report is its own small investigation: you poke at the
+numbers, notice something, chase it down, and only then write the paragraph.
+This skill gives each section its own subagent to do that digging in parallel,
+then assembles their findings into one report.
 
 ## Why fan out here
 
-The point isn't speed. Three sections on this little warehouse would run fast
-either way. The point is **focus**.
+Fanning out here buys you **focus**. Three sections on this little warehouse run
+fast either way, so the speed barely matters.
 
 A real investigation is messy: you run a query, it raises a question, you run
 three more, most of them dead ends. Do all three sections in one conversation
@@ -33,7 +33,7 @@ If someone asks a single question, none of this applies. Just use
 
 ## The sections
 
-Each is a question to *answer*, not a query to run:
+Frame each as a question to *answer*:
 
 1. **Revenue**: how much are we making, and is it healthy? (Trend over time,
    and whether a few orders or customers dominate the total.)
@@ -50,9 +50,9 @@ Each is a question to *answer*, not a query to run:
    > Investigate the **<SECTION>** section of a business report on the warehouse
    > at `../../data/warehouse.duckdb`. Query it READ-ONLY with
    > `duckdb -readonly ../../data/warehouse.duckdb -c "<SQL>"`, against the marts
-   > (`dim_customers`, `fct_orders`, `customer_order_summary`). This is an
-   > investigation, not one query: start broad, follow what looks interesting,
-   > and confirm before you conclude. Mind the data quirks (mixed-case `status`,
+   > (`dim_customers`, `fct_orders`, `customer_order_summary`). Treat it as an
+   > investigation: start broad, follow what looks interesting, and confirm
+   > before you conclude. Mind the data quirks (mixed-case `status`,
    > unstandardized `country`, the `999999` amount, the `2099` date) and flag
    > them where they change a number. Question to answer: <SECTION QUESTION>.
    > Return ONLY the finished panel: a `### <SECTION>` heading, a small table of

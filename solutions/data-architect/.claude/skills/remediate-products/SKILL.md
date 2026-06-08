@@ -66,5 +66,5 @@ Fan out the thinking, centralize the change.
 Re-running checkup: documentation NN% → MM%, column tests X → Y.
 ```
 
-Apply the change only after showing the diff. The point isn't to rubber-stamp
-whatever the agents wrote: it's to review a clean, assembled proposal and ship it.
+Apply the change only after showing the diff. The review is the real work here:
+read the assembled proposal, then ship it.

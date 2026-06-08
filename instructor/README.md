@@ -1,6 +1,8 @@
-# Facilitator guide
+# Instructor guide
 
-Spoilers and setup. Not for participants.
+Everything for running the workshop, kept out of the participants' way:
+spoilers, deploy steps, and the Terraform that provisions the Conveyor
+environment, project, users, and IDEs (`infra/`).
 
 ## Data Engineer track: the staged failure
 

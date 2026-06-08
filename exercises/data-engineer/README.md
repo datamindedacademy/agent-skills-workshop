@@ -41,7 +41,7 @@ via `af` (list, inspect, trigger, diagnose).
 2. Use it to answer: **is the pipeline healthy? what was the last run?** Let the
    skill tell you, don't assume.
 3. **Diagnose, then fix.** If a run failed, have the skill pull the logs and work
-   out the real cause, not just the symptom. Then fix it at the source in the dbt
+   out what actually caused it. Then fix it at the source in the dbt
    project (`../../data`) and prove it the way Airflow does, locally:
    ```bash
    cd ../../data && uv run dbt build --target prod

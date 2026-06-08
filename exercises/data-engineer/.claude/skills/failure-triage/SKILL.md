@@ -21,8 +21,8 @@ for subagents there only buys you latency and coordination overhead.
 The picture changes once several DAGs fail at once. Each one is its own
 investigation, and reading a task's logs is heavy: pull all of them into one
 conversation and you drown. So give each failure its own subagent. It reads its
-own logs, works out what happened, and hands back a short verdict. You spend
-your context on the summary, not the noise.
+own logs, works out what happened, and hands back a short verdict. Your context
+fills up with verdicts while the raw logs stay where they belong.
 
 ## Steps
 
