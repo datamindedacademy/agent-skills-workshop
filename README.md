@@ -2,7 +2,7 @@
 
 A hands-on workshop where you **use** an agent skill against a real data stack, then **build** your own. You'll walk out with at least one working skill and a feel for when a skill is the right tool.
 
-The workshop meets you wherever you work, from people at home in a terminal to analysts who live in a SQL editor. After a shared intro you **choose your own adventure** by role: engineer, analyst, or architect.
+The workshop meets you wherever you work, from people at home in a terminal to analysts who live in a SQL editor. After a shared intro you **choose your own adventure** by role: engineer, analyst, or steward.
 
 ## A skill in one sentence
 
@@ -97,18 +97,18 @@ A subagent is a fresh Claude with its own context window. You hand it one job, i
 |---|---|---|
 | ⚙️ **Data Engineer** | **Airflow Ops**: operate the scheduled dbt pipeline on Conveyor Airflow via the [Astronomer Airflow CLI](https://github.com/astronomer/agents/blob/main/astro-airflow-mcp/README.md#airflow-cli-tool) | **Failure triage**: a subagent per failed DAG diagnoses the root cause in parallel, then one incident summary |
 | 📊 **Data Analyst** | **Talk to your data**: ask in plain language, it fires SQL at the shared DuckDB and explains the result | **Multi-panel report**: a subagent investigates each section, then one assembled report |
-| 🏗️ **Data Architect** | **Data Product Checkup**: wrap [`checkup`](https://pypi.org/project/checkup/) to score a data product's governance | **Remediate the portfolio**: a subagent per product drafts the missing docs and tests, then one reviewable diff |
+| 🛡️ **Data Steward** | **Data Product Checkup**: wrap [`checkup`](https://pypi.org/project/checkup/) to score a data product's governance | **Remediate the portfolio**: a subagent per product drafts the missing docs and tests, then one reviewable diff |
 
 The judgment to take home: fan out when the work is independent, parallelizable, and context-heavy. Don't bother when a single quick pass will do, because subagents cost latency, tokens, and coordination. The intro profiled one CSV in a single pass; each finale hits many independent units, so it pays to spread them out.
 
-One dataset runs through all of it. `data/warehouse.duckdb` and its `data/sample.csv` export ship in the repo. You profile it in the intro, the analyst queries it, the architect scores its products, and the engineer track runs its dbt build on a schedule in Conveyor Airflow. Same data, different lenses.
+One dataset runs through all of it. `data/warehouse.duckdb` and its `data/sample.csv` export ship in the repo. You profile it in the intro, the analyst queries it, the steward scores its products, and the engineer track runs its dbt build on a schedule in Conveyor Airflow. Same data, different lenses.
 
 ## How to start
 
 Install `explore-data` (above), run it on `data/sample.csv`, then pick your track:
 
 ```bash
-cd exercises/<track>   # data-engineer | data-analyst | data-architect
+cd exercises/<track>   # data-engineer | data-analyst | data-steward
 claude
 # work the TODOs: build your skill first, then add subagents after the break
 ```

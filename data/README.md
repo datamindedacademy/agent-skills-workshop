@@ -7,7 +7,7 @@ builds a warehouse of three "data products" and exports a CSV for the warm-up.
 
 | Artifact | Used by |
 |---|---|
-| `warehouse.duckdb` | Analyst (*Talk to your data*) queries it; Architect (*Checkup*) scores it |
+| `warehouse.duckdb` | Analyst (*Talk to your data*) queries it; Steward (*Checkup*) scores it |
 | `sample.csv` (export of `fct_orders`) | The intro warm-up: `/explore-data data/sample.csv` |
 
 Both are **committed**: they're the workshop's source of truth. You normally

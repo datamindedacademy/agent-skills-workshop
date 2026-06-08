@@ -1,4 +1,4 @@
-# Track: Data Architect
+# Track: Data Steward
 
 You'll build a skill that measures the **health of a data product** using the
 [`checkup`](https://pypi.org/project/checkup/) governance framework, then, after
@@ -89,7 +89,7 @@ Fan out the thinking, centralize the change.
 
 ## Stuck?
 
-Peek at `solutions/data-architect/`, but try the TODOs first.
+Peek at `solutions/data-steward/`, but try the TODOs first.
 
 ## Requirements
 

@@ -4,7 +4,7 @@
     {
       // Runs after Conveyor clones the repo and opens the folder.
       // Builds data/warehouse.duckdb (gitignored, so absent on a fresh clone)
-      // and re-exports data/sample.csv. Needed by the analyst and architect tracks.
+      // and re-exports data/sample.csv. Needed by the analyst and steward tracks.
       "label": "Build workshop warehouse",
       "type": "shell",
       "command": "bash data/build.sh",

@@ -17,7 +17,7 @@ target two tests are strict (`severity: error` via jinja in
 | `relationships_…_customer_id` | FAIL 1 | `order_id = 44` → `customer_id = 999` (orphan FK) |
 
 `fct_orders` failing leaves `customer_order_summary`/`end` as `upstream_failed`.
-Local builds and the analyst/architect tracks see these as `warn` only, so
+Local builds and the analyst/steward tracks see these as `warn` only, so
 they're unaffected. The fix is in the dbt project (dedupe the order, resolve or
 drop the orphan), then re-run to green.
 
@@ -38,5 +38,5 @@ conveyor build && conveyor deploy --env workshop
 
 ## Other tracks
 
-Analyst and architect both read the dirty `data/warehouse.duckdb`; the
+Analyst and steward both read the dirty `data/warehouse.duckdb`; the
 deliberate quality issues are documented in `data/README.md`.

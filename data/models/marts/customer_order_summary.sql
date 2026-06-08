@@ -1,7 +1,7 @@
 -- Data product: per-customer order summary (a small aggregate mart).
 -- Inherits upstream issues: customers with no orders show order_count = 0,
 -- null amounts are ignored by sum(), and the duplicate customer_id inflates
--- its row. A third "data product" for the architect's portfolio fan-out.
+-- its row. A third "data product" for the steward's portfolio fan-out.
 select
     c.customer_id,
     c.country,
