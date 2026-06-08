@@ -14,31 +14,28 @@ Operate our managed Airflow on **Conveyor** through the
 [`af` CLI](https://github.com/astronomer/agents/tree/main/astro-airflow-mcp):
 list, inspect, trigger, and debug DAGs from the conversation.
 
+## Connection recipe
+
+TODO 3: Every `af` command needs two env vars. Write the recipe Claude should
+use, prefixed before each command. You ran the exact command in the smoke test
+(see this track's README, "Before you start"): the `AIRFLOW_API_URL`, and an
+`AIRFLOW_AUTH_TOKEN` from `conveyor auth get`. Spell it out here so the skill is
+self-sufficient. Decide: fetch the token fresh per command, or once? (It
+expires.) Note for Claude: the env runs Airflow 3 and `af` picks the API version
+itself, so don't hardcode `/api/vN`; a 401/403 means the session is stale and
+the user should run `conveyor auth login`.
+
 ## Current DAGs (live)
 
 <!--
-TODO 3: Inject the live DAG list as dynamic context, so Claude sees the CURRENT
+TODO 4: Inject the live DAG list as dynamic context, so Claude sees the CURRENT
 state the moment the skill runs. A line starting with !`command` runs at
-invocation time and its output is injected here (the SKILL.md version of the `!`
-bang command you used in the prompt). Use the connection recipe below, with
-`af dags list`, piped through `head -25`. Try it as a `!` bang command first; if
-it works there, it works here.
+invocation time and injects its output here. This is the SKILL.md version of the
+`!` bang command you ran in the smoke test: use your connection recipe above with
+`af dags list`, piped through `head -25`.
 -->
 
-## Connection recipe (given)
-
-Every `af` command needs these two env vars. The token is short-lived, so fetch
-it fresh each time rather than once:
-
-```bash
-AIRFLOW_API_URL="https://app.conveyordata.com/environments/workshop/airflow" \
-AIRFLOW_AUTH_TOKEN="$(conveyor auth get --quiet | jq -r '.access_token')" \
-af <command>
-```
-
-The env runs Airflow 3 and `af` detects the version itself, so don't hardcode
-`/api/vN`. If a command returns 401/403, the Conveyor session is stale: tell the
-user to run `conveyor auth login`.
+## Command map (given)
 
 | Intent | Command |
 |---|---|
@@ -52,7 +49,7 @@ user to run `conveyor auth login`.
 
 ## Rules and output
 
-TODO 4: This is the knowledge the skill carries. Write the rules Claude should
+TODO 5: This is the knowledge the skill carries. Write the rules Claude should
 follow:
 - Which commands change production state (trigger, pause) and so need the user's
   confirmation before running?
