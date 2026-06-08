@@ -5,7 +5,7 @@ description: >
   asked for a full report, dashboard summary, or business overview of the data.
   Fans out one subagent per report section in parallel (revenue, customers,
   order health), then assembles one report.
-allowed-tools: Bash, Task
+allowed-tools: Bash, Agent
 ---
 
 # Multi-panel report (subagents)
@@ -45,7 +45,7 @@ Frame each as a question to *answer*:
 ## Steps
 
 1. Fan out one subagent per section, in parallel: a single message with one
-   `Task` call each (not one after another). Prompt template:
+   `Agent` call each (not one after another). Prompt template:
 
    > Investigate the **<SECTION>** section of a business report on the warehouse
    > at `../../data/warehouse.duckdb`. Query it READ-ONLY with

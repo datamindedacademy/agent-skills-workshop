@@ -5,7 +5,7 @@ description: >
   produce a single incident summary. Use when asked "what's broken", "triage
   the failures", or for an incident overview across DAGs: fans out one
   subagent per failed DAG to diagnose root causes in parallel, then synthesizes.
-allowed-tools: Bash, Task
+allowed-tools: Bash, Agent
 ---
 
 # Failure Triage (subagents)
@@ -34,7 +34,7 @@ is genuinely parallel: which diagnosing N independent failures is.
    failed**. If nothing failed, report all-green and stop: do not fan out.
 
 2. Dispatch **one subagent per failed DAG, in parallel**: a single message
-   with one `Task` call per DAG (not sequential). Use this prompt template:
+   with one `Agent` call per DAG (not sequential). Use this prompt template:
 
    > Diagnose the failed Airflow DAG **`<DAG_ID>`** (latest failed run:
    > `<RUN_ID>`). Run af with:

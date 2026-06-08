@@ -32,8 +32,8 @@ thinking, centralize the change.
 
 1. List the data products: the marts in `../../data/models/marts/`.
 
-2. TODO 3: Dispatch one subagent per product, in parallel. The `Task` tool is
-   what spawns a subagent; putting one `Task` call per product in a single
+2. TODO 3: Dispatch one subagent per product, in parallel. The `Agent` tool is
+   what spawns a subagent; putting one `Agent` call per product in a single
    message runs them at the same time.
    <!--
    Write the subagent prompt as a template with the product name filled in.

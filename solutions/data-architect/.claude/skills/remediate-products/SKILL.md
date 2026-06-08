@@ -6,7 +6,7 @@ description: >
   tests to the data products, or to make the warehouse pass its checkup. Fans
   out a subagent per data product to draft the fixes, then assembles one
   reviewable changelist.
-allowed-tools: Bash, Read, Edit, Task
+allowed-tools: Bash, Read, Edit, Agent
 ---
 
 # Remediate the portfolio
@@ -35,7 +35,7 @@ Fan out the thinking, centralize the change.
    `dim_customers`, `fct_orders`, `customer_order_summary`.
 
 2. Dispatch one subagent per product, in parallel (a single message with one
-   `Task` call each). Prompt template:
+   `Agent` call each). Prompt template:
 
    > Draft governance fixes for the dbt model **`<PRODUCT>`**. Read
    > `../../data/models/marts/<PRODUCT>.sql` and its current entry in
