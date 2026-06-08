@@ -20,38 +20,42 @@ list, inspect, trigger, and debug DAGs from the conversation.
 TODO 3: Inject the live DAG list as dynamic context, so Claude sees the CURRENT
 state the moment the skill runs. A line starting with !`command` runs at
 invocation time and its output is injected here (the SKILL.md version of the `!`
-bang command you used in the prompt). Use the authenticated one-liner from
-TODO 4, piped through `head -25`. Try it as a `!` bang command first; if it
-works there, it works here.
+bang command you used in the prompt). Use the connection recipe below, with
+`af dags list`, piped through `head -25`. Try it as a `!` bang command first; if
+it works there, it works here.
 -->
 
-## Connection recipe
+## Connection recipe (given)
 
-TODO 4: Every `af` command needs two env vars. Write the recipe Claude should
-use, prefixed before each command:
+Every `af` command needs these two env vars. The token is short-lived, so fetch
+it fresh each time rather than once:
 
-- `AIRFLOW_API_URL`: `https://app.conveyordata.com/environments/workshop/airflow`
-- `AIRFLOW_AUTH_TOKEN`: a short-lived token from
-  `conveyor auth get --quiet | jq -r '.access_token'`
+```bash
+AIRFLOW_API_URL="https://app.conveyordata.com/environments/workshop/airflow" \
+AIRFLOW_AUTH_TOKEN="$(conveyor auth get --quiet | jq -r '.access_token')" \
+af <command>
+```
 
-The token expires, so fetch it fresh per command rather than once. The env runs
-**Airflow 3**; `af` detects the version itself, so don't hardcode `/api/vN`.
-(If a command returns 401/403, the Conveyor session is stale: tell the user to
-run `conveyor auth login`.)
+The env runs Airflow 3 and `af` detects the version itself, so don't hardcode
+`/api/vN`. If a command returns 401/403, the Conveyor session is stale: tell the
+user to run `conveyor auth login`.
 
-## Command map
+| Intent | Command |
+|---|---|
+| Overall health | `af health` |
+| List DAGs | `af dags list` |
+| Inspect a DAG | `af dags explore <dag_id>` |
+| Recent runs | `af runs list --dag-id <dag_id>` |
+| Trigger a run | `af runs trigger <dag_id>` |
+| Diagnose a failed run | `af runs diagnose <dag_id> <run_id>` |
+| Task logs | `af tasks logs <dag_id> <run_id> <task_id>` |
 
-TODO 5: Give Claude a small intent → command table so it doesn't guess flags.
-Run `af --help` (and `af dags|runs|tasks --help`) and map at least: health
-check, list DAGs, inspect a DAG, recent runs, trigger a run, diagnose a failed
-run, task logs. Note which commands change production state (trigger, pause) so
-Claude confirms with the user before running them.
+## Rules and output
 
-## Output format
-
-<!--
-TODO 6: Specify the structured output. A good ops answer has:
-  - a small table: DAG | state | last run | result
-  - a one-sentence verdict ("all green" / "dbt build failing since 14:02")
-  - a suggested next step
--->
+TODO 4: This is the knowledge the skill carries. Write the rules Claude should
+follow:
+- Which commands change production state (trigger, pause) and so need the user's
+  confirmation before running?
+- What should the answer look like? Specify the format: a small table
+  (DAG | state | last run | result), a one-sentence verdict ("all green" / "dbt
+  build failing since 14:02"), and a suggested next step.

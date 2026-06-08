@@ -1,7 +1,7 @@
 # Track: Data Engineer
 
-Build a skill that **operates a production Airflow** (Conveyor's managed
-Airflow) from the conversation. Then, after the break, a second skill that fans
+Build a skill that **operates a production Airflow instance** (managed by
+Conveyor) from the conversation. Then, after the break, a second skill that fans
 out **subagents** to triage failures in parallel.
 
 > **Narrative:** the warehouse the other tracks use (`../../data/warehouse.duckdb`)
