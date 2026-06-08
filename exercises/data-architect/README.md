@@ -8,6 +8,19 @@ the break, a second skill that fans out **subagents** to fix the gaps across
 > **Dataset:** the shared warehouse in `../../data` (built by the engineer's dbt
 > project). `checkup` reads its dbt project directly, no manifest needed.
 
+## What's a data product, and what's "health"?
+
+A **data product** is a curated dataset a team owns and others build on: it has
+a name, an owner, a documented interface (its columns), and tests that guard it.
+In dbt, the **mart models** are the data products here, `dim_customers`,
+`fct_orders`, and `customer_order_summary`, each one a table other people query.
+
+**Health** is about governance rather than today's numbers: is every column
+documented so consumers know what they're getting, is it tested so breakage gets
+caught, does it have a clear owner. `checkup` reads the dbt project and turns
+those signals into metrics (documented models, column descriptions, test
+coverage), which your skill rolls up into a grade.
+
 ## Before you start
 
 You installed the intro skill yourself (`explore-data`). The skills for this
