@@ -47,8 +47,9 @@ resource "conveyor_project" "workshop" {
     }
 
     build_steps {
-      name = "Install workshop CLIs (af, checkup, duckdb)"
+      name = "Install workshop CLIs (af, checkup, duckdb, jq)"
       cmd  = <<-EOT
+        sudo apt-get update && sudo apt-get install -y jq
         uv tool install astro-airflow-mcp
         uv tool install checkup --with checkup-dbt --with dbt-duckdb
         curl https://install.duckdb.org | sh
