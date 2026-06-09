@@ -2,7 +2,7 @@ resource "conveyor_project" "workshop" {
   name                       = local.project_name
   default_iam_identity       = aws_iam_role.workshop.name
   description                = "AI Agent Skills for Data Practitioners: hands-on workshop"
-  git_repo                   = "https://github.com/datamindedacademy/ai-agent-skills-workshop"
+  git_repo                   = "https://github.com/datamindedacademy/agent-skills-workshop"
   default_ide_environment_id = conveyor_environment.workshop.id
 
   default_ide_config {
