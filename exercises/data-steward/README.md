@@ -2,8 +2,8 @@
 
 You'll build a skill that measures the **health of a data product** using the
 [`checkup`](https://pypi.org/project/checkup/) governance framework, then, after
-the break, a second skill that fans out **subagents** to fix the gaps across
-*every* data product in parallel.
+the break, a second skill that fans out **subagents** to fix the failing checks,
+one per check, in parallel.
 
 > **Dataset:** the shared warehouse in `../../data` (built by the engineer's dbt
 > project). `checkup` reads its dbt project directly, no manifest needed.
@@ -11,9 +11,9 @@ the break, a second skill that fans out **subagents** to fix the gaps across
 ## What's a data product, and what's "health"?
 
 A **data product** is a curated dataset a team owns and others build on: it has
-a name, an owner, a documented interface (its columns), and tests that guard it.
-In dbt, the **mart models** are the data products here, `dim_customers`,
-`fct_orders`, and `customer_order_summary`, each one a table other people query.
+a name, an owner, a documented interface, and tests that guard it. Here the
+**warehouse** is the data product, and its mart tables (`dim_customers`,
+`fct_orders`, `customer_order_summary`) are the interface consumers query.
 
 **Health** is about governance rather than today's numbers: is every column
 documented so consumers know what they're getting, is it tested so breakage gets
@@ -73,9 +73,10 @@ or down on a given model.)
 
 ## Stage 2: Add subagents (60 min): `remediate-products`
 
-Stage 1 told you what's undocumented and untested. Now fix it. Each data product
-is its own small job, so hand each one to a subagent that drafts the missing
-descriptions and tests, and assemble the results into a single diff you review.
+Stage 1's scorecard told you which checks the warehouse fails. Now fix them. Each
+failing check (missing descriptions, missing tests) is its own job, so hand each
+to a subagent that drafts the fixes, and assemble them into a single diff you
+review.
 
 1. Open `.claude/skills/remediate-products/SKILL.md` and work the TODOs in order.
 2. Test it:
@@ -83,9 +84,12 @@ descriptions and tests, and assemble the results into a single diff you review.
    # then: /remediate-products
    ```
 
-There's a nice wrinkle: the marts share one schema file, so the subagents draft
-in parallel but *don't* write. You make the single, careful edit at the end.
-Fan out the thinking, centralize the change.
+With one data product, we fan out over its failing *checks*. In a real org you'd
+more often have many data products and fan out one subagent per product, running
+this whole skill across each; here we show the same pattern on what we have.
+Either way the wrinkle is the same: the subagents draft in parallel but *don't*
+write (they share one schema file), and you make the single careful merge at the
+end. Fan out the thinking, centralize the change.
 
 ## Stuck?
 

@@ -1,7 +1,7 @@
 version: 2
 
 # Staging models are documented at the model level so the governance gaps the
-# steward track works on live entirely in the marts (the data products).
+# steward track works on live entirely in the marts (the data product's tables).
 models:
   - name: stg_customers
     description: >

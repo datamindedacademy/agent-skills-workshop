@@ -1,69 +1,78 @@
 ---
 name: remediate-products
 description: >
-  Fix the governance gaps in the warehouse: add missing column descriptions and
-  tests to the dbt data products. Use when asked to remediate, document, or add
-  tests to the data products, or to make the warehouse pass its checkup. Fans
-  out a subagent per data product to draft the fixes, then assembles one
-  reviewable changelist.
+  Fix the governance gaps in the warehouse data product: add the missing column
+  descriptions and tests its checkup scorecard flagged. Use when asked to
+  remediate, document, or add tests to the warehouse, or to make it pass its
+  checkup. Fans out a subagent per failing check, then assembles one reviewable
+  diff.
 allowed-tools: Bash, Read, Edit, Agent
 ---
 
-# Remediate the portfolio
+# Remediate the data product
 
-`data-product-checkup` told you *what's* undocumented and untested. This skill
-does something about it: each data product gets a subagent that drafts the
-missing descriptions and tests, and you end up with one diff to review.
+`data-product-checkup` gave you a scorecard: which checks the warehouse fails,
+and by how much. This skill closes them. Each failing check is its own job, so
+hand each to a subagent and assemble one diff to review.
 
-## Why a subagent per product
+## Why fan out, and over what
 
-Documenting a model is a small, self-contained job: read its SQL, look at what
-the columns mean, write a sentence and pick a sensible test for each. The three
-marts have nothing to do with each other while you do this, so there's no reason
-to do them one after another. Give each its own subagent and they draft in
-parallel.
+We have a single data product here: the warehouse. So we fan out over its
+*failing checks*. One subagent fills in the missing column descriptions, another
+adds the missing tests. The two jobs are independent (writing docs has nothing to
+do with choosing tests), so they run in parallel and you stitch the results
+together.
 
-There's a catch worth noticing: all three share one file,
-`../../data/models/marts/_marts.yml`. If the subagents all edited it at once
-they'd clobber each other. So they don't edit anything. Each one *drafts* its
-model's YAML and hands it back; you do the single, careful write at the end.
-Fan out the thinking, centralize the change.
+In a real org you'd usually have many data products and run this whole skill
+across each one, a subagent per product. The workshop warehouse is a single
+product, so we show the same fan-out-then-synthesize pattern over its checks
+instead.
+
+One catch worth noticing: both subagents touch the same file,
+`../../data/models/marts/_marts.yml`, sometimes the same column (one adds a
+`description`, the other a `data_tests` entry). If they wrote at once they'd
+clobber each other. So they don't write. Each *drafts* its changes and hands them
+back; you make the single, careful merge at the end. Fan out the thinking,
+centralize the change.
 
 ## Steps
 
-1. The data products are the marts in `../../data/models/marts/`:
-   `dim_customers`, `fct_orders`, `customer_order_summary`.
+1. Take the failing checks from the scorecard (run `/data-product-checkup` if you
+   don't have it). Two here: columns with no `description`, and columns with no
+   test.
 
-2. Dispatch one subagent per product, in parallel (a single message with one
-   `Agent` call each). Prompt template:
+2. Dispatch one subagent per failing check, in parallel (a single message with
+   one `Agent` call each):
 
-   > Draft governance fixes for the dbt model **`<PRODUCT>`**. Read
-   > `../../data/models/marts/<PRODUCT>.sql` and its current entry in
-   > `../../data/models/marts/_marts.yml`. For every column with no
-   > `description`, write a short, accurate one from what the SQL does. For key
-   > and foreign-key columns with no test, add the obvious one (`unique`,
-   > `not_null`, or `relationships`). Don't invent tests that would fail on
-   > messy data. Return ONLY the complete updated YAML block for this one model
-   > (the `- name: <PRODUCT>` entry), ready to drop into `_marts.yml`.
+   > **Documentation.** Find every column in the marts
+   > (`../../data/models/marts/`) with no `description` in `_marts.yml`. For each,
+   > read the model's `.sql` and write a short, accurate description. Return ONLY
+   > a list of `{model, column, description}` entries. Do not edit any file.
 
-3. Collect the three blocks and merge them into `_marts.yml`, replacing each
-   model's entry. Show the diff before writing, then apply it.
+   > **Tests.** Find every key or foreign-key column in the marts with no test in
+   > `_marts.yml`. For each, pick the obvious test (`unique`, `not_null`, or
+   > `relationships`). Don't invent tests that would fail on the messy data.
+   > Return ONLY a list of `{model, column, test}` entries. Do not edit any file.
 
-4. Verify your work the same way you measured it: run `/data-product-checkup`
-   again and confirm documentation and test coverage went up.
+3. Merge both lists into `_marts.yml` yourself: add each description and test to
+   the right column. Show the diff before writing, then apply it.
+
+4. Verify the way you measured: run `/data-product-checkup` again and confirm the
+   flagged metrics moved.
 
 ## Output format
 
 ```
 ## Remediation changelist
 
-| Data product | Descriptions added | Tests added |
-|---|---|---|
-| … | N | … |
+| Check | Fixes |
+|---|---|
+| Documentation | N columns described |
+| Test coverage | N tests added |
 
 <unified diff of _marts.yml>
 
-Re-running checkup: documentation NN% → MM%, column tests X → Y.
+Re-running checkup: columns without description N → 0, test coverage NN% → MM%.
 ```
 
 Apply the change only after showing the diff. The review is the real work here:

@@ -1,7 +1,7 @@
 # Workshop warehouse (`data/`)
 
 The shared dataset for the whole workshop. A tiny dbt project on **DuckDB** that
-builds a warehouse of three "data products" and exports a CSV for the warm-up.
+builds a warehouse (three mart tables) and exports a CSV for the warm-up.
 
 ## What it produces
 
@@ -23,7 +23,7 @@ cd data
 Requires [`uv`](https://docs.astral.sh/uv/). The script pins dbt-core + dbt-duckdb
 via `pyproject.toml`, so no global install is needed.
 
-## The data products
+## The mart tables
 
 - **`dim_customers`**: one row per customer.
 - **`fct_orders`**: one row per order, enriched with customer attributes (the warm-up CSV).
