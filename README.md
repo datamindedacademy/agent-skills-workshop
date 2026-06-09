@@ -85,23 +85,17 @@ One shot gives you a column profile, a data dictionary, and a list of quality pr
 
 Now open the file you just installed (`.claude/skills/explore-data/SKILL.md`) and read it. Notice the `description` line. That, and nothing else, is how the agent decided to run this skill when you asked your question. Everyone, whatever your track, profiles unfamiliar data, so this is where we all start.
 
-### Build your skill (45 min, by track)
+### Build your skill, then add subagents (by track)
 
-Pick the track that fits your role and build a working skill: structured output, plus a little power (`allowed-tools`, dynamic `` !`command` `` context, wrapping a CLI). You start from a scaffolded skeleton with TODOs, not a blank page. Each track ends with a stretch step: swap the `model:` in the frontmatter (Opus → Sonnet → Haiku) and find the smallest model your skill still works on.
+You spend the rest of the day on one track. Before the break you build a real skill from a scaffold and learn what makes one tick: the description that decides when it fires, the tools it may use, context pulled in live at runtime, and the domain knowledge you encode so the agent stops guessing. After the break you grow it into a skill that fans out **subagents** to work in parallel and pulls their answers back together, and you learn when that's worth doing and when a single pass is better.
 
 Not sure which track fits you? Run `/sorting-hat`; it asks a couple of questions and points you to one.
-
-### Add subagents (60 min, by track)
-
-A subagent is a fresh Claude with its own context window. You hand it one job, it works in isolation, and it hands back an answer. The finale of every track spins up several at once to do independent work in parallel, then stitches the results together, often *calling* the skill you built before the break.
 
 | Track | Build (45 min) | Add subagents (60 min) |
 |---|---|---|
 | ⚙️ **Data Engineer** | **Airflow Ops**: operate the scheduled dbt pipeline on Conveyor Airflow via the [Astronomer Airflow CLI](https://github.com/astronomer/agents/blob/main/astro-airflow-mcp/README.md#airflow-cli-tool) | **Failure triage**: a subagent per failed DAG diagnoses the root cause in parallel, then one incident summary |
 | 📊 **Data Analyst** | **Talk to your data**: ask in plain language, it fires SQL at the shared DuckDB and explains the result | **Multi-panel report**: a subagent investigates each section, then one assembled report |
 | 🛡️ **Data Steward** | **Data Product Checkup**: wrap [`checkup`](https://pypi.org/project/checkup/) to score a data product's governance | **Remediate the portfolio**: a subagent per product drafts the missing docs and tests, then one reviewable diff |
-
-The judgment to take home: fan out when the work is independent, parallelizable, and context-heavy. Don't bother when a single quick pass will do, because subagents cost latency, tokens, and coordination. The intro profiled one CSV in a single pass; each finale hits many independent units, so it pays to spread them out.
 
 One dataset runs through all of it. `data/warehouse.duckdb` and its `data/sample.csv` export ship in the repo. You profile it in the intro, the analyst queries it, the steward scores its products, and the engineer track runs its dbt build on a schedule in Conveyor Airflow. Same data, different lenses.
 
