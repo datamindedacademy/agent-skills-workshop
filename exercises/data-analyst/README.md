@@ -22,7 +22,7 @@ plain terminal where that startup task didn't run), build it once:
 bash ../../data/build.sh
 ```
 
-## Stage 1: Build (0:30–1:30): `talk-to-your-data`
+## Stage 1: Build (45 min): `talk-to-your-data`
 
 Ask the warehouse questions in plain language; the skill writes the SQL, runs
 it read-only, and explains the result.
@@ -74,7 +74,7 @@ best" but **what's the smallest model your skill still works on**: that's the
 one it should declare. (There's also an `effort:` field to dial reasoning up
 or down on a given model.)
 
-## Stage 2: Add subagents (2:00–3:00): `multi-panel-report`
+## Stage 2: Add subagents (60 min): `multi-panel-report`
 
 Each report section is a small investigation: you poke, notice something, chase
 it, then write the paragraph. Give each section its own subagent to do that

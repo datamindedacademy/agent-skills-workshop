@@ -27,7 +27,7 @@ You installed the intro skill yourself (`explore-data`). The skills for this
 track are skeletons already under `.claude/skills/`: open
 `.claude/skills/data-product-checkup/SKILL.md`.
 
-## Stage 1: Build (0:30–1:30): `data-product-checkup`
+## Stage 1: Build (45 min): `data-product-checkup`
 
 Run `checkup` on the warehouse and report a clear health scorecard.
 
@@ -71,7 +71,7 @@ best" but **what's the smallest model your skill still works on**: that's the
 one it should declare. (There's also an `effort:` field to dial reasoning up
 or down on a given model.)
 
-## Stage 2: Add subagents (2:00–3:00): `remediate-products`
+## Stage 2: Add subagents (60 min): `remediate-products`
 
 Stage 1 told you what's undocumented and untested. Now fix it. Each data product
 is its own small job, so hand each one to a subagent that drafts the missing

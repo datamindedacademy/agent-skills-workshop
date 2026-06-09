@@ -29,7 +29,7 @@ out **subagents** to triage failures in parallel.
    `af` is the [Astronomer Airflow CLI](https://github.com/astronomer/agents/tree/main/astro-airflow-mcp),
    pre-installed in the IDE.
 
-## Stage 1: Build `airflow-ops` (0:30–1:30)
+## Stage 1: Build `airflow-ops` (45 min)
 
 Ask about your pipelines in plain language; the skill drives the Airflow API
 via `af` (list, inspect, trigger, diagnose).
@@ -61,7 +61,7 @@ via `af` (list, inspect, trigger, diagnose).
   invoke it deliberately with `/airflow-ops`. Compare with the in-skill
   confirmation guardrail: two different ways to keep side effects on a leash.
 
-## Stage 2: Add subagents, `failure-triage` (2:00–3:00)
+## Stage 2: Add subagents, `failure-triage` (60 min)
 
 Diagnosing several failures at once is independent, log-heavy work: one
 subagent per failure, each reading its own logs, is when subagents earn their

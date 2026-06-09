@@ -38,16 +38,16 @@ Both run the whole skill identically, instructions and automation alike (`` !`co
 
 ## The shape of the workshop (3 hours)
 
-| Time | Block | Who |
+| Duration | Block | Who |
 |---|---|---|
-| 0:00–0:30 | Use a skill, then look inside it | everyone |
-| 0:30–1:30 | Build your skill | by track |
-| 1:30–2:00 | 🍽️ Food | |
-| 2:00–3:00 | Add subagents | by track |
+| 45 min | Use a skill, then look inside it | everyone |
+| 45 min | Build your skill | by track |
+| 30 min | 🍽️ Food | |
+| 60 min | Add subagents | by track |
 
 One arc: **use → inspect → build → fan out.**
 
-### Use a skill, then look inside it (0:00–0:30, everyone)
+### Use a skill, then look inside it (45 min, everyone)
 
 A skill is just a folder you drop into `.claude/skills/`. That's the whole trick, so let's prove it by installing one. We'll use Anthropic's official [`explore-data`](https://github.com/anthropics/knowledge-work-plugins/tree/main/data/skills/explore-data). Pick **one** of these two ways.
 
@@ -85,15 +85,17 @@ One shot gives you a column profile, a data dictionary, and a list of quality pr
 
 Now open the file you just installed (`.claude/skills/explore-data/SKILL.md`) and read it. Notice the `description` line. That, and nothing else, is how the agent decided to run this skill when you asked your question. Everyone, whatever your track, profiles unfamiliar data, so this is where we all start.
 
-### Build your skill (0:30–1:30, by track)
+### Build your skill (45 min, by track)
 
 Pick the track that fits your role and build a working skill: structured output, plus a little power (`allowed-tools`, dynamic `` !`command` `` context, wrapping a CLI). You start from a scaffolded skeleton with TODOs, not a blank page. Each track ends with a stretch step: swap the `model:` in the frontmatter (Opus → Sonnet → Haiku) and find the smallest model your skill still works on.
 
-### Add subagents (2:00–3:00, by track)
+Not sure which track fits you? Run `/sorting-hat`; it asks a couple of questions and points you to one.
+
+### Add subagents (60 min, by track)
 
 A subagent is a fresh Claude with its own context window. You hand it one job, it works in isolation, and it hands back an answer. The finale of every track spins up several at once to do independent work in parallel, then stitches the results together, often *calling* the skill you built before the break.
 
-| Track | Build (0:30–1:30) | Add subagents (2:00–3:00) |
+| Track | Build (45 min) | Add subagents (60 min) |
 |---|---|---|
 | ⚙️ **Data Engineer** | **Airflow Ops**: operate the scheduled dbt pipeline on Conveyor Airflow via the [Astronomer Airflow CLI](https://github.com/astronomer/agents/blob/main/astro-airflow-mcp/README.md#airflow-cli-tool) | **Failure triage**: a subagent per failed DAG diagnoses the root cause in parallel, then one incident summary |
 | 📊 **Data Analyst** | **Talk to your data**: ask in plain language, it fires SQL at the shared DuckDB and explains the result | **Multi-panel report**: a subagent investigates each section, then one assembled report |
