@@ -20,3 +20,6 @@ tfplan
 
 # local planning/export scratch, not for the repo
 context/
+
+# macOS
+.DS_Store
