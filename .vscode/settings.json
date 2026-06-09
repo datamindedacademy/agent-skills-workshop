@@ -10,9 +10,9 @@
         {
             "alias": "warehouse",
             "type": "file",
-            "path": "/home/conveyor/workspace/ai-agent-skills-workshop/data/warehouse.duckdb",
+            "path": "/home/conveyor/workspace/agent-skills-workshop/data/warehouse.duckdb",
             "readOnly": true,
-            "attached": true
+            "attached": false
         }
     ],
     "duckdb.defaultDatabase": "warehouse"
