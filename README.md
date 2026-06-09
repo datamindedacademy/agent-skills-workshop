@@ -87,7 +87,7 @@ Now open the file you just installed (`.claude/skills/explore-data/SKILL.md`) an
 
 ### Build your skill, then add subagents (by track)
 
-You spend the rest of the day on one track. Before the break you build a real skill from a scaffold and learn what makes one tick: the description that decides when it fires, the tools it may use, context pulled in live at runtime, and the domain knowledge you encode so the agent stops guessing. After the break you grow it into a skill that fans out **subagents** to work in parallel and pulls their answers back together, and you learn when that's worth doing and when a single pass is better.
+You spend the rest of the workshop on one track. Before the break you build a real skill from a scaffold and learn what makes one tick: the description that decides when it fires, the tools it may use, context pulled in live at runtime, and the domain knowledge you encode so the agent stops guessing. After the break you grow it into a skill that fans out **subagents** to work in parallel and pulls their answers back together, and you learn when that's worth doing and when a single pass is better.
 
 Not sure which track fits you? Run `/sorting-hat`; it asks a couple of questions and points you to one.
 
