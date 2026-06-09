@@ -40,50 +40,10 @@ Both run the whole skill identically, instructions and automation alike (`` !`co
 
 | Duration | Block | Who |
 |---|---|---|
-| 45 min | Use a skill, then look inside it | everyone |
+| 45 min | Introduction + using `explore-data` (presentation) | everyone |
 | 45 min | Build your skill | by track |
 | 30 min | 🍽️ Food | |
 | 60 min | Add subagents | by track |
-
-One arc: **use → inspect → build → fan out.**
-
-### Use a skill, then look inside it (45 min, everyone)
-
-A skill is just a folder you drop into `.claude/skills/`. That's the whole trick, so let's prove it by installing one. We'll use Anthropic's official [`explore-data`](https://github.com/anthropics/knowledge-work-plugins/tree/main/data/skills/explore-data). Pick **one** of these two ways.
-
-#### Install it
-
-**Option A, the `skills` CLI** (one command, no Claude needed):
-
-```bash
-npx skills add anthropics/knowledge-work-plugins --skill explore-data
-```
-
-This drops the skill into `.claude/skills/explore-data/`. You invoke it as `/explore-data`.
-
-**Option B, Claude Code's built-in plugin marketplace.** Start `claude`, then:
-
-```
-/plugin marketplace add anthropics/knowledge-work-plugins
-/plugin install data@knowledge-work-plugins
-```
-
-The skill arrives inside the `data` plugin, so it's invoked as `/data:explore-data` (plugin skills are namespaced to avoid collisions).
-
-#### Run it
-
-Point it at the sample dataset and ask, in plain language, *"What's in this data, and what's wrong with it?"*
-
-```bash
-/explore-data data/sample.csv          # Option A
-/data:explore-data data/sample.csv     # Option B
-```
-
-One shot gives you a column profile, a data dictionary, and a list of quality problems.
-
-#### Look inside it
-
-Now open the file you just installed (`.claude/skills/explore-data/SKILL.md`) and read it. Notice the `description` line. That, and nothing else, is how the agent decided to run this skill when you asked your question. Everyone, whatever your track, profiles unfamiliar data, so this is where we all start.
 
 ### Build your skill, then add subagents (by track)
 
@@ -99,17 +59,33 @@ Not sure which track fits you? Run `/sorting-hat`; it asks a couple of questions
 
 One dataset runs through all of it. `data/warehouse.duckdb` and its `data/sample.csv` export ship in the repo. You profile it in the intro, the analyst queries it, the steward scores its products, and the engineer track runs its dbt build on a schedule in Conveyor Airflow. Same data, different lenses.
 
-## How to start
+## Getting started
 
-Install `explore-data` (above), run it on `data/sample.csv`, then pick your track:
+First, install a skill yourself: it's just a folder under `.claude/skills/`. Install Anthropic's [`explore-data`](https://github.com/anthropics/knowledge-work-plugins/tree/main/data/skills/explore-data) either way:
+
+```bash
+npx skills add anthropics/knowledge-work-plugins --skill explore-data
+```
+
+or inside `claude`, via the built-in plugin marketplace:
+
+```
+/plugin marketplace add anthropics/knowledge-work-plugins
+/plugin install data@knowledge-work-plugins
+```
+
+Run it on the sample data, then open the `SKILL.md` to see how its `description` told the agent when to fire:
+
+```bash
+/explore-data data/sample.csv     # /data:explore-data with the plugin
+```
+
+Then pick your track and work the TODOs one at a time. Solutions live in `solutions/`, but try first.
 
 ```bash
 cd exercises/<track>   # data-engineer | data-analyst | data-steward
 claude
-# work the TODOs: build your skill first, then add subagents after the break
 ```
-
-Each track folder has its skeleton and TODOs. Work them one at a time. Solutions live in `solutions/`, but try the TODOs before you peek.
 
 ## Reference
 
