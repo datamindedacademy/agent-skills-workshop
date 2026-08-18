@@ -1,9 +1,9 @@
 docker:
-    path: "."
-name: agent-skills-workshop
-id: bd05a656-6645-4468-bdd0-53a67731bd57
+    path: .
+id: 96de36bb-2825-448d-be13-8f59514a03a9
 ide:
     filename: ide.yaml
+name: agent-skills-workshop
 resources:
     path: resources
 streaming:
@@ -12,4 +12,4 @@ template: ""
 version: "0.3"
 workflows:
     path: exercises/data-engineer/demo/dags
-    version: 2
+    version: "3"

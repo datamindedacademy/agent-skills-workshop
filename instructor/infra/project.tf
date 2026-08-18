@@ -19,7 +19,9 @@ resource "conveyor_project" "workshop" {
       name = "VSCode Settings"
       cmd  = <<-EOT
         mkdir -p "$HOME/.local/share/code-server/Machine"
-        cat << 'EOF' > "$HOME/.local/share/code-server/Machine/settings.json"
+        # Unquoted delimiter: $HOME must expand here — VSCode doesn't resolve
+        # env vars in python.defaultInterpreterPath.
+        cat << EOF > "$HOME/.local/share/code-server/Machine/settings.json"
         {
             "git.openRepositoryInParentFolders": "always",
             "git.requireGitUserConfig": false,
