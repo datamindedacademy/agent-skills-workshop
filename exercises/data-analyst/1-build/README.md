@@ -9,6 +9,11 @@ it read-only, and explains the result.
    duckdb -readonly ../../../data/warehouse.duckdb -c "SHOW ALL TABLES;"
    duckdb -readonly ../../../data/warehouse.duckdb -c "SELECT * FROM fct_orders LIMIT 20;"
    ```
+   Rather not use the CLI? Run the same queries in the DuckDB extension's SQL
+   editor (the warehouse is pre-attached; see the track README), or start
+   `claude` and ask it: *"show me all tables in
+   `../../../data/warehouse.duckdb` and the first 20 rows of fct_orders"*.
+
    Whatever quirks you find are *the point*: your skill will encode what you
    learn so the agent stops tripping over them.
 2. Open `.claude/skills/talk-to-your-data/SKILL.md` and work the TODOs in order.

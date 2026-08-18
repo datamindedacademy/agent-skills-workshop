@@ -8,6 +8,19 @@ warehouse with SQL, then, after the break, a second skill that fans out
 > engineer's dbt project). You query it with the `duckdb` CLI, pre-installed in
 > the workshop IDE.
 
+## New to DuckDB or VSCode?
+
+- **DuckDB** is a single-file analytics database: the whole warehouse is the one
+  file `data/warehouse.duckdb`, and the `duckdb` command runs SQL against it.
+- **Prefer a SQL editor?** The DuckDB extension is pre-installed in the IDE and
+  the warehouse is already attached (read-only) as `warehouse`. Click the DuckDB
+  icon in the left activity bar to browse tables and run queries. Opening a
+  `.csv` or `.parquet` file lands in its data viewer too.
+- **The terminal** in VSCode opens with `` Ctrl+` `` (or the menu: Terminal →
+  New Terminal). It's where you run `claude`, the `duckdb` commands, and the
+  test scripts. You can also skip SQL entirely and ask Claude to run the
+  queries for you.
+
 ## The two stages
 
 Each stage is its own folder with the skill skeleton, its instructions, and a

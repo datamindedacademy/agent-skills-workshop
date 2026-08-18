@@ -1,34 +1,34 @@
 # Agent Skills for Data Practitioners
 
-A hands-on workshop where you **use** an agent skill against a real data stack, then **build** your own. You'll walk out with at least one working skill and a feel for when a skill is the right tool.
+This is a hands-on workshop about agent skills. You start by using an existing skill, then build one yourself, and finally learn about more advanced practices like spawning subagents. 
 
-The workshop meets you wherever you work, from people at home in a terminal to analysts who live in a SQL editor. After a shared intro you **choose your own adventure** by role: engineer, analyst, or steward.
+After a shared intro you pick a track that matches your day-to-day work as a data practitioner: engineer, analyst, or steward.
 
-## A skill in one sentence
+## LLMs are not dumb, it's a skill issue
 
-A skill is a `SKILL.md` file. It has a name, a description that tells the agent *when* to use it, and a set of instructions, optionally with commands, scripts, and supporting files. The agent loads it on demand and follows it.
+Agent skills are a simple, yet elegant way to provide additional context to an agent. A skill is nothing more than a markdown file named `SKILL.md`. This markdown file contains a so-called "frontmatter": a block of metadata containing its name and a description that tells the agent *when* to use it. In addition to the frontmatter, skills can contain arbitrary content like a set of instructions, scripts, and supporting files. The agent loads it on demand and follows it. Think of it as a recipe that you would teach a newcomer on your team when executing routine tasks.
 
 ## When is a skill the right tool?
 
-The context window is the agent's working memory, and it's finite. **Context engineering is the craft of getting the right information into that window at the right time**, and keeping everything else out. These four techniques are different answers to one question: *what occupies the context, and when?*
+An agent's working memory is its context window, and that window is finite. Context engineering means getting the right information into it at the right time, and keeping everything else out. There are a few common ways to do that, each with its own trade-off.
 
-- **Plain prompting**: you put the knowledge in context yourself, in the message, every time. Simplest, but it's spent the moment the conversation moves on.
-- **A skill**: the instructions live in a file and load *on demand*, only when the description matches the task. The context stays lean until the skill is needed, then the procedure appears just in time. That's this workshop.
-- **An MCP server**: instead of loading knowledge, you give the agent *tools*. A live connection to an external system (a database, an API), or a common set of capabilities shared across a team and reusable from any agent. Results enter the context only when a tool is actually called, so a huge system stays addressable without sitting in the window. A skill teaches a *procedure*; an MCP server hands over *capabilities*.
-- **RAG**: when the source of truth is a large body of existing knowledge (docs, tickets, a wiki), you retrieve just the relevant, citable slice at query time and inject it. This keeps the agent *grounded* in verifiable sources instead of its own memory, while only the slice that matters ever touches the context.
+- **Plain prompting**: you put the knowledge in the message yourself, every single time. Nothing wrong with that, but it's spent the moment the conversation moves on.
+- **A skill**: the instructions live in a file and load *on demand*, only when the description matches the task at hand. The context stays lean until the skill is needed, and then the recipe appears just in time. This is the technique the workshop is about.
+- **An MCP server**: instead of teaching the agent knowledge, you hand it *tools*: a live connection to an external system like a database or an API, or a set of capabilities shared across a team and reusable from any agent. Results only enter the context when a tool is actually called, so even a huge system stays addressable without sitting in the window. In short: a skill teaches a *procedure*, an MCP server hands over *capabilities*.
+- **RAG**: when the source of truth is a large body of existing knowledge (docs, tickets, a wiki), you retrieve just the relevant, citable slice at query time and inject it. The agent stays grounded in verifiable sources instead of its own memory, and only the slice that matters ever touches the context.
 
-They compose rather than compete. A skill can call an MCP server, and RAG retrieval can sit behind a skill, because each is just a different valve on the same context window. A skill is the sweet spot for "I know how to do this, let me teach the agent once," and learning to wield it is learning context engineering in miniature.
+You can also combine them: a skill can call an MCP server, and RAG retrieval can sit behind a skill. A skill is the right choice when you already know how to do something and want to teach it to the agent once. That's the case this workshop focuses on.
 
-## Pick your surface
+## Terminal or editor?
 
-Same Claude Code, same skills, same `SKILL.md`. Use whichever interface you like.
+Claude Code runs both in the terminal and in a VSCode panel, and skills behave the same in both. Use whichever you prefer.
 
-| Surface | Best for |
+| Interface | Best for |
 |---|---|
 | **Claude Code in VSCode** | Anyone who'd rather chat in an editor panel than a terminal |
 | **Claude Code CLI** | Anyone comfortable on the command line |
 
-Both run the whole skill identically, instructions and automation alike (`` !`commands` ``, scripts, `allowed-tools`). The interface is just a surface.
+Both run the whole skill, including the automated parts: `` !`commands` ``, scripts, and `allowed-tools`.
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ Both run the whole skill identically, instructions and automation alike (`` !`co
 - The `conveyor` CLI authenticated: run `conveyor auth login` once in the IDE terminal.
 - Skim `cheatsheet.md` before you start.
 
-## The shape of the workshop (3 hours)
+## Schedule (3 hours)
 
 | Duration | Block | Who |
 |---|---|---|
@@ -57,11 +57,11 @@ Not sure which track fits you? Run `/sorting-hat`; it asks a couple of questions
 | 📊 **Data Analyst** | **Talk to your data**: ask in plain language, it fires SQL at the shared DuckDB and explains the result | **Multi-panel report**: a subagent investigates each section, then one assembled report |
 | 🛡️ **Data Steward** | **Data Product Checkup**: wrap [`checkup`](https://pypi.org/project/checkup/) to score a data product's governance | **Remediate**: a subagent per failing check drafts the fixes, then one reviewable diff |
 
-One dataset runs through all of it. `data/warehouse.duckdb` and its `data/sample.csv` export ship in the repo. You profile it in the intro, the analyst queries it, the steward scores its products, and the engineer track runs its dbt build on a schedule in Conveyor Airflow. Same data, different lenses.
+All tracks work on the same dataset: `data/warehouse.duckdb` and its `data/sample.csv` export ship in the repo. You profile it in the intro, the analyst track queries it, the steward track scores its products, and the engineer track runs its dbt build on a schedule in Conveyor Airflow.
 
 ## Getting started
 
-First, install a skill yourself: it's just a folder under `.claude/skills/`. Install Anthropic's [`explore-data`](https://github.com/anthropics/knowledge-work-plugins/tree/main/data/skills/explore-data) either way:
+First, install a skill yourself. An installed skill is nothing more than a folder under `.claude/skills/`. Install Anthropic's [`explore-data`](https://github.com/anthropics/knowledge-work-plugins/tree/main/data/skills/explore-data) either way:
 
 ```bash
 npx skills add anthropics/knowledge-work-plugins --skill explore-data
@@ -80,7 +80,7 @@ Run it on the sample data, then open the `SKILL.md` to see how its `description`
 /explore-data data/sample.csv     # /data:explore-data with the plugin
 ```
 
-Then pick your track and work the TODOs one at a time. Solutions live in `solutions/`, but try first.
+Then pick your track and work the TODOs one at a time. Solutions live in `solutions/`, but try it yourself before you look.
 
 ```bash
 cd exercises/<track>/1-build   # track: data-engineer | data-analyst | data-steward
