@@ -83,9 +83,13 @@ Run it on the sample data, then open the `SKILL.md` to see how its `description`
 Then pick your track and work the TODOs one at a time. Solutions live in `solutions/`, but try first.
 
 ```bash
-cd exercises/<track>   # data-engineer | data-analyst | data-steward
+cd exercises/<track>/1-build   # track: data-engineer | data-analyst | data-steward
 claude
 ```
+
+Each track has two stage folders, `1-build/` and `2-subagents/`, each with the
+skill skeleton, its instructions, and a `tests/` checker that tells you when
+you're done. Start `claude` inside the stage folder you're working on.
 
 ## Reference
 

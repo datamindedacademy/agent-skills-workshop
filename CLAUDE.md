@@ -3,8 +3,8 @@
 use context7 for searching relevant documentation of the frameworks you are using
 
 ## Project structure
-- `exercises/<skill-name>/`: Skeletons with TODOs
-- `solutions/<skill-name>/`: Working solutions
+- `exercises/<track>/<stage>/`: skeletons with TODOs; stages are `1-build/` and `2-subagents/`, each with its own `.claude/skills/` and `tests/`
+- `solutions/<track>/<stage>/`: working solutions, same layout
 - `cheatsheet.md`: Quick reference
 
 ## Environment
@@ -26,6 +26,6 @@ use context7 for searching relevant documentation of the frameworks you are usin
 - Test after each TODO
 
 ## Testing
-- `tests/` directory per exercise
-- `bash tests/test-<skill-name>.sh`
+- `tests/` directory per stage folder
+- run from the stage folder: `bash tests/test-<skill-name>.sh`
 - A working skill: installs clean, triggers correctly, structured output

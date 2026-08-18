@@ -51,7 +51,7 @@ three-way tie, let **Q1** decide and name the runner-up.
 <one sentence on why, from their answers and what they'll build>
 
 ```bash
-cd exercises/<data-engineer|data-analyst|data-steward>
+cd exercises/<data-engineer|data-analyst|data-steward>/1-build
 claude
 ```
 ````

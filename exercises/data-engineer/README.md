@@ -29,53 +29,20 @@ out **subagents** to triage failures in parallel.
    `af` is the [Astronomer Airflow CLI](https://github.com/astronomer/agents/tree/main/astro-airflow-mcp),
    pre-installed in the IDE.
 
-## Stage 1: Build `airflow-ops` (45 min)
+## The two stages
 
-Ask about your pipelines in plain language; the skill drives the Airflow API
-via `af` (list, inspect, trigger, diagnose).
+Each stage is its own folder with the skill skeleton, its instructions, and a
+test that tells you when you're done. **Start `claude` inside the stage
+folder** so it picks up that stage's skill.
 
-1. Open `.claude/skills/airflow-ops/SKILL.md` and work the TODOs in order.
-2. Use it to answer: **is the pipeline healthy? what was the last run?** Let the
-   skill tell you, don't assume.
-3. **Diagnose, then fix.** If a run failed, have the skill pull the logs and work
-   out what actually caused it. Then fix it at the source in the dbt
-   project (`../../data`) and prove it the way Airflow does, locally:
-   ```bash
-   cd ../../data && uv run dbt build --target prod
-   ```
-   When that's green, the scheduled run would be too. (No need to redeploy to the
-   shared environment during the workshop.)
+| | Folder | You build | Time |
+|---|---|---|---|
+| 1 | [`1-build/`](1-build/) | `airflow-ops`: operate the pipeline in plain language | 45 min |
+| 2 | [`2-subagents/`](2-subagents/) | `failure-triage`: one subagent per failing DAG | 60 min |
 
-### Stretch
-
-- **Swap the model.** A skill can declare its own `model:` (override lasts while
-  active). Run it on each and find the smallest model it still works on:
-  | `model:` | |
-  |---|---|
-  | *(none)* | session model (Opus 4.8) |
-  | `eu.anthropic.claude-sonnet-4-6` | usually identical, faster |
-  | `eu.anthropic.claude-haiku-4-5-20251001-v1:0` | fastest, still correct? |
-  `/model` shows what's active. (`effort:` dials reasoning up/down too.)
-- **Make it manual-only.** This skill can *trigger* and *pause* production DAGs.
-  Add `disable-model-invocation: true` so Claude never fires it on its own; you
-  invoke it deliberately with `/airflow-ops`. Compare with the in-skill
-  confirmation guardrail: two different ways to keep side effects on a leash.
-
-## Stage 2: Add subagents, `failure-triage` (60 min)
-
-Diagnosing several failures at once is independent, log-heavy work: one
-subagent per failure, each reading its own logs, is when subagents earn their
-keep.
-
-1. Open `.claude/skills/failure-triage/SKILL.md`.
-2. Work through the TODOs: find what's failing, **dispatch one subagent per
-   failure in parallel** (each returns a compact verdict), then synthesize one
-   incident summary ranked by severity.
-3. Run `/failure-triage` (or ask "what's broken?").
-
-One failure: diagnose it inline (Stage 1). Many: fan out, then synthesize. The
-win is context: each subagent absorbs its own log noise and returns a verdict,
-instead of every log flooding one window.
+```bash
+cd 1-build && claude       # stage 1; after the break: cd ../2-subagents
+```
 
 ## The production demo: `demo/`
 
@@ -86,7 +53,7 @@ see how a laptop dbt project becomes a scheduled production pipeline.
 
 ## Stuck?
 
-Peek at `solutions/data-engineer/`, but try the TODOs first.
+Peek at `solutions/data-engineer/` (same folder layout), but try the TODOs first.
 
 ## Requirements
 
