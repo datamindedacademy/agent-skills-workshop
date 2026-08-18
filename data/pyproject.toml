@@ -8,6 +8,3 @@ dependencies = [
     "dbt-duckdb>=1.8,<2",
     "duckdb>=0.10",
 ]
-
-[tool.uv]
-dev-dependencies = []

@@ -1349,9 +1349,6 @@ requires-dist = [
     { name = "duckdb", specifier = ">=0.10" },
 ]
 
-[package.metadata.requires-dev]
-dev = []
-
 [[package]]
 name = "zipp"
 version = "4.1.0"
