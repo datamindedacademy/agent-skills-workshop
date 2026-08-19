@@ -50,6 +50,13 @@ three-way tie, let **Q1** decide and name the runner-up.
 
 <one sentence on why, from their answers and what they'll build>
 
+First read your track's README — it explains the problem, the dataset, and the
+two stages:
+
+    exercises/<data-engineer|data-analyst|data-steward>/README.md
+
+Then start stage 1:
+
 ```bash
 cd exercises/<data-engineer|data-analyst|data-steward>/1-build
 claude
