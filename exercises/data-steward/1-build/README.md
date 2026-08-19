@@ -5,7 +5,14 @@ Run `checkup` on the warehouse and report a clear health scorecard.
 1. Open `.claude/skills/data-product-checkup/SKILL.md` and `checkup.yaml` (both
    in this folder), and work the TODOs in order (the metrics live in
    `checkup.yaml`, the rest in the SKILL).
-2. Test it:
+2. The scorecard your skill reports:
+   - one summary line: an overall health **grade (A–F)** plus a one-sentence verdict
+   - a **metric table**: metric | value | status (✅ good / ⚠️ warn / ❌ bad)
+   - the **top gaps** to fix, most impactful first
+
+   That's the *what*; the exercise is writing a SKILL.md that produces it
+   reliably (think: thresholds for the statuses, how the grade is derived).
+3. Test it:
    ```bash
    claude
    # then: /data-product-checkup
