@@ -10,6 +10,9 @@ keep.
    incident summary ranked by severity.
 3. Run `/failure-triage` (or ask "what's broken?").
 
+> **Tip:** editing the skill while a `claude` session is open? Run
+> `/reload-skills` in that session to pick up your changes.
+
 One failure: diagnose it inline (Stage 1). Many: fan out, then synthesize. The
 win is context: each subagent absorbs its own log noise and returns a verdict,
 instead of every log flooding one window.

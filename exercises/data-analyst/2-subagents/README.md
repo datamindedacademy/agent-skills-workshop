@@ -11,6 +11,9 @@ digging, in parallel, and assemble their findings.
    # then: /multi-panel-report
    ```
 
+> **Tip:** editing the skill while a `claude` session is open? Run
+> `/reload-skills` in that session to pick up your changes.
+
 Fanning out here buys focus. A real investigation throws off a lot of dead-end
 queries; run three of them in one window and the threads tangle.
 Each subagent keeps its own mess to itself and hands back a clean paragraph. A

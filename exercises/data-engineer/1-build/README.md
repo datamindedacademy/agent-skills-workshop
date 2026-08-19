@@ -16,6 +16,9 @@ README ("Before you start") first — your skill encodes that exact recipe.
    When that's green, the scheduled run would be too. (No need to redeploy to the
    shared environment during the workshop.)
 
+> **Tip:** editing the skill while a `claude` session is open? Run
+> `/reload-skills` in that session to pick up your changes.
+
 ## Done when
 
 Run the checker from this folder:

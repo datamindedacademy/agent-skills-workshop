@@ -24,6 +24,9 @@ it read-only, and explains the result.
    # or invoke directly: /talk-to-your-data
    ```
 
+> **Tip:** editing the skill while a `claude` session is open? Run
+> `/reload-skills` in that session to pick up your changes.
+
 ## Done when
 
 Run the checker from this folder:

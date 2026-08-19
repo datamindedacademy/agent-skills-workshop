@@ -18,6 +18,9 @@ Run `checkup` on the warehouse and report a clear health scorecard.
    # then: /data-product-checkup
    ```
 
+> **Tip:** editing the skill while a `claude` session is open? Run
+> `/reload-skills` in that session to pick up your changes.
+
 ## Done when
 
 Run the checker from this folder:

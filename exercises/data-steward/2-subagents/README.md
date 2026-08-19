@@ -12,6 +12,9 @@ review.
    # then: /remediate-products
    ```
 
+> **Tip:** editing the skill while a `claude` session is open? Run
+> `/reload-skills` in that session to pick up your changes.
+
 With one data product, we fan out over its failing *checks*. In a real org you'd
 more often have many data products and fan out one subagent per product, running
 this whole skill across each; here we show the same pattern on what we have.
