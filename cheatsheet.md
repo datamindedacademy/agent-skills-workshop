@@ -71,6 +71,7 @@ skill is invoked.
 | Problem | Fix |
 |---|---|
 | Skill doesn't trigger | Fix the `description`: Claude matches intent to this text |
+| Edited the skill, but the open session still runs the old version | Run `/reload-skills` in that session (or restart `claude`) |
 | Wrong tools | Add `allowed-tools` to frontmatter |
 | Empty dynamic context | Check that `` !`command` `` works in your terminal |
 | Supporting file not found | Use `${CLAUDE_SKILL_DIR}/path`, not relative paths |
