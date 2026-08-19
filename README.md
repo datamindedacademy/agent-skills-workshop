@@ -1,5 +1,7 @@
 # Agent Skills for Data Practitioners
 
+[![Dataminded Academy](https://raw.githubusercontent.com/datamindedacademy/branding/main/assets/badge.svg)](https://github.com/datamindedacademy)
+
 This is a hands-on workshop about agent skills. You start by using an existing skill, then build one yourself, and finally learn about more advanced practices like spawning subagents. 
 
 After a shared intro you pick a track that matches your day-to-day work as a data practitioner: engineer, analyst, or steward.
