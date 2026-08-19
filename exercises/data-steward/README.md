@@ -1,12 +1,23 @@
 # Track: Data Steward
 
-You'll build a skill that measures the **health of a data product** using the
-[`checkup`](https://pypi.org/project/checkup/) governance framework, then, after
+You'll build a skill that measures the **health of a data product**, then, after
 the break, a second skill that fans out **subagents** to fix the failing checks,
 one per check, in parallel.
 
 > **Dataset:** the shared warehouse in `../../data` (built by the engineer's dbt
-> project). `checkup` reads its dbt project directly, no manifest needed.
+> project).
+
+## The problem, and the tool
+
+Warehouses rot quietly: models land without descriptions, tests never get
+written, and nobody notices until a consumer builds on a table they
+misunderstood. [`checkup`](https://pypi.org/project/checkup/) makes that
+visible: it reads a dbt project and counts what's missing (undocumented models
+and columns, test coverage) based on the metrics you declare in
+`checkup.yaml`. checkup stops at the numbers; your skill adds the judgment,
+rolling them into a grade with the biggest gaps first. Those metrics also give
+agents a clear, measurable goal for maintaining a data product: in stage 2 you
+point subagents at the failing checks and let them fix until checkup passes.
 
 ## What's a data product, and what's "health"?
 
@@ -17,9 +28,8 @@ a name, an owner, a documented interface, and tests that guard it. Here the
 
 **Health** is about governance rather than today's numbers: is every column
 documented so consumers know what they're getting, is it tested so breakage gets
-caught, does it have a clear owner. `checkup` reads the dbt project and turns
-those signals into metrics (documented models, column descriptions, test
-coverage), which your skill rolls up into a grade.
+caught, does it have a clear owner. Those are the signals checkup measures and
+your skill grades.
 
 ## The two stages
 
