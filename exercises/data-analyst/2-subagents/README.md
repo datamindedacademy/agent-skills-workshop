@@ -21,22 +21,9 @@ single question doesn't need any of that, so answer it inline like Stage 1 did.
 
 ## Pick your mode
 
-The TODO comments in the skeleton are the scaffolding. Less scaffolding, more
-difficulty — the tests and the "Done when" checklist are identical in all three.
-
-| Mode | What you get |
-|---|---|
-| Guided | The skeleton with all its TODO hints. Work them in order. |
-| Challenge | Headings and numbered steps only — every hint stripped. Build from the "Done when" checklist. |
-| Expert | Just the frontmatter and any reference marked "(given)". Write the skill from scratch. |
-
-The Sorting Hat already put your track in the mode you picked. To switch:
-
-```bash
-uv run ../../../.claude/skills/sorting-hat/set-mode.py <track> <guided|challenge|expert>
-```
-
-Going back down a level is `git checkout .claude` from this folder.
+Guided, Challenge, or Expert — the Sorting Hat already set your skeletons up for
+the mode you picked. See **[Difficulty modes](../../MODES.md)** for what that
+changed and how to switch.
 
 ## Done when
 
