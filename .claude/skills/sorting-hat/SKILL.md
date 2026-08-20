@@ -4,7 +4,7 @@ description: >
   Help a workshop participant choose their track: Data Engineer, Data Analyst,
   or Data Steward. Explicitly invoked only, via /sorting-hat: never auto-run.
 disable-model-invocation: true
-allowed-tools: AskUserQuestion, Bash(python3 .claude/skills/sorting-hat/set-mode.py:*)
+allowed-tools: AskUserQuestion, Bash(uv run .claude/skills/sorting-hat/set-mode.py:*)
 model: eu.anthropic.claude-sonnet-4-6
 ---
 
@@ -57,7 +57,7 @@ Put the chosen track's skeletons into the chosen mode. Run this once, from the
 repo root, and nothing else — no manual edits to the skeletons:
 
 ```bash
-python3 .claude/skills/sorting-hat/set-mode.py <track> <guided|challenge|expert>
+uv run .claude/skills/sorting-hat/set-mode.py <track> <guided|challenge|expert>
 ```
 
 It rewrites only that track's two `SKILL.md` skeletons, and skips any file that

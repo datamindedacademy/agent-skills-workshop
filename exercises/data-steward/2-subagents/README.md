@@ -36,7 +36,7 @@ difficulty — the tests and the "Done when" checklist are identical in all thre
 The Sorting Hat already put your track in the mode you picked. To switch:
 
 ```bash
-python3 ../../../.claude/skills/sorting-hat/set-mode.py <track> <guided|challenge|expert>
+uv run ../../../.claude/skills/sorting-hat/set-mode.py <track> <guided|challenge|expert>
 ```
 
 Going back down a level is `git checkout .claude` from this folder.
