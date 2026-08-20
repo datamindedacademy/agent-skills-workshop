@@ -25,8 +25,8 @@ MODES = ("guided", "challenge", "expert")
 
 HINT_LINE = re.compile(r"^\s*#")                         # frontmatter guidance
 TODO_HEAD = re.compile(r"^(\s*(?:\d+\.\s+)?)TODO \d+:")  # body guidance paragraph
-GIVEN = re.compile(r"^#{2,}\s.*\(given\)\s*$", re.I)
-FRONTMATTER = re.compile(r"^---\n(.*?\n)---\n(.*)$", re.S)
+GIVEN = re.compile(r"^#{2,}\s.*\(given\)\s*$", re.IGNORECASE)
+FRONTMATTER = re.compile(r"^---\n(.*?\n)---\n(.*)$", re.DOTALL)
 
 
 def repo_root() -> Path:
@@ -125,7 +125,7 @@ def selfcheck() -> None:
                 assert "<!--" not in got, where
                 assert "TODO 1:" not in got, where
                 for field in ("name: [a-z-]+", "description: TODO", "allowed-tools: TODO"):
-                    assert re.search(rf"^{field}$", got, re.M), (where, field)
+                    assert re.search(rf"^{field}$", got, re.MULTILINE), (where, field)
                 if mode == "challenge":  # expert drops the body outright
                     assert "TODO" in FRONTMATTER.match(got)[2], where
                 checked += 1
