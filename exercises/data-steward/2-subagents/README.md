@@ -22,6 +22,12 @@ Either way the wrinkle is the same: the subagents draft in parallel but *don't*
 write (they share one schema file), and you make the single careful merge at the
 end. Fan out the thinking, centralize the change.
 
+## Pick your mode
+
+Guided, Challenge, or Expert — the Sorting Hat already set your skeletons up for
+the mode you picked. See **[Difficulty modes](../../MODES.md)** for what that
+changed and how to switch.
+
 ## Done when
 
 Run the checker from this folder:
@@ -38,3 +44,24 @@ when all three hold:
 - [ ] You're shown a single merged diff of `_marts.yml` **before** it's applied.
 - [ ] Re-running checkup afterwards (`checkup run -c ../1-build/checkup.yaml`)
       shows the flagged metrics moved.
+
+## Challenge: cheapest passing remediation
+
+Measure on **clean context** — `/clear` first. Not `/compact`: compaction costs
+tokens itself and leaves a summary behind, so the number stops being comparable.
+
+```
+/clear
+/cost                  # baseline
+/remediate-products
+/cost                  # delta = what one run of your skill costs
+```
+
+Now make that delta smaller without failing the checklist. What moves it:
+
+- a tight brief per subagent — vague instructions buy schema-wide re-reading
+- what each subagent **returns**: the edits, not the reasoning behind them
+- a smaller model for the *subagents* — cheap drafters, capable merger
+- an exact output spec — no re-drafting the diff
+
+Lowest output-token run that still passes the "Done when" checks wins.

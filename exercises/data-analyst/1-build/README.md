@@ -27,6 +27,12 @@ it read-only, and explains the result.
 > **Tip:** editing the skill while a `claude` session is open? Run
 > `/reload-skills` in that session to pick up your changes.
 
+## Pick your mode
+
+Guided, Challenge, or Expert — the Sorting Hat already set your skeletons up for
+the mode you picked. See **[Difficulty modes](../../MODES.md)** for what that
+changed and how to switch.
+
 ## Done when
 
 Run the checker from this folder:
@@ -43,6 +49,30 @@ and then hands you the behavioural test. You're done when all three hold:
 - [ ] Every answer shows the SQL it ran and a small result table.
 - [ ] A **caveat** calls out any quirk that affects the number (status casing,
       the amount outlier, country variants).
+- [ ] It still passes with `model: eu.anthropic.claude-haiku-4-5-20251001-v1:0`
+      in the frontmatter (see Stretch below). A vague spec passes on Opus, where
+      the model covers for it, and falls apart on Haiku.
+
+## Challenge: cheapest passing skill
+
+Measure on **clean context** — `/clear` first. Not `/compact`: compaction costs
+tokens itself and leaves a summary behind, so the number stops being comparable.
+
+```
+/clear
+/cost                 # baseline
+/talk-to-your-data
+/cost                 # delta = what one run of your skill costs
+```
+
+Now make that delta smaller without failing the checklist. What moves it:
+
+- a tight `description` — Claude stops hunting for when to fire
+- a tight `allowed-tools` — no exploratory Read/Glob before the real query
+- an exact output spec — no re-drafting the answer
+- a smaller `model:` — same work, cheaper tokens
+
+Lowest output-token run that still passes the "Done when" checks wins.
 
 ## Stretch: play with the model
 

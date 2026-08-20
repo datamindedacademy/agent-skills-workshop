@@ -17,6 +17,12 @@ One failure: diagnose it inline (Stage 1). Many: fan out, then synthesize. The
 win is context: each subagent absorbs its own log noise and returns a verdict,
 instead of every log flooding one window.
 
+## Pick your mode
+
+Guided, Challenge, or Expert — the Sorting Hat already set your skeletons up for
+the mode you picked. See **[Difficulty modes](../../MODES.md)** for what that
+changed and how to switch.
+
 ## Done when
 
 Run the checker from this folder:
@@ -34,3 +40,24 @@ when all three hold:
       and suggested fix per DAG — and calls out any shared cause.
 - [ ] Your conversation holds **verdicts, not raw logs**: the subagents kept
       the log noise to themselves.
+
+## Challenge: cheapest passing triage
+
+Measure on **clean context** — `/clear` first. Not `/compact`: compaction costs
+tokens itself and leaves a summary behind, so the number stops being comparable.
+
+```
+/clear
+/cost              # baseline
+/failure-triage
+/cost              # delta = what one run of your skill costs
+```
+
+Now make that delta smaller without failing the checklist. What moves it:
+
+- a tight brief per subagent — vague instructions buy log-trawling
+- what each subagent **returns**: a verdict, not the logs behind it
+- a smaller model for the *subagents* — cheap readers, capable synthesizer
+- an exact output spec — no re-drafting the incident summary
+
+Lowest output-token run that still passes the "Done when" checks wins.

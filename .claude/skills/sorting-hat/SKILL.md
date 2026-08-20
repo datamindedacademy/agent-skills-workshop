@@ -4,7 +4,7 @@ description: >
   Help a workshop participant choose their track: Data Engineer, Data Analyst,
   or Data Steward. Explicitly invoked only, via /sorting-hat: never auto-run.
 disable-model-invocation: true
-allowed-tools: AskUserQuestion
+allowed-tools: AskUserQuestion, Bash(uv run .claude/skills/sorting-hat/set-mode.py:*)
 model: eu.anthropic.claude-sonnet-4-6
 ---
 
@@ -38,10 +38,31 @@ One `AskUserQuestion` call, all three questions, wording verbatim.
 - **Slow to insight** — Too much wrangling before you can get a straight answer from the data.
 - **Nobody trusts it** — Undocumented columns, disagreeing definitions, nothing guarding the data.
 
+**Q4 — `Experience`** — "How much have you built with Claude Code skills before?"
+- **First time** — I've used Claude, but never written a skill.
+- **Some** — I've used skills others wrote; not written one myself.
+- **I've shipped skills** — I've written and tuned my own.
+
 ## Step 2: Pick
 
-Count votes (option 1→Engineer, 2→Analyst, 3→Steward). Majority wins. On a
-three-way tie, let **Q1** decide and name the runner-up.
+Count votes on **Q1–Q3 only** (option 1→Engineer, 2→Analyst, 3→Steward).
+Majority wins. On a three-way tie, let **Q1** decide and name the runner-up.
+
+Q4 doesn't affect the track; it maps straight to a mode:
+1→**Guided**, 2→**Challenge**, 3→**Expert**.
+
+## Step 3: Set up the repo
+
+Put the chosen track's skeletons into the chosen mode. Run this once, from the
+repo root, and nothing else — no manual edits to the skeletons:
+
+```bash
+uv run .claude/skills/sorting-hat/set-mode.py <track> <guided|challenge|expert>
+```
+
+It rewrites only that track's two `SKILL.md` skeletons, and skips any file that
+has already been edited. If it reports `skipped`, say so instead of editing by
+hand: the participant has work in progress there.
 
 ## Output
 
@@ -49,6 +70,9 @@ three-way tie, let **Q1** decide and name the runner-up.
 ## 🎩 The Sorting Hat says: <Track>
 
 <one sentence on why, from their answers and what they'll build>
+
+**Mode: <Guided|Challenge|Expert>** — your skeletons are already set up for it.
+"Pick your mode" in the stage README says what changed and how to switch.
 
 First read your track's README — it explains the problem, the dataset, and the
 two stages:
